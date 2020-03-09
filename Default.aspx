@@ -4,6 +4,9 @@
 <asp:GridView ID ="GridViewServicios" runat="server" AutoGenerateColumns="true">
 
 </asp:GridView>
+    <div>
+        <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns ="true" > </asp:GridView>
     </div>
+
 
 </asp:Content>

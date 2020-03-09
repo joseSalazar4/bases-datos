@@ -20,11 +20,11 @@ namespace Municipalidad_Bases
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "ProcedimientoSelect";
+                    cmd.CommandText = "dbo.SPUsuariosSelect";
                     cmd.Connection = conn;
                     conn.Open();
-                    GridViewServicios.DataSource = cmd.ExecuteReader();
-                    GridViewServicios.DataBind();
+                    gvUsers.DataSource = cmd.ExecuteReader();
+                    gvUsers.DataBind();
                 }
             }
         }
