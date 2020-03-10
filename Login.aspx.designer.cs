@@ -11,97 +11,70 @@ namespace Municipalidad_Bases
 {
 
 
-    public partial class _Default
+    public partial class Login
     {
 
         /// <summary>
-        /// pnlDatosCliente control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlDatosCliente;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// gridViewClientes control.
+        /// labelUsuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridViewClientes;
+        protected global::System.Web.UI.WebControls.Label labelUsuario;
 
         /// <summary>
-        /// botonAgregar control.
+        /// textUsuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button botonAgregar;
+        protected global::System.Web.UI.WebControls.TextBox textUsuario;
 
         /// <summary>
-        /// pnlAltaCliente control.
+        /// labelContrasena control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAltaCliente;
+        protected global::System.Web.UI.WebControls.Label labelContrasena;
 
         /// <summary>
-        /// labelNombre control.
+        /// textContrasena control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelNombre;
+        protected global::System.Web.UI.WebControls.TextBox textContrasena;
 
         /// <summary>
-        /// TextBoxNombre control.
+        /// botonLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxNombre;
+        protected global::System.Web.UI.WebControls.Button botonLogin;
 
         /// <summary>
-        /// labelID control.
+        /// labelMensaje control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelID;
-
-        /// <summary>
-        /// TextBoxID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxID;
-
-        /// <summary>
-        /// botonGuardar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button botonGuardar;
-
-        /// <summary>
-        /// botonActualizar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button botonActualizar;
+        protected global::System.Web.UI.WebControls.Label labelMensaje;
     }
 }
