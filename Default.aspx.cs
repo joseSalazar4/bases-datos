@@ -16,7 +16,7 @@ namespace Municipalidad_Bases
                 CargaDatosUsuario();
             }
         }
-        public void CargaDatosUsuario()
+        public void CargaDatosUsuario()  //ACÁ DEBEMOS COLOCAR LAS PROPIEDAADES WHERE ID SEA IGUAL AL DEL PROPIETARIO TONS MUESTRE. No los users.
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {

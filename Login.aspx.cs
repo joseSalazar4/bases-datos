@@ -28,7 +28,7 @@ namespace Municipalidad_Bases
                 SqlCommand command = new SqlCommand();
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "SPValidarUsuario";
-                command.Parameters.Add("@nombre", SqlDbType.VarChar).Value = textUsuario.Text;
+                command.Parameters.Add("@usuario", SqlDbType.VarChar).Value = textUsuario.Text;
                 command.Parameters.Add("@contrasena", SqlDbType.VarChar).Value = textContrasena.Text;
                 command.Connection = conn;
                 conn.Open();
