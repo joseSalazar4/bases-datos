@@ -53,7 +53,9 @@
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
-
+<head id="Head2" runat="server">    
+    <title></title>
+</head>
 <body>
     <form id="form1" runat="server">
     <div>
@@ -63,7 +65,7 @@
     <h4>Select the scrollbars to display in the panel.</h4>
     <asp:ListBox ID="ListBox1" runat="Server"
       Rows="5" AutoPostBack="True"
-      SelectionMode="Single"-
+      SelectionMode="Single"
       OnSelectedIndexChanged="ListBox1_SelectedIndexChanged">
       <asp:ListItem>None</asp:ListItem>
       <asp:ListItem>Horizontal</asp:ListItem> 
