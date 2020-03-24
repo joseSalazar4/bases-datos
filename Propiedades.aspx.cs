@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Web.UI.WebControls;
 using System;
 using System.Web.UI;
+
 namespace Municipalidad_Bases
 {
     public partial class Propiedades : System.Web.UI.Page
@@ -16,7 +17,10 @@ namespace Municipalidad_Bases
             }
         }
 
-        //SELECT
+
+        //--------------//
+        //    SELECT
+        //--------------//
         public void CargaDatosUsuario()  //ACÁ DEBEMOS COLOCAR LAS PROPIEDAADES WHERE ID SEA IGUAL AL DEL PROPIETARIO TONS MUESTRE. No los users.
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -31,7 +35,9 @@ namespace Municipalidad_Bases
             }
         }
 
-        //INSERT
+        //--------------//
+        //   INSERT
+        //--------------//
         public void GuardaUsuario()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -40,6 +46,7 @@ namespace Municipalidad_Bases
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPIPropiedad";
                 cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                //DEPENDE DE LA TABLA LO QUE INSERTEMOS
                 cmd.Parameters.Add("@", SqlDbType.Int).Value = TextBoxID.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
@@ -53,6 +60,8 @@ namespace Municipalidad_Bases
             pnlAltaCliente.Visible = true;
         }
 
+
+
         protected void botonGuardar_Click(object sender, EventArgs e)
         {
             pnlAltaCliente.Visible = false;
@@ -61,8 +70,9 @@ namespace Municipalidad_Bases
             CargaDatosUsuario();
         }
 
-        //DELETE
-
+        //--------------//
+        //    DELETE
+        //--------------//
         public void eliminarUsuario(string idAlumno)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -84,8 +94,9 @@ namespace Municipalidad_Bases
             CargaDatosUsuario();
         }
 
-        //
-        //UPDATE
+        //--------------//
+        //    UPDATE
+        //--------------//
         public void actualizarUsuario()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -94,16 +105,18 @@ namespace Municipalidad_Bases
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPUPropiedad";
                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(labelNombre.Text);
+
                 //METER LOS DATOS QUE SE ACTUALICEN YA QUE DEPENDE
                 //DEPENDE DE LA TABLA---FIJARSE EN LAS COLUMNAS DE LA TABLA Y CUIDADO CON LOS TIPOS
                 //cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(idAlumno); <----Ejemplo para INT
+                //eliminar luego de hecho
                 cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
         }
-       
+
 
         protected void linkActualizar_Click(object sender, EventArgs e)
         {

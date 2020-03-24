@@ -42,13 +42,13 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Button botonAgregar;
 
         /// <summary>
-        /// pnlAltaPropietario control.
+        /// pnlAltaPropietarios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAltaPropietario;
+        protected global::System.Web.UI.WebControls.Panel pnlAltaPropietarios;
 
         /// <summary>
         /// labelNombre control.

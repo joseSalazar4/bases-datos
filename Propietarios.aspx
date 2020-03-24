@@ -18,7 +18,7 @@
         <br />
         <asp:Button ID="botonAgregar" Text="Agregar Cliente" runat="server" OnClick="botonNuevo_Click" />
     </asp:Panel>
-    <asp:Panel ID="pnlAltaPropietario" runat="server" Visible="false">
+    <asp:Panel ID="pnlAltaPropietarios" runat="server" Visible="false">
         <div>
             <asp:Label ID="labelNombre" Text="Nombre" runat="server"></asp:Label>
             <asp:TextBox ID="TextBoxNombre" runat="server" />
