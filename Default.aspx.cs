@@ -16,13 +16,15 @@ namespace Municipalidad_Bases
                 CargaDatosUsuario();
             }
         }
+
+        //SELECT
         public void CargaDatosUsuario()  //ACÁ DEBEMOS COLOCAR LAS PROPIEDAADES WHERE ID SEA IGUAL AL DEL PROPIETARIO TONS MUESTRE. No los users.
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPUsuariosSelect";
+                cmd.CommandText = "SPSPropiedad";
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewClientes.DataSource = cmd.ExecuteReader();
@@ -30,15 +32,16 @@ namespace Municipalidad_Bases
             }
         }
 
+        //INSERT
         public void GuardaUsuario()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPUsuariosInsert";
+                cmd.CommandText = "SPIPropiedad";
                 cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@id", SqlDbType.Int).Value = TextBoxID.Text.Trim();
+                cmd.Parameters.Add("@", SqlDbType.Int).Value = TextBoxID.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -59,6 +62,7 @@ namespace Municipalidad_Bases
             CargaDatosUsuario();
         }
 
+        //DELETE
 
         public void eliminarUsuario(string idAlumno)
         {
@@ -66,8 +70,8 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPUsuariosDelete";
-                cmd.Parameters.Add("@id", SqlDbType.Int).Value = Int64.Parse(idAlumno);
+                cmd.CommandText = "SPDPropiedad";
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(idAlumno);
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -81,14 +85,19 @@ namespace Municipalidad_Bases
             CargaDatosUsuario();
         }
 
+        //
+        //UPDATE
         public void actualizarUsuario()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPUClientes";
+                cmd.CommandText = "SPUPropiedad";
                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(labelNombre.Text);
+                //METER LOS DATOS QUE SE ACTUALICEN YA QUE DEPENDE
+                //DEPENDE DE LA TABLA---FIJARSE EN LAS COLUMNAS DE LA TABLA Y CUIDADO CON LOS TIPOS
+                //cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(idAlumno); <----Ejemplo para INT
                 cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
@@ -123,11 +132,6 @@ namespace Municipalidad_Bases
             botonActualizar.Visible = false;
             botonGuardar.Visible = true;
             CargaDatosUsuario();
-        }
-
-        protected void botonAgregar_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

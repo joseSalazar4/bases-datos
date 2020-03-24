@@ -144,3 +144,15 @@ C:\Users\esala\OneDrive\Escritorio\bases-datos\obj\Debug\Municipalidad-Bases.csp
 C:\Users\esala\OneDrive\Escritorio\bases-datos\obj\Debug\Municipalidad-Bases.csproj.CopyComplete
 C:\Users\esala\OneDrive\Escritorio\bases-datos\obj\Debug\Municipalidad-Bases.dll
 C:\Users\esala\OneDrive\Escritorio\bases-datos\obj\Debug\Municipalidad-Bases.pdb
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.Helpers.dll
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.Mvc.dll
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.Razor.dll
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.WebPages.Deployment.dll
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.WebPages.dll
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.WebPages.Razor.dll
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.Helpers.xml
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.Mvc.xml
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.Razor.xml
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.WebPages.xml
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.WebPages.Deployment.xml
+C:\Users\mikom\Desktop\Bases-ASP.NET\bases-datos\bin\System.Web.WebPages.Razor.xml

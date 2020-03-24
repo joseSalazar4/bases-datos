@@ -4,7 +4,7 @@
     <h1>Bienvenido a la plataforma mejor creada en ASP!</h1>
     <br />
     <h2>Esta pagina fue creada por Jose Salazar</h2>
-    <div class="jumbotron" />
+    
     <asp:Panel runat="server" ID="pnlDatosCliente">
         <h4>Estos son los residentes que están actualmente en nuestra base de datos</h4>
         <asp:GridView ID="gridViewClientes" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewClientes_RowDeleting">
