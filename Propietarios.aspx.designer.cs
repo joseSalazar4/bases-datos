@@ -51,6 +51,24 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Panel pnlAltaPropietarios;
 
         /// <summary>
+        /// labelID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelID;
+
+        /// <summary>
+        /// TextBoxID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxID;
+
+        /// <summary>
         /// labelNombre control.
         /// </summary>
         /// <remarks>
@@ -69,22 +87,40 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.TextBox TextBoxNombre;
 
         /// <summary>
-        /// labelID control.
+        /// labelNumID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelID;
+        protected global::System.Web.UI.WebControls.Label labelNumID;
 
         /// <summary>
-        /// TextBoxID control.
+        /// TextBoxNumID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxID;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxNumID;
+
+        /// <summary>
+        /// labelTipoID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelTipoID;
+
+        /// <summary>
+        /// TextBoxTipoID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxTipoID;
 
         /// <summary>
         /// botonGuardar control.

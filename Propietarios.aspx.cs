@@ -46,8 +46,8 @@ namespace Municipalidad_Bases
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPIPropiedad";
                 cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                //DEPENDE DE LA TABLA LO QUE INSERTEMOS
-                cmd.Parameters.Add("@", SqlDbType.Int).Value = TextBoxID.Text.Trim();
+                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = TextBoxID.Text.Trim();
+                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = TextBoxID.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -71,14 +71,14 @@ namespace Municipalidad_Bases
         //--------------//
         //    DELETE
         //--------------//
-        public void eliminarUsuario(string idAlumno)
+        public void eliminarUsuario(string ID)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPDPropiedad";
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(idAlumno);
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(ID);
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -102,17 +102,36 @@ namespace Municipalidad_Bases
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPUPropiedad";
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(labelNombre.Text);
-
-                //METER LOS DATOS QUE SE ACTUALICEN YA QUE DEPENDE
-                //DEPENDE DE LA TABLA---FIJARSE EN LAS COLUMNAS DE LA TABLA Y CUIDADO CON LOS TIPOS
-                //cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(idAlumno); <----Ejemplo para INT
-                //eliminar luego de hecho
                 cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(TextBoxNombre.Text.Trim());
+                cmd.Parameters.Add("@TipoId", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
         }
+        protected void linkActualizar_Click(object sender, EventArgs e)
+        {
+            pnlAltaCliente.Visible = true;
+            botonGuardar.Visible = false;
+            botonActualizar.Visible = true;
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            gridViewPropiedades.SelectedIndex = row.RowIndex;
+            labelNumFinca.Text = row.Cells[0].Text;
+            labelValor.Text = row.Cells[1].Text;
+        }
+
+        protected void botonActualizar_Click(object sender, EventArgs e)
+        {
+            pnlAltaCliente.Visible = false;
+
+            botonGuardar.Visible = true;
+            actualizarUsuario();
+            labelNumFinca.Text = "";
+            botonActualizar.Visible = false;
+            botonGuardar.Visible = true;
+            CargaDatosUsuario();
+        }
     }
+}
 }

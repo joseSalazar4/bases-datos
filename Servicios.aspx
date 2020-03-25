@@ -24,13 +24,13 @@
             <asp:Label ID="labelNombre" Text="Nombre" runat="server"></asp:Label>
             <asp:TextBox ID="TextBoxNombre" runat="server" />
         </div>
-<div>
+        <div>
             <asp:Label ID="labelID" Text="ID" runat="server"></asp:Label>
             <asp:TextBox ID="TextBoxID" runat="server" />
         </div>
         <br />
-        <asp:Button ID="botonGuardar" runat="server" Text="Guardar tee" OnClick="botonGuardar_Click" />
-        <asp:Button ID="botonActualizar" runat="server" Text="Actualizar ente" OnClick="botonActualizar_Click" />
+        <asp:Button ID="botonGuardar" runat="server" Text="Guardar Usuario" OnClick="botonGuardar_Click" />
+        <asp:Button ID="botonActualizar" runat="server" Text="Actualizar Usuario" OnClick="botonActualizar_Click" />
 
     </asp:Panel>
 

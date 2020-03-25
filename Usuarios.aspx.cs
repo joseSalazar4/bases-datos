@@ -28,7 +28,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPSPropiedad";
+                cmd.CommandText = "SPSUsuarios";
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewUsuarios.DataSource = cmd.ExecuteReader();
@@ -45,10 +45,9 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPIPropiedad";
+                cmd.CommandText = "SPIUsuarios";
                 cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                //DEPENDE DE LA TABLA LO QUE INSERTEMOS
-                cmd.Parameters.Add("@", SqlDbType.Int).Value = TextBoxID.Text.Trim();
+                cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -78,7 +77,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPDPropiedad";
+                cmd.CommandText = "SPDUsuarios";
                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(idAlumno);
                 cmd.Connection = conn;
                 conn.Open();
@@ -102,18 +101,35 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPUPropiedad";
+                cmd.CommandText = "SPUUsuarios";
                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(labelNombre.Text);
-
-                //METER LOS DATOS QUE SE ACTUALICEN YA QUE DEPENDE
-                //DEPENDE DE LA TABLA---FIJARSE EN LAS COLUMNAS DE LA TABLA Y CUIDADO CON LOS TIPOS
-                //cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(idAlumno); <----Ejemplo para INT
-                //eliminar luego de hecho
                 cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
+        }
+        protected void linkActualizar_Click(object sender, EventArgs e)
+        {
+            pnlAltaUsuarios.Visible = true;
+            botonGuardar.Visible = false;
+            botonActualizar.Visible = true;
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            gridViewUsuarios.SelectedIndex = row.RowIndex;
+            labelNombre.Text = "El valor anterior es: " + row.Cells[0].Text;
+            labelPassword.Text = "El valor anterior es: " + row.Cells[1].Text;
+        }
+
+        protected void botonActualizar_Click(object sender, EventArgs e)
+        {
+            pnlAltaUsuarios.Visible = false;
+
+            botonGuardar.Visible = true;
+            actualizarUsuario();
+            //labelNumFinca.Text = "";
+            botonActualizar.Visible = false;
+            botonGuardar.Visible = true;
+            CargaDatosUsuario();
         }
     }
 }
