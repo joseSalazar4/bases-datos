@@ -27,7 +27,6 @@
         <div>
             <asp:Label ID="labelID" Text="ID" runat="server" Visible="false"></asp:Label>
         </div>
-
         <br />
         <asp:Button ID="botonGuardar" runat="server" Text="Guardar Usuario" OnClick="botonGuardar_Click" />
         <asp:Button ID="botonActualizar" runat="server" Text="Actualizar Usuario" OnClick="botonActualizar_Click" />

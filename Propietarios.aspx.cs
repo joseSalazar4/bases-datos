@@ -66,6 +66,9 @@ namespace Municipalidad_Bases
             pnlDatosPropietarios.Visible = true;
             GuardaUsuario();
             CargaDatosUsuario();
+            TextBoxNombre.Text = "";
+            TextBoxNumID.Text = "";
+            TextBoxTipoID.Text = "";
         }
 
         //--------------//
@@ -119,7 +122,7 @@ namespace Municipalidad_Bases
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropietarios.SelectedIndex = row.RowIndex;
             labelNombre.Text = "Se está actualizando el Nombre (antes era: " + row.Cells[1].Text + ") :";
-            labelNumID.Text = "Se está actualizando el Número de ID (antes era: " + row.Cells[2].Text + ") :"; 
+            labelNumID.Text = "Se está actualizando el Número de ID (antes era: " + row.Cells[2].Text + ") :";
             labelTipoID.Text = "Se está actualizando el tipo de ID (antes era: " + row.Cells[3].Text + ") :";
             labelID.Text = row.Cells[0].Text;
         }

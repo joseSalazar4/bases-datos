@@ -66,6 +66,8 @@ namespace Municipalidad_Bases
             pnlDatosUsuarios.Visible = true;
             GuardaUsuario();
             CargaDatosUsuario();
+            TextBoxNombre.Text = "";
+            TextBoxPassword.Text = "";
         }
 
         //--------------//

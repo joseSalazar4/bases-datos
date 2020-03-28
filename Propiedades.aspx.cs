@@ -69,6 +69,9 @@ namespace Municipalidad_Bases
             pnlDatosPropiedades.Visible = true;
             GuardaUsuario();
             CargaDatosUsuario();
+            TextBoxDireccion.Text = "";
+            TextBoxNumFinca.Text = "";
+            TextBoxValor.Text = "";
         }
 
         //--------------//
@@ -126,18 +129,15 @@ namespace Municipalidad_Bases
             labelValor.Text = "Se está actualizando el Valor (antes era: " + row.Cells[2].Text + ") :";
             labelDireccion.Text = "Se está actualizando la Dirección (antes era:  " + row.Cells[3].Text + ") :";
             labelID.Text = row.Cells[0].Text;
-
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)
         {
             pnlAltaCliente.Visible = false;
-
             botonGuardar.Visible = true;
             actualizarUsuario(Int32.Parse(labelID.Text));
             labelNumFinca.Text = "";
             botonActualizar.Visible = false;
-            botonGuardar.Visible = true;
             CargaDatosUsuario();
         }
     }
