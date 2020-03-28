@@ -51,24 +51,6 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Panel pnlAltaCliente;
 
         /// <summary>
-        /// labelID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelID;
-
-        /// <summary>
-        /// TextBoxID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxID;
-
-        /// <summary>
         /// labelNumFinca control.
         /// </summary>
         /// <remarks>
@@ -121,6 +103,15 @@ namespace Municipalidad_Bases
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxDireccion;
+
+        /// <summary>
+        /// labelID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelID;
 
         /// <summary>
         /// botonGuardar control.

@@ -28,7 +28,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPSUsuarios";
+                cmd.CommandText = "SPSUsuario";
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewUsuarios.DataSource = cmd.ExecuteReader();
@@ -45,7 +45,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPIUsuarios";
+                cmd.CommandText = "SPIUsuario";
                 cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                 cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
                 cmd.Connection = conn;
@@ -77,7 +77,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPDUsuarios";
+                cmd.CommandText = "SPDUsuario";
                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(idAlumno);
                 cmd.Connection = conn;
                 conn.Open();
@@ -95,15 +95,16 @@ namespace Municipalidad_Bases
         //--------------//
         //    UPDATE
         //--------------//
-        public void actualizarUsuario()
+        public void actualizarUsuario(int ID)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPUUsuarios";
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(labelNombre.Text);
+                cmd.CommandText = "SPUUsuario";
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
                 cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -116,8 +117,10 @@ namespace Municipalidad_Bases
             botonActualizar.Visible = true;
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewUsuarios.SelectedIndex = row.RowIndex;
-            labelNombre.Text = "El valor anterior es: " + row.Cells[0].Text;
-            labelPassword.Text = "El valor anterior es: " + row.Cells[1].Text;
+            labelNombre.Text = "Se está actualizando la Nombre (antes era:  " + row.Cells[1].Text + ") :";
+            labelPassword.Text = "Se está actualizando el Password (antes era:  " + row.Cells[2].Text + ") :"; 
+            labelID.Text = row.Cells[0].Text;
+
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)
@@ -125,8 +128,7 @@ namespace Municipalidad_Bases
             pnlAltaUsuarios.Visible = false;
 
             botonGuardar.Visible = true;
-            actualizarUsuario();
-            //labelNumFinca.Text = "";
+            actualizarUsuario(Int32.Parse(labelID.Text));
             botonActualizar.Visible = false;
             botonGuardar.Visible = true;
             CargaDatosUsuario();

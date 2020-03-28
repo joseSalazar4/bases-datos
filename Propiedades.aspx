@@ -26,10 +26,6 @@
 
     <asp:Panel ID="pnlAltaCliente" runat="server" Visible="false">
         <div>
-            <asp:Label ID="labelID" Text="ID" runat="server"></asp:Label>
-            <asp:TextBox ID="TextBoxID" runat="server" />
-        </div>
-        <div>
             <asp:Label ID="labelNumFinca" Text="Numero Finca" runat="server"></asp:Label>
             <asp:TextBox ID="TextBoxNumFinca" runat="server" />
         </div>
@@ -40,6 +36,9 @@
         <div>
             <asp:Label ID="labelDireccion" Text="Dirección" runat="server"></asp:Label>
             <asp:TextBox ID="TextBoxDireccion"  runat="server" />
+        </div>
+        <div>
+            <asp:Label ID="labelID" Text="ID" runat="server" Visible="false"></asp:Label>
         </div>
         <br />
         <asp:Button ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />

@@ -27,7 +27,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPSPropiedad";
+                cmd.CommandText = "SPSPropietario";
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewPropietarios.DataSource = cmd.ExecuteReader();
@@ -44,10 +44,10 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPIPropiedad";
-                cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = TextBoxID.Text.Trim();
-                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = TextBoxID.Text.Trim();
+                cmd.CommandText = "SPIPropietario";
+                cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = TextBoxNumID.Text.Trim();
+                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = TextBoxTipoID.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -77,7 +77,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPDPropiedad";
+                cmd.CommandText = "SPDPropietario";
                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(ID);
                 cmd.Connection = conn;
                 conn.Open();
@@ -95,16 +95,17 @@ namespace Municipalidad_Bases
         //--------------//
         //    UPDATE
         //--------------//
-        public void actualizarUsuario()
+        public void actualizarUsuario(int ID)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPUPropiedad";
-                cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(TextBoxNombre.Text.Trim());
-                cmd.Parameters.Add("@TipoId", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                cmd.CommandText = "SPUPropietario";
+                cmd.Parameters.Add("@ID",SqlDbType.Int).Value = ID;
+                cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = TextBoxNumID.Text.Trim();
+                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = TextBoxTipoID.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -112,26 +113,27 @@ namespace Municipalidad_Bases
         }
         protected void linkActualizar_Click(object sender, EventArgs e)
         {
-            pnlAltaCliente.Visible = true;
+            pnlAltaPropietarios.Visible = true;
             botonGuardar.Visible = false;
             botonActualizar.Visible = true;
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
-            gridViewPropiedades.SelectedIndex = row.RowIndex;
-            labelNumFinca.Text = row.Cells[0].Text;
-            labelValor.Text = row.Cells[1].Text;
+            gridViewPropietarios.SelectedIndex = row.RowIndex;
+            labelNombre.Text = "Se está actualizando el Nombre (antes era: " + row.Cells[1].Text + ") :";
+            labelNumID.Text = "Se está actualizando el Número de ID (antes era: " + row.Cells[2].Text + ") :"; 
+            labelTipoID.Text = "Se está actualizando el tipo de ID (antes era: " + row.Cells[3].Text + ") :";
+            labelID.Text = row.Cells[0].Text;
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)
         {
-            pnlAltaCliente.Visible = false;
+            pnlAltaPropietarios.Visible = false;
 
             botonGuardar.Visible = true;
-            actualizarUsuario();
-            labelNumFinca.Text = "";
+            actualizarUsuario(Int32.Parse(labelID.Text));
+            labelNombre.Text = "";
             botonActualizar.Visible = false;
             botonGuardar.Visible = true;
             CargaDatosUsuario();
         }
     }
-}
 }

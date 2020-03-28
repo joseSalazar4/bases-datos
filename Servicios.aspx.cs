@@ -49,7 +49,6 @@ namespace Municipalidad_Bases
                 cmd.CommandText = "SPIPropiedad";
                 cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                 //DEPENDE DE LA TABLA LO QUE INSERTEMOS
-                cmd.Parameters.Add("@", SqlDbType.Int).Value = TextBoxID.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();

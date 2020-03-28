@@ -98,14 +98,14 @@ namespace Municipalidad_Bases
         //--------------//
         //    UPDATE    //
         //--------------//
-        public void actualizarUsuario()
+        public void actualizarUsuario(int ID)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPUPropiedad";
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(TextBoxValor.Text.Trim());
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
                 cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(TextBoxNumFinca.Text.Trim());
                 cmd.Parameters.Add("@Valor", SqlDbType.Int).Value = Int64.Parse(TextBoxValor.Text.Trim());
                 cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = TextBoxDireccion.Text.Trim();
@@ -122,8 +122,11 @@ namespace Municipalidad_Bases
             botonActualizar.Visible = true;
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
-            labelNumFinca.Text = row.Cells[0].Text;
-            labelValor.Text = row.Cells[1].Text;
+            labelNumFinca.Text = "Se está actualizando el Número de Finca (antes era: " + row.Cells[1].Text+") :";
+            labelValor.Text = "Se está actualizando el Valor (antes era: " + row.Cells[2].Text + ") :";
+            labelDireccion.Text = "Se está actualizando la Dirección (antes era:  " + row.Cells[3].Text + ") :";
+            labelID.Text = row.Cells[0].Text;
+
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)
@@ -131,7 +134,7 @@ namespace Municipalidad_Bases
             pnlAltaCliente.Visible = false;
 
             botonGuardar.Visible = true;
-            actualizarUsuario();
+            actualizarUsuario(Int32.Parse(labelID.Text));
             labelNumFinca.Text = "";
             botonActualizar.Visible = false;
             botonGuardar.Visible = true;
