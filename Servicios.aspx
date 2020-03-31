@@ -30,7 +30,6 @@
         <br />
         <asp:Button ID="botonGuardar" runat="server" Text="Guardar Usuario" OnClick="botonGuardar_Click" />
         <asp:Button ID="botonActualizar" runat="server" Text="Actualizar Usuario" OnClick="botonActualizar_Click" />
-
     </asp:Panel>
 
 </asp:Content>

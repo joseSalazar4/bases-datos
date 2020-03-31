@@ -140,5 +140,28 @@ namespace Municipalidad_Bases
             botonActualizar.Visible = false;
             CargaDatosUsuario();
         }
+
+        protected void linkMostrarPropietarios_Click(object sender, EventArgs e)
+        {
+
+        }
+        public void BusquedaPropiedad()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SPSPropiedadPorNumFinca";
+                cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(TextBoxNumFinca.Text.Trim());
+                cmd.Connection = conn;
+                conn.Open();
+                gridViewPropiedades.DataSource = cmd.ExecuteReader();
+                gridViewPropiedades.DataBind();
+            }
+        }
+        protected void btnbuscar_Click(object sender, EventArgs e)
+        {
+            BusquedaPropiedad();
+        }
     }
 }
