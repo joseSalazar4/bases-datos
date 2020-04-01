@@ -17,6 +17,8 @@
 ####################
 # VS Upgrade stuff #
 ####################
+*.ide-wal
+*.ide-shm
 UpgradeLog.XML
 _UpgradeReport_Files/
 ###############
