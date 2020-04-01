@@ -4,7 +4,7 @@
     <div class="jumbotron">
         <h2>Propietarios</h2>
         <asp:Panel runat="server" ID="pnlDatosPropietarios">
-             <div>
+            <div>
                 <asp:Label Text="Número ID" runat="server" />
                 <asp:TextBox ID="txtBusqueda" runat="server"></asp:TextBox>
                 <asp:Button Text="Buscar Propietarios" ID="btnbuscar" runat="server" OnClick="btnbuscar_Click" />
@@ -54,6 +54,15 @@
             <asp:Button ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
             <asp:Button ID="botonActualizar" runat="server" Text="Actualizar" OnClick="botonActualizar_Click" />
 
+        </asp:Panel>
+        <asp:Panel ID="panelConexiones" runat="server" Visible="false">
+            <asp:GridView ID="gridPropeidadesPorPropietario" runat="server" AutoGenerateColumns="true" DataKeyNames="ID">
+                <Columns>
+                    <asp:BoundField DataField="NumFinca" HeaderText="Número de Finca" />
+                    <asp:BoundField DataField="Valor" HeaderText="Valor" />
+                    <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
+                </Columns>
+            </asp:GridView>
         </asp:Panel>
     </div>
 </asp:Content>
