@@ -46,8 +46,8 @@ namespace Municipalidad_Bases
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPIPropietario";
                 cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = TextBoxNumID.Text.Trim();
-                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = TextBoxTipoID.Text.Trim();
+                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
+                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -56,6 +56,10 @@ namespace Municipalidad_Bases
 
         protected void botonNuevo_Click(object sender, EventArgs e)
         {
+            labelNombre.Text="Nombre";
+            labelNumID.Text="Número de ID";
+            labelTipoID.Text="Tipo ID";
+            botonActualizar.Visible = false;
             pnlDatosPropietarios.Visible = false;
             pnlAltaPropietarios.Visible = true;
         }
@@ -107,8 +111,8 @@ namespace Municipalidad_Bases
                 cmd.CommandText = "SPUPropietario";
                 cmd.Parameters.Add("@ID",SqlDbType.Int).Value = ID;
                 cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = TextBoxNumID.Text.Trim();
-                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = TextBoxTipoID.Text.Trim();
+                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
+                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -118,7 +122,7 @@ namespace Municipalidad_Bases
         {
             pnlAltaPropietarios.Visible = true;
             botonGuardar.Visible = false;
-            botonActualizar.Visible = true;
+            botonAgregar.Visible = true;
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropietarios.SelectedIndex = row.RowIndex;
             labelNombre.Text = "Se está actualizando el Nombre (antes era: " + row.Cells[1].Text + ") :";
@@ -130,13 +134,43 @@ namespace Municipalidad_Bases
         protected void botonActualizar_Click(object sender, EventArgs e)
         {
             pnlAltaPropietarios.Visible = false;
-
             botonGuardar.Visible = true;
+            botonAgregar.Visible = true;
             actualizarUsuario(Int32.Parse(labelID.Text));
-            labelNombre.Text = "";
+            TextBoxNombre.Text = "";
+            TextBoxNumID.Text = "";
+            TextBoxTipoID.Text = "";
             botonActualizar.Visible = false;
-            botonGuardar.Visible = true;
             CargaDatosUsuario();
+        }
+
+        //--------------//
+        //    SEARCH    //
+        //--------------//
+
+        public void BusquedaPropiedad()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SPSPropietariosPorNumId";
+                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
+                cmd.Connection = conn;
+                conn.Open();
+                gridViewPropietarios.DataSource = cmd.ExecuteReader();
+                gridViewPropietarios.DataBind();
+            }
+        }
+        protected void btnbuscar_Click(object sender, EventArgs e)
+        {
+            BusquedaPropiedad();
+        }
+
+
+        protected void linkMostrarPropiedades_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

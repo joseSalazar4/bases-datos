@@ -56,6 +56,9 @@ namespace Municipalidad_Bases
 
         protected void botonNuevo_Click(object sender, EventArgs e)
         {
+            labelNombre.Text = "Nombre";
+            labelPassword.Text = "Password";
+            botonActualizar.Visible = false;
             pnlDatosUsuarios.Visible = false;
             pnlAltaUsuarios.Visible = true;
         }
@@ -128,12 +131,37 @@ namespace Municipalidad_Bases
         protected void botonActualizar_Click(object sender, EventArgs e)
         {
             pnlAltaUsuarios.Visible = false;
-
+            botonAgregar.Visible = true;
             botonGuardar.Visible = true;
             actualizarUsuario(Int32.Parse(labelID.Text));
+            TextBoxNombre.Text = "";
+            TextBoxPassword.Text = "";
             botonActualizar.Visible = false;
-            botonGuardar.Visible = true;
-            CargaDatosUsuario();
+            CargaDatosUsuario(); 
         }
+
+        //--------------// 
+        //    SEARCH    //
+        //--------------//
+
+        public void BusquedaPropiedad()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SPSUsuarioPorNombre";
+                cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = txtBusqueda.Text.Trim();
+                cmd.Connection = conn;
+                conn.Open();
+                gridViewUsuarios.DataSource = cmd.ExecuteReader();
+                gridViewUsuarios.DataBind();
+            }
+        }
+        protected void btnbuscar_Click(object sender, EventArgs e)
+        {
+            BusquedaPropiedad();
+        }
+
     }
 }

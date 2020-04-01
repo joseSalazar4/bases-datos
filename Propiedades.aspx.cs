@@ -62,14 +62,14 @@ namespace Municipalidad_Bases
             labelValor.Text = "Valor ";
             botonActualizar.Visible = false;
             pnlDatosPropiedades.Visible = false;
-            pnlAltaCliente.Visible = true;
+            pnlAltaPropiedad.Visible = true;
         }
 
 
 
         protected void botonGuardar_Click(object sender, EventArgs e)
         {
-            pnlAltaCliente.Visible = false;
+            pnlAltaPropiedad.Visible = false;
             pnlDatosPropiedades.Visible = true;
             GuardaUsuario();
             CargaDatosUsuario();
@@ -124,9 +124,8 @@ namespace Municipalidad_Bases
 
         protected void linkActualizar_Click(object sender, EventArgs e)
         {
-            pnlAltaCliente.Visible = true;
+            pnlAltaPropiedad.Visible = true;
             botonGuardar.Visible = false;
-            botonAgregar.Visible = false;
             botonActualizar.Visible = true;
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
@@ -138,7 +137,7 @@ namespace Municipalidad_Bases
 
         protected void botonActualizar_Click(object sender, EventArgs e)
         {
-            pnlAltaCliente.Visible = false;
+            pnlAltaPropiedad.Visible = false;
             botonGuardar.Visible = true;
             botonAgregar.Visible = true;
             actualizarUsuario(Int32.Parse(labelID.Text));
@@ -147,7 +146,11 @@ namespace Municipalidad_Bases
             TextBoxValor.Text = "";
             botonActualizar.Visible = false;
             CargaDatosUsuario();
-        }
+        } 
+
+        //--------------//
+        //    SEARCH    //
+        //--------------//
 
         public void BusquedaPropiedad()
         {
