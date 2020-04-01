@@ -26,7 +26,7 @@
 
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:LinkButton ID="linkMostrarPropietarios" runat="server" Text="Ver Propietarios" OnClick="linkMostrarPropietarios_Click" />
+                        <asp:LinkButton ID="linkMostrarPropietarios" runat="server" Text="Ver Propietarios" Onclick="linkMostrarPropietarios_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>
 
@@ -34,7 +34,7 @@
         </asp:GridView>
 
         <br />
-        <asp:Button ID="botonAgregar" Text="Agregar Cliente" runat="server" OnClick="botonNuevo_Click" />
+        <asp:Button ID="botonAgregar" Text="Agregar Propiedad" runat="server" OnClick="botonNuevo_Click" />
     </asp:Panel>
 
 
@@ -55,8 +55,10 @@
             <asp:Label ID="labelID" Text="ID" runat="server" Visible="false"></asp:Label>
         </div>
         <br />
+
         <asp:Button ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
         <asp:Button ID="botonActualizar" runat="server" Text="Actualizar" OnClick="botonActualizar_Click" />
+
     </asp:Panel>
     </div>
         

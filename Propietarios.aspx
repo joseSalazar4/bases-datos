@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Propietarios.aspx.cs" Inherits="Municipalidad_Bases.Propietarios" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-<h2>Propiedades</h2>
+<h2>Propietarioss</h2>
     <asp:Panel runat="server" ID="pnlDatosPropietarios">
         <asp:GridView ID="gridViewPropietarios" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewPropietarios_RowDeleting">
             <Columns>
@@ -37,7 +37,7 @@
             <asp:Label ID="labelID" Text="ID" runat="server" Visible="false"></asp:Label>
         </div>
         <br />
-        <asp:Button ID="botonGuardar" runat="server" Text="Guardar " OnClick="botonGuardar_Click" />
+        <asp:Button ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
         <asp:Button ID="botonActualizar" runat="server" Text="Actualizar" OnClick="botonActualizar_Click" />
 
     </asp:Panel>

@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#"  AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Usuarios.aspx.cs" Inherits="Municipalidad_Bases.Usuarios" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-<h2>Propiedades</h2>
+<h2>Usuarios</h2>
     <asp:Panel runat="server" ID="pnlDatosUsuarios">
         <asp:GridView ID="gridViewUsuarios" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewUsuarios_RowDeleting">
             <Columns>

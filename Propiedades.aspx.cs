@@ -57,6 +57,10 @@ namespace Municipalidad_Bases
 
         protected void botonNuevo_Click(object sender, EventArgs e)
         {
+            labelDireccion.Text = "Dirección ";
+            labelNumFinca.Text = "Número de Finca";
+            labelValor.Text = "Valor ";
+            botonActualizar.Visible = false;
             pnlDatosPropiedades.Visible = false;
             pnlAltaCliente.Visible = true;
         }
@@ -122,6 +126,7 @@ namespace Municipalidad_Bases
         {
             pnlAltaCliente.Visible = true;
             botonGuardar.Visible = false;
+            botonAgregar.Visible = false;
             botonActualizar.Visible = true;
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
@@ -135,16 +140,15 @@ namespace Municipalidad_Bases
         {
             pnlAltaCliente.Visible = false;
             botonGuardar.Visible = true;
+            botonAgregar.Visible = true;
             actualizarUsuario(Int32.Parse(labelID.Text));
-            labelNumFinca.Text = "";
+            TextBoxDireccion.Text = "";
+            TextBoxNumFinca.Text = "";
+            TextBoxValor.Text = "";
             botonActualizar.Visible = false;
             CargaDatosUsuario();
         }
 
-        protected void linkMostrarPropietarios_Click(object sender, EventArgs e)
-        {
-
-        }
         public void BusquedaPropiedad()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -162,6 +166,11 @@ namespace Municipalidad_Bases
         protected void btnbuscar_Click(object sender, EventArgs e)
         {
             BusquedaPropiedad();
+        }
+
+        protected void linkMostrarPropietarios_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
