@@ -152,7 +152,7 @@ namespace Municipalidad_Bases
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSPropiedadPorNumFinca";
-                cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(TextBoxNumFinca.Text.Trim());
+                cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewPropiedades.DataSource = cmd.ExecuteReader();
