@@ -176,7 +176,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(labelID.Text.Trim());
+                cmd.Parameters.Add("@NumCedula", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
                 cmd.CommandText = "SPSPropiedadesPorPropietario";
                 cmd.Connection = conn;
                 conn.Open();
@@ -190,11 +190,11 @@ namespace Municipalidad_Bases
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropietarios.SelectedIndex = row.RowIndex;
             labelID.Text = row.Cells[2].Text;
-            Console.WriteLine(labelID.Text);
             pnlAltaPropietarios.Visible = false;
             pnlDatosPropietarios.Visible = false;
             panelConexiones.Visible = true;
             botonAgregar.Visible = false;
+            verPropiedades();
         }
     }
 }

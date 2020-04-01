@@ -56,11 +56,12 @@
 
         </asp:Panel>
         <asp:Panel ID="panelConexiones" runat="server" Visible="false">
-            <asp:GridView ID="gridPropeidadesPorPropietario" runat="server" AutoGenerateColumns="true" DataKeyNames="ID">
+            <asp:Label ID="LABELPRUEBA" Text="HOLA" runat="server" Visible="true"/>
+            <asp:GridView ID="gridPropeidadesPorPropietario" runat="server" AutoGenerateColumns="true">
                 <Columns>
-                    <asp:BoundField DataField="NumFinca" HeaderText="Número de Finca" />
-                    <asp:BoundField DataField="Valor" HeaderText="Valor" />
-                    <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
+                    <asp:BoundField DataField="numFinca" HeaderText="Número de Finca" />
+                    <asp:BoundField DataField="valor" HeaderText="Valor" />
+                    <asp:BoundField DataField="direccion" HeaderText="Dirección" />
                 </Columns>
             </asp:GridView>
         </asp:Panel>
