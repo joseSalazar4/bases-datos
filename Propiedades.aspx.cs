@@ -171,9 +171,37 @@ namespace Municipalidad_Bases
             BusquedaPropiedad();
         }
 
-        protected void linkMostrarPropietarios_Click(object sender, EventArgs e)
-        {
 
+        //--------------//
+        //    Elemen    //
+        //--------------//
+        public void verPropiedades()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@numFinca", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
+                cmd.CommandText = "SPSPropietariosPorPropiedad";
+                cmd.Connection = conn;
+                conn.Open();
+                gridPropietariosPorPropiedad.DataSource = cmd.ExecuteReader();
+                gridPropietariosPorPropiedad.DataBind();
+            }
+        }
+
+    protected void linkMostrarPropietarios_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            gridViewPropiedades.SelectedIndex = row.RowIndex;
+
+            labelID.Text = row.Cells[1].Text;
+            LblN.Text = labelID.Text;
+            pnlAltaPropiedad.Visible = false;
+            pnlDatosPropiedades.Visible = false;
+            panelConexiones.Visible = true;
+            botonAgregar.Visible = false;
+            verPropiedades();
         }
     }
 }

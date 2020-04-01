@@ -12,7 +12,7 @@
             <br />
             <asp:GridView ID="gridViewUsuarios" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewUsuarios_RowDeleting">
                 <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="ID" />
+                    <asp:BoundField DataField="ID" HeaderText="ID" Visible="false"  />
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                     <asp:BoundField DataField="Password" HeaderText="Password" />
                     <asp:CommandField ShowDeleteButton="true" EditText="Eliminar" />

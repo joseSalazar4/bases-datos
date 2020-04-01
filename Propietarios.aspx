@@ -12,14 +12,14 @@
             <br />
             <asp:GridView ID="gridViewPropietarios" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewPropietarios_RowDeleting">
                 <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="ID" />
+                    <asp:BoundField DataField="ID" HeaderText="ID" Visible="false"  />
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                     <asp:BoundField DataField="NumId" HeaderText="Numero ID" />
                     <asp:BoundField DataField="TipoId" HeaderText="Tipo ID" />
                     <asp:CommandField ShowDeleteButton="true" EditText="Eliminar" />
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="linkActualizar" runat="server" Text="Actualizar" OnClick="linkActualizar_Click" />
+                            <asp:LinkButton  ID="linkActualizar" runat="server" Text="Actualizar" OnClick="linkActualizar_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
 
@@ -28,11 +28,10 @@
                             <asp:LinkButton ID="linkMostrarPropiedades" runat="server" Text="Ver Propiedades" OnClick="linkMostrarPropiedades_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
-
                 </Columns>
             </asp:GridView>
             <br />
-            <asp:Button ID="botonAgregar" Text="Agregar Propietario" runat="server" OnClick="botonNuevo_Click" />
+            <asp:Button class="btn btn-info" ID="botonAgregar" Text="Agregar Propietario" runat="server" OnClick="botonNuevo_Click" />
         </asp:Panel>
         <asp:Panel ID="pnlAltaPropietarios" runat="server" Visible="false">
             <div>
@@ -51,13 +50,12 @@
                 <asp:Label ID="labelID" Text="ID" runat="server" Visible="false"></asp:Label>
             </div>
             <br />
-            <asp:Button ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
+            <asp:Button ID="botonGuardar" class="btn btn-dark btn-sm" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
             <asp:Button ID="botonActualizar" runat="server" Text="Actualizar" OnClick="botonActualizar_Click" />
 
         </asp:Panel>
         <asp:Panel ID="panelConexiones" runat="server" Visible="false">
-            <asp:Label ID="LABELPRUEBA" Text="HOLA" runat="server" Visible="true"/>
-            <asp:GridView ID="gridPropeidadesPorPropietario" runat="server" AutoGenerateColumns="true">
+            <asp:GridView ID="gridPropeidadesPorPropietario" runat="server" AutoGenerateColumns="false">
                 <Columns>
                     <asp:BoundField DataField="numFinca" HeaderText="Número de Finca" />
                     <asp:BoundField DataField="valor" HeaderText="Valor" />
