@@ -196,7 +196,6 @@ namespace Municipalidad_Bases
             gridViewPropiedades.SelectedIndex = row.RowIndex;
 
             labelID.Text = row.Cells[1].Text;
-            LblN.Text = labelID.Text;
             pnlAltaPropiedad.Visible = false;
             pnlDatosPropiedades.Visible = false;
             panelConexiones.Visible = true;

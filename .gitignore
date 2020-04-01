@@ -8,8 +8,6 @@
 *.pdb
 *.dll.config
 *.cache
-*storage.ide
-*/storage.ide
 *.ide
 *.suo
 # Include dlls if they’re in the NuGet packages directory

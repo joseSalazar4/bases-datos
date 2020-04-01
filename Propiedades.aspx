@@ -34,7 +34,7 @@
             </asp:GridView>
 
             <br />
-            <asp:Button ID="botonAgregar" Text="Agregar Propiedad" runat="server" OnClick="botonNuevo_Click" />
+            <asp:Button ID="botonAgregar"  class="btn btn-outline-success" Text="Agregar Propiedad" runat="server" OnClick="botonNuevo_Click" />
         </asp:Panel>
 
 
@@ -56,8 +56,8 @@
             </div>
             <br />
 
-            <asp:Button ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
-            <asp:Button ID="botonActualizar" runat="server" Text="Actualizar" OnClick="botonActualizar_Click" />
+            <asp:Button ID="botonGuardar" class="btn btn-outline-dark" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
+            <asp:Button ID="botonActualizar" runat="server" class="btn btn-outline-dark" Text="Actualizar" OnClick="botonActualizar_Click" />
 
         </asp:Panel>
         <asp:Panel ID="panelConexiones" runat="server" Visible="false">

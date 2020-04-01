@@ -50,8 +50,8 @@
                 <asp:Label ID="labelID" Text="ID" runat="server" Visible="false"></asp:Label>
             </div>
             <br />
-            <asp:Button ID="botonGuardar" class="btn btn-dark btn-sm" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
-            <asp:Button ID="botonActualizar" runat="server" Text="Actualizar" OnClick="botonActualizar_Click" />
+            <asp:Button class="btn btn-info" ID="botonGuardar"  runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
+            <asp:Button class="btn btn-dark" ID="botonActualizar" runat="server" Text="Actualizar" OnClick="botonActualizar_Click" />
 
         </asp:Panel>
         <asp:Panel ID="panelConexiones" runat="server" Visible="false">
