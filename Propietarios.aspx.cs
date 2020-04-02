@@ -58,9 +58,9 @@ namespace Municipalidad_Bases
 
         protected void botonNuevo_Click(object sender, EventArgs e)
         {
-            labelNombre.Text="Nombre";
-            labelNumID.Text="Número de ID";
-            labelTipoID.Text="Tipo ID";
+            labelNombre.Text = "Nombre";
+            labelNumID.Text = "Número de ID";
+            labelTipoID.Text = "Tipo ID";
             botonActualizar.Visible = false;
             pnlDatosPropietarios.Visible = false;
             pnlAltaPropietarios.Visible = true;
@@ -113,7 +113,7 @@ namespace Municipalidad_Bases
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPUPropietario";
-                cmd.Parameters.Add("@ID",SqlDbType.Int).Value = ID;
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
                 cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                 cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
                 cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
@@ -157,8 +157,10 @@ namespace Municipalidad_Bases
 
         public void BusquedaPropiedad()
         {
+            if (txtBusqueda.Text.Trim() == "") return;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
+
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSPropietarioPorNumId";
@@ -201,12 +203,18 @@ namespace Municipalidad_Bases
             pnlDatosPropietarios.Visible = false;
             panelConexiones.Visible = true;
             botonAgregar.Visible = false;
+            botonVolver.Visible = true;
             verPropiedades();
         }
 
         protected void botonVolver_Click(object sender, EventArgs e)
         {
-
+            pnlAltaPropietarios.Visible = false;
+            pnlDatosPropietarios.Visible = true;
+            panelConexiones.Visible = false;
+            CargaDatosUsuario();
+            botonVolver.Visible = false;
+            botonAgregar.Visible = true;
         }
     }
 }

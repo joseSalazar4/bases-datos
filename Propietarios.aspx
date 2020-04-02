@@ -7,7 +7,7 @@
             <div>
                 <asp:Label Text="Número ID" runat="server" />
                 <asp:TextBox ID="txtBusqueda" runat="server"></asp:TextBox>
-                <asp:Button Text="Buscar Propietarios" ID="btnbuscar" runat="server" OnClick="btnbuscar_Click" />
+                <asp:Button class="btn btn-info" Text="Buscar Propietarios" ID="btnbuscar" runat="server" OnClick="btnbuscar_Click" />
             </div>
             <br />
             <asp:GridView ID="gridViewPropietarios" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewPropietarios_RowDeleting">

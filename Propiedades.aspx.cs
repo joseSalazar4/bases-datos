@@ -133,7 +133,7 @@ namespace Municipalidad_Bases
             botonActualizar.Visible = true;
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
-            labelNumFinca.Text = "Se está actualizando el Número de Finca (antes era: " + row.Cells[1].Text+") :";
+            labelNumFinca.Text = "Se está actualizando el Número de Finca (antes era: " + row.Cells[1].Text + ") :";
             labelValor.Text = "Se está actualizando el Valor (antes era: " + row.Cells[2].Text + ") :";
             labelDireccion.Text = "Se está actualizando la Dirección (antes era:  " + row.Cells[3].Text + ") :";
             labelID.Text = row.Cells[0].Text;
@@ -151,7 +151,7 @@ namespace Municipalidad_Bases
             TextBoxValor.Text = "";
             botonActualizar.Visible = false;
             CargaDatosUsuario();
-        } 
+        }
 
         //--------------//
         //    SEARCH    //
@@ -159,6 +159,8 @@ namespace Municipalidad_Bases
 
         public void BusquedaPropiedad()
         {
+            if (txtBusqueda.Text.Trim() == "") return;
+
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
@@ -195,7 +197,7 @@ namespace Municipalidad_Bases
             }
         }
 
-    protected void linkMostrarPropietarios_Click(object sender, EventArgs e)
+        protected void linkMostrarPropietarios_Click(object sender, EventArgs e)
         {
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
@@ -204,6 +206,8 @@ namespace Municipalidad_Bases
             pnlDatosPropiedades.Visible = false;
             panelConexiones.Visible = true;
             botonAgregar.Visible = false;
+
+            botonVolver.Visible = true;
             verPropiedades();
         }
 

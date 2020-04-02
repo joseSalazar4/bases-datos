@@ -130,7 +130,7 @@ namespace Municipalidad_Bases
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewUsuarios.SelectedIndex = row.RowIndex;
             labelNombre.Text = "Se está actualizando la Nombre (antes era:  " + row.Cells[1].Text + ") :";
-            labelPassword.Text = "Se está actualizando el Password (antes era:  " + row.Cells[2].Text + ") :"; 
+            labelPassword.Text = "Se está actualizando el Password (antes era:  " + row.Cells[2].Text + ") :";
             labelID.Text = row.Cells[0].Text;
             gridViewUsuarios.Columns[0].Visible = false;
 
@@ -145,7 +145,7 @@ namespace Municipalidad_Bases
             TextBoxNombre.Text = "";
             TextBoxPassword.Text = "";
             botonActualizar.Visible = false;
-            CargaDatosUsuario(); 
+            CargaDatosUsuario();
         }
 
         //--------------// 
@@ -154,8 +154,10 @@ namespace Municipalidad_Bases
 
         public void BusquedaPropiedad()
         {
+            if (txtBusqueda.Text.Trim() == "") return;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
+                
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSUsuarioPorNombre";
@@ -181,7 +183,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@username", SqlDbType.VarChar).Value =labelID.Text;
+                cmd.Parameters.Add("@username", SqlDbType.VarChar).Value = labelID.Text;
                 cmd.CommandText = "SPSPropiedadesPorUsuario";
                 cmd.Connection = conn;
                 conn.Open();
@@ -201,7 +203,7 @@ namespace Municipalidad_Bases
             botonVolver.Visible = true;
             verPropiedades();
         }
-    
+
 
         protected void botonVolver_Click(object sender, EventArgs e)
         {
