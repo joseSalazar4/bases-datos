@@ -228,7 +228,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@numFinca", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
+                cmd.Parameters.Add("@numFinca", SqlDbType.Int).Value = Int32.Parse(labelID.Text);
                 cmd.CommandText = "SPSUsuariosPorPropiedad";
                 cmd.Connection = conn;
                 conn.Open();
@@ -243,11 +243,9 @@ namespace Municipalidad_Bases
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
             labelID.Text = row.Cells[1].Text;
-            labelNumFinca1.Text = row.Cells[1].Text;
-            labelNumFinca1.Visible = true;
             pnlAltaPropiedad.Visible = false;
             pnlDatosPropiedades.Visible = false;
-            panelConexiones.Visible = true;
+            panelUsuarios.Visible = true;
             botonAgregar.Visible = false;
             botonVolver.Visible = true;
             verUsuarios();
