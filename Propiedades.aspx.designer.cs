@@ -15,6 +15,15 @@ namespace Municipalidad_Bases
     {
 
         /// <summary>
+        /// labelNumFinca1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelNumFinca1;
+
+        /// <summary>
         /// pnlDatosPropiedades control.
         /// </summary>
         /// <remarks>
@@ -204,13 +213,13 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// GridView1 control.
+        /// GridViewUsuarios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView GridViewUsuarios;
 
         /// <summary>
         /// Button1 control.

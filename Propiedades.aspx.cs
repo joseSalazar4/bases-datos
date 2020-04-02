@@ -182,7 +182,7 @@ namespace Municipalidad_Bases
         //--------------//
         //    Elemen    //
         //--------------//
-        public void verPropiedades()
+        public void verPropietarios()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
@@ -208,7 +208,7 @@ namespace Municipalidad_Bases
             botonAgregar.Visible = false;
 
             botonVolver.Visible = true;
-            verPropiedades();
+            verPropietarios();
         }
 
         protected void botonVolver_Click(object sender, EventArgs e)
@@ -219,6 +219,38 @@ namespace Municipalidad_Bases
             CargaDatosUsuario();
             botonVolver.Visible = false;
             botonAgregar.Visible = true;
+        }
+
+
+        public void verUsuarios()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@numFinca", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
+                cmd.CommandText = "SPSUsuariosPorPropiedad";
+                cmd.Connection = conn;
+                conn.Open();
+                GridViewUsuarios.DataSource = cmd.ExecuteReader();
+                GridViewUsuarios.DataBind();
+            }
+        }
+
+        
+        protected void linkMostrarUsuarios_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            gridViewPropiedades.SelectedIndex = row.RowIndex;
+            labelID.Text = row.Cells[1].Text;
+            labelNumFinca1.Text = row.Cells[1].Text;
+            labelNumFinca1.Visible = true;
+            pnlAltaPropiedad.Visible = false;
+            pnlDatosPropiedades.Visible = false;
+            panelConexiones.Visible = true;
+            botonAgregar.Visible = false;
+            botonVolver.Visible = true;
+            verUsuarios();
         }
     }
 }

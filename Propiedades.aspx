@@ -3,6 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
         <h2>Propiedades</h2>
+        <asp:Label ID="labelNumFinca1" runat="server" />
         <asp:Panel runat="server" ID="pnlDatosPropiedades">
             <div>
                 <asp:Label Text="Número de Finca" runat="server" />
@@ -10,6 +11,7 @@
                 <asp:Button class="btn btn-info" Text="Buscar Propiedades" ID="btnbuscar" runat="server" OnClick="btnbuscar_Click" />
             </div>
             <br />
+            
             <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewPropiedades_RowDeleting">
                 <Columns>
                     <asp:BoundField DataField="ID" HeaderText="ID" />
@@ -29,6 +31,13 @@
                             <asp:LinkButton ID="linkMostrarPropietarios" runat="server" Text="Ver Propietarios" OnClick="linkMostrarPropietarios_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
+
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="linkMostrarUsuarios" runat="server" Text="Ver Usuarios" OnClick="linkMostrarUsuarios_Click" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
 
                 </Columns>
             </asp:GridView>
@@ -74,11 +83,10 @@
 
         <asp:Panel ID="panelUsuarios" runat="server" Visible="false">
             <asp:Label ID="Label1" Text="" runat="server"></asp:Label>
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false">
+            <asp:GridView ID="GridViewUsuarios" runat="server" AutoGenerateColumns="false">
                 <Columns>
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                    <asp:BoundField DataField="NumId" HeaderText="Numero ID" />
-                    <asp:BoundField DataField="TipoId" HeaderText="Tipo ID" />
+                    <asp:BoundField DataField="Password" HeaderText="Password" />
                 </Columns>
             </asp:GridView>
             <asp:Button class="btn btn-info"  ID="Button1" runat="server" Text="Volver" OnClick="botonVolver_Click"  Visible="false" />
