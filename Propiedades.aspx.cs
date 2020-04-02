@@ -25,6 +25,7 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
+                gridViewPropiedades.Columns[0].Visible = true;
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSPropiedad";
@@ -32,7 +33,7 @@ namespace Municipalidad_Bases
                 conn.Open();
                 gridViewPropiedades.DataSource = cmd.ExecuteReader();
                 gridViewPropiedades.DataBind();
-                conn.Close();
+                gridViewPropiedades.Columns[0].Visible = false;
             }
         }
 
@@ -97,9 +98,11 @@ namespace Municipalidad_Bases
 
         protected void gridViewPropiedades_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
+            gridViewPropiedades.Columns[0].Visible = true;
             GridViewRow row = (GridViewRow)gridViewPropiedades.Rows[e.RowIndex];
             eliminarUsuario(gridViewPropiedades.DataKeys[e.RowIndex].Value.ToString());
             CargaDatosUsuario();
+            gridViewPropiedades.Columns[0].Visible = false;
         }
 
         //--------------//
@@ -124,6 +127,7 @@ namespace Municipalidad_Bases
 
         protected void linkActualizar_Click(object sender, EventArgs e)
         {
+            gridViewPropiedades.Columns[0].Visible = true;
             pnlAltaPropiedad.Visible = true;
             botonGuardar.Visible = false;
             botonActualizar.Visible = true;
@@ -133,6 +137,7 @@ namespace Municipalidad_Bases
             labelValor.Text = "Se está actualizando el Valor (antes era: " + row.Cells[2].Text + ") :";
             labelDireccion.Text = "Se está actualizando la Dirección (antes era:  " + row.Cells[3].Text + ") :";
             labelID.Text = row.Cells[0].Text;
+            gridViewPropiedades.Columns[0].Visible = false;
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)
@@ -194,13 +199,22 @@ namespace Municipalidad_Bases
         {
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
-
             labelID.Text = row.Cells[1].Text;
             pnlAltaPropiedad.Visible = false;
             pnlDatosPropiedades.Visible = false;
             panelConexiones.Visible = true;
             botonAgregar.Visible = false;
             verPropiedades();
+        }
+
+        protected void botonVolver_Click(object sender, EventArgs e)
+        {
+            pnlAltaPropiedad.Visible = false;
+            pnlDatosPropiedades.Visible = true;
+            panelConexiones.Visible = false;
+            CargaDatosUsuario();
+            botonVolver.Visible = false;
+            botonAgregar.Visible = true;
         }
     }
 }

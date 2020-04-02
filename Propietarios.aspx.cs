@@ -25,6 +25,7 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
+                gridViewPropietarios.Columns[0].Visible = true;
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSPropietario";
@@ -32,6 +33,7 @@ namespace Municipalidad_Bases
                 conn.Open();
                 gridViewPropietarios.DataSource = cmd.ExecuteReader();
                 gridViewPropietarios.DataBind();
+                gridViewPropietarios.Columns[0].Visible = false;
             }
         }
 
@@ -94,9 +96,11 @@ namespace Municipalidad_Bases
 
         protected void gridViewPropietarios_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
+            gridViewPropietarios.Columns[0].Visible = true;
             GridViewRow row = (GridViewRow)gridViewPropietarios.Rows[e.RowIndex];
             eliminarUsuario(gridViewPropietarios.DataKeys[e.RowIndex].Value.ToString());
             CargaDatosUsuario();
+            gridViewPropietarios.Columns[0].Visible = false;
         }
 
         //--------------//
@@ -120,15 +124,18 @@ namespace Municipalidad_Bases
         }
         protected void linkActualizar_Click(object sender, EventArgs e)
         {
+            gridViewPropietarios.Columns[0].Visible = true;
             pnlAltaPropietarios.Visible = true;
             botonGuardar.Visible = false;
-            botonAgregar.Visible = true;
+            botonAgregar.Visible = false;
+            botonActualizar.Visible = true;
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropietarios.SelectedIndex = row.RowIndex;
             labelNombre.Text = "Se está actualizando el Nombre (antes era: " + row.Cells[1].Text + ") :";
             labelNumID.Text = "Se está actualizando el Número de ID (antes era: " + row.Cells[2].Text + ") :";
             labelTipoID.Text = "Se está actualizando el tipo de ID (antes era: " + row.Cells[3].Text + ") :";
             labelID.Text = row.Cells[0].Text;
+            gridViewPropietarios.Columns[0].Visible = false;
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)
@@ -154,7 +161,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPSPropietariosPorNumId";
+                cmd.CommandText = "SPSPropietarioPorNumId";
                 cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
                 cmd.Connection = conn;
                 conn.Open();
@@ -195,6 +202,11 @@ namespace Municipalidad_Bases
             panelConexiones.Visible = true;
             botonAgregar.Visible = false;
             verPropiedades();
+        }
+
+        protected void botonVolver_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

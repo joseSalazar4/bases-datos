@@ -12,13 +12,19 @@
             <br />
             <asp:GridView ID="gridViewUsuarios" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewUsuarios_RowDeleting">
                 <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="ID" Visible="false"  />
+                    <asp:BoundField DataField="ID" HeaderText="ID"  />
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                     <asp:BoundField DataField="Password" HeaderText="Password" />
                     <asp:CommandField ShowDeleteButton="true" EditText="Eliminar" />
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton ID="linkActualizar" runat="server" Text="Actualizar" OnClick="linkActualizar_Click" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="linkVerPropiedades" runat="server" Text="Ver Propiedades" OnClick="linkVerPropiedades_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -39,9 +45,18 @@
                 <asp:Label ID="labelID" Text="ID" runat="server" Visible="false"></asp:Label>
             </div>
             <br />
-            <asp:Button ID="botonGuardar" runat="server" Text="Guardar tee" OnClick="botonGuardar_Click" />
-            <asp:Button ID="botonActualizar" runat="server" Text="Actualizar ente" OnClick="botonActualizar_Click" />
-
+            <asp:Button ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
+            <asp:Button ID="botonActualizar" runat="server" Text="Actualizar" OnClick="botonActualizar_Click" />
+        </asp:Panel>
+         <asp:Panel ID="panelConexiones" runat="server" Visible="false">
+            <asp:GridView ID="gridPropeidadesPorUsuario" runat="server" AutoGenerateColumns="false">
+                <Columns>
+                    <asp:BoundField DataField="numFinca" HeaderText="Número de Finca" />
+                    <asp:BoundField DataField="valor" HeaderText="Valor" />
+                    <asp:BoundField DataField="direccion" HeaderText="Dirección" />
+                </Columns>
+            </asp:GridView>
+             <asp:Button ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" class="btn btn-dark" Visible="false" />
         </asp:Panel>
     </div>
 </asp:Content>

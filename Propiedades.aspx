@@ -12,7 +12,7 @@
             <br />
             <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewPropiedades_RowDeleting">
                 <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" />
+                    <asp:BoundField DataField="ID" HeaderText="ID" />
                     <asp:BoundField DataField="NumFinca" HeaderText="Numero Finca" />
                     <asp:BoundField DataField="Valor" HeaderText="Valor" />
                     <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
@@ -69,6 +69,19 @@
                     <asp:BoundField DataField="TipoId" HeaderText="Tipo ID" />
                 </Columns>
             </asp:GridView>
+            <asp:Button ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" class="btn btn-dark" Visible="false" />
+        </asp:Panel>
+
+        <asp:Panel ID="panelUsuarios" runat="server" Visible="false">
+            <asp:Label ID="Label1" Text="" runat="server"></asp:Label>
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false">
+                <Columns>
+                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                    <asp:BoundField DataField="NumId" HeaderText="Numero ID" />
+                    <asp:BoundField DataField="TipoId" HeaderText="Tipo ID" />
+                </Columns>
+            </asp:GridView>
+            <asp:Button ID="Button1" runat="server" Text="Volver" OnClick="botonVolver_Click" class="btn btn-dark" Visible="false" />
         </asp:Panel>
     </div>
 
