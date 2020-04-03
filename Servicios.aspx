@@ -2,34 +2,22 @@
 
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-<h2>Propiedades</h2>
+    <div class="jumbotron">
+    <h2>Servicios</h2>
     <asp:Panel runat="server" ID="pnlDatosServicios">
-        <asp:GridView ID="gridViewServicios" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridView_RowDeleting">
-            <Columns>
-                <asp:BoundField DataField="ID" HeaderText="ID" />
-                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                <asp:CommandField ShowDeleteButton="true" EditText="Eliminar" />
-                <asp:TemplateField>
-                    <ItemTemplate>
-                        <asp:LinkButton ID="linkActualizar" runat="server" Text="Actualizar" OnClick="linkActualizar_Click1" />  
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-        </asp:GridView>
-        <br />
-        <asp:Button ID="botonAgregar" Text="Agregar Cliente" runat="server" OnClick="botonNuevo_Click" />
-    </asp:Panel>
-    <asp:Panel ID="pnlAltaServicios" runat="server" Visible="false">
         <div>
-            <asp:Label ID="labelNombre" Text="Nombre" runat="server"></asp:Label>
-            <asp:TextBox ID="TextBoxNombre" runat="server" />
+        <asp:Button ID="botonRegistrarProJuridico" runat="server" class="btn btn-info" Text="Registrar Propietario Jurídico" />
         </div>
-        <div>
-            <asp:Label ID="labelID" Text="ID" runat="server" Visible="false"></asp:Label>
-        </div>
+        <asp:Button ID="botonGenerarCC" runat="server" class="btn btn-info" Text="Generar Concepto de Cobro" />
+        <br/>
+        <asp:RadioButton ID="RadioButtonPorcentaje" runat="server" Text="Porcentaje" />
+        <asp:RadioButton ID="RadioButtonConsumo" runat="server" Text="Consumo" />
+        <asp:RadioButton ID="RadioButtonIntMor" runat="server" Text="Interes Moratorio" />
+        <asp:RadioButton ID="RadioButtonFijo" runat="server" Text="Fijo" />
         <br />
-        <asp:Button ID="botonGuardar" runat="server" Text="Guardar Usuario" OnClick="botonGuardar_Click" />
-        <asp:Button ID="botonActualizar" runat="server" Text="Actualizar Usuario" OnClick="botonActualizar_Click" />
+        <asp:TextBox ID="textBoxTipoConsumo" runat="server" /> 
     </asp:Panel>
+        </div>
+        
 
 </asp:Content>

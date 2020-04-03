@@ -202,6 +202,9 @@ namespace Municipalidad_Bases
             botonAgregar.Visible = false;
             botonVolver.Visible = true;
             verPropiedades();
+            labelTitulo.Visible = false;
+            labelTituloProp.Visible = true;
+
         }
 
 
@@ -213,6 +216,8 @@ namespace Municipalidad_Bases
             CargaDatosUsuario();
             botonVolver.Visible = false;
             botonAgregar.Visible = true;
+            labelTitulo.Visible = true;
+            labelTituloProp.Visible = false;
         }
     }
 }

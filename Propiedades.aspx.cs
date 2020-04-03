@@ -206,7 +206,9 @@ namespace Municipalidad_Bases
             pnlDatosPropiedades.Visible = false;
             panelConexiones.Visible = true;
             botonAgregar.Visible = false;
-
+            labelTitulo.Visible = false;
+            labelTituloPropietarios.Visible = true;
+            labelUsuarios.Visible = false;
             botonVolver.Visible = true;
             verPropietarios();
         }
@@ -219,6 +221,10 @@ namespace Municipalidad_Bases
             CargaDatosUsuario();
             botonVolver.Visible = false;
             botonAgregar.Visible = true;
+            labelTitulo.Visible = true;
+            labelTituloPropietarios.Visible = false;
+            labelUsuarios.Visible = false;
+
         }
 
 
@@ -249,6 +255,9 @@ namespace Municipalidad_Bases
             botonAgregar.Visible = false;
             botonVolver.Visible = true;
             verUsuarios();
+            labelTitulo.Visible = false;
+            labelTituloPropietarios.Visible =false ;
+            labelUsuarios.Visible = true;
         }
     }
 }

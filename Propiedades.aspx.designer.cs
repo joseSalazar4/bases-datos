@@ -15,13 +15,31 @@ namespace Municipalidad_Bases
     {
 
         /// <summary>
-        /// labelNumFinca1 control.
+        /// labelTitulo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelNumFinca1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl labelTitulo;
+
+        /// <summary>
+        /// labelTituloPropietarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl labelTituloPropietarios;
+
+        /// <summary>
+        /// labelUsuarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl labelUsuarios;
 
         /// <summary>
         /// pnlDatosPropiedades control.
@@ -76,6 +94,15 @@ namespace Municipalidad_Bases
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAltaPropiedad;
+
+        /// <summary>
+        /// labelMensajeError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelMensajeError;
 
         /// <summary>
         /// labelNumFinca control.

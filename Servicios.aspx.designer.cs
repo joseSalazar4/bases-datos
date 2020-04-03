@@ -24,75 +24,66 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Panel pnlDatosServicios;
 
         /// <summary>
-        /// gridViewServicios control.
+        /// botonRegistrarProJuridico control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridViewServicios;
+        protected global::System.Web.UI.WebControls.Button botonRegistrarProJuridico;
 
         /// <summary>
-        /// botonAgregar control.
+        /// botonGenerarCC control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button botonAgregar;
+        protected global::System.Web.UI.WebControls.Button botonGenerarCC;
 
         /// <summary>
-        /// pnlAltaServicios control.
+        /// RadioButtonPorcentaje control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAltaServicios;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonPorcentaje;
 
         /// <summary>
-        /// labelNombre control.
+        /// RadioButtonConsumo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelNombre;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonConsumo;
 
         /// <summary>
-        /// TextBoxNombre control.
+        /// RadioButtonIntMor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxNombre;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonIntMor;
 
         /// <summary>
-        /// labelID control.
+        /// RadioButtonFijo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelID;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButtonFijo;
 
         /// <summary>
-        /// botonGuardar control.
+        /// textBoxTipoConsumo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button botonGuardar;
-
-        /// <summary>
-        /// botonActualizar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button botonActualizar;
+        protected global::System.Web.UI.WebControls.TextBox textBoxTipoConsumo;
     }
 }

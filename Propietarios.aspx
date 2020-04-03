@@ -2,7 +2,8 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
-        <h2>Propietarios</h2>
+        <h2 ID="labelTitulo" runat="server"  >Propietarios</h2> 
+        <h2 ID="labelTituloProp" runat="server" visible="false">Propiedades</h2> 
         <asp:Panel runat="server" ID="pnlDatosPropietarios">
             <div>
                 <asp:Label Text="Número ID" runat="server" />
@@ -34,6 +35,7 @@
             <asp:Button class="btn btn-info" ID="botonAgregar" Text="Agregar Propietario" runat="server" OnClick="botonNuevo_Click" />
         </asp:Panel>
         <asp:Panel ID="pnlAltaPropietarios" runat="server" Visible="false">
+            <asp:Label ID="labelMensajeError" Text =" Por favor revise el tipo de los datos" runat="server" Visible="false"/>
             <div>
                 <asp:Label ID="labelNombre" Text="Nombre" runat="server"></asp:Label>
                 <asp:TextBox ID="TextBoxNombre" runat="server" />

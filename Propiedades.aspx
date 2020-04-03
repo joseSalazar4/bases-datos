@@ -2,8 +2,10 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
-        <h2>Propiedades</h2>
-        <asp:Label ID="labelNumFinca1" runat="server" />
+        <h2 id="labelTitulo" runat="server">Propiedades</h2>
+        <h2 id="labelTituloPropietarios" runat="server" visible="false">Propietarios</h2>
+        <h2 id="labelUsuarios" runat="server" visible="false">Usuarios</h2>
+
         <asp:Panel runat="server" ID="pnlDatosPropiedades">
             <div>
                 <asp:Label Text="Número de Finca" runat="server" />
@@ -11,7 +13,7 @@
                 <asp:Button class="btn btn-info" Text="Buscar Propiedades" ID="btnbuscar" runat="server" OnClick="btnbuscar_Click" />
             </div>
             <br />
-            
+
             <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewPropiedades_RowDeleting">
                 <Columns>
                     <asp:BoundField DataField="ID" HeaderText="ID" />
@@ -43,11 +45,12 @@
             </asp:GridView>
 
             <br />
-            <asp:Button class="btn btn-info" ID="botonAgregar"   Text="Agregar Propiedad" runat="server" OnClick="botonNuevo_Click" />
+            <asp:Button class="btn btn-info" ID="botonAgregar" Text="Agregar Propiedad" runat="server" OnClick="botonNuevo_Click" />
         </asp:Panel>
 
 
         <asp:Panel ID="pnlAltaPropiedad" runat="server" Visible="false">
+            <asp:Label ID="labelMensajeError" Text=" Por favor revise el tipo de los datos" runat="server" Visible="false" />
             <div>
                 <asp:Label ID="labelNumFinca" Text="Numero Finca" runat="server"></asp:Label>
                 <asp:TextBox ID="TextBoxNumFinca" runat="server" />
@@ -66,7 +69,7 @@
             <br />
 
             <asp:Button class="btn btn-info" ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
-            <asp:Button class="btn btn-info"  ID="botonActualizar" runat="server"  Text="Actualizar" OnClick="botonActualizar_Click" />
+            <asp:Button class="btn btn-info" ID="botonActualizar" runat="server" Text="Actualizar" OnClick="botonActualizar_Click" />
 
         </asp:Panel>
         <asp:Panel ID="panelConexiones" runat="server" Visible="false">
@@ -78,7 +81,7 @@
                     <asp:BoundField DataField="TipoId" HeaderText="Tipo ID" />
                 </Columns>
             </asp:GridView>
-            <asp:Button  class="btn btn-info" ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
+            <asp:Button class="btn btn-info" ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
         </asp:Panel>
 
         <asp:Panel ID="panelUsuarios" runat="server" Visible="false">
@@ -89,8 +92,8 @@
                     <asp:BoundField DataField="Password" HeaderText="Password" />
                 </Columns>
             </asp:GridView>
-            <asp:Button class="btn btn-info"  ID="Button1" runat="server" Text="Volver" OnClick="botonVolver_Click"  Visible="false" />
         </asp:Panel>
+        <asp:Button class="btn btn-info" ID="Button1" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
     </div>
 
 </asp:Content>

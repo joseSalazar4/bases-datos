@@ -1,9 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Usuarios.aspx.cs" Inherits="Municipalidad_Bases.Usuarios" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Usuarios</h2>
     <div class="jumbotron">
+        <h2 id="labelTitulo" runat="server" >Usuarios</h2>
+        <h2 ID="labelTituloProp" runat="server" visible="false">Propiedades</h2> 
         <asp:Panel runat="server" ID="pnlDatosUsuarios">
+
             <div>
                 <asp:Label Text="Nombre" runat="server" />
                 <asp:TextBox ID="txtBusqueda" runat="server"></asp:TextBox>
@@ -12,7 +14,7 @@
             <br />
             <asp:GridView ID="gridViewUsuarios" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewUsuarios_RowDeleting">
                 <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="ID"  />
+                    <asp:BoundField DataField="ID" HeaderText="ID" />
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                     <asp:BoundField DataField="Password" HeaderText="Password" />
                     <asp:CommandField ShowDeleteButton="true" EditText="Eliminar" />
@@ -48,7 +50,7 @@
             <asp:Button class="btn btn-info" ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
             <asp:Button class="btn btn-info" ID="botonActualizar" runat="server" Text="Actualizar" OnClick="botonActualizar_Click" />
         </asp:Panel>
-         <asp:Panel ID="panelConexiones" runat="server" Visible="false">
+        <asp:Panel ID="panelConexiones" runat="server" Visible="false">
             <asp:GridView ID="gridPropeidadesPorUsuario" runat="server" AutoGenerateColumns="false">
                 <Columns>
                     <asp:BoundField DataField="numFinca" HeaderText="Número de Finca" />
@@ -56,7 +58,7 @@
                     <asp:BoundField DataField="direccion" HeaderText="Dirección" />
                 </Columns>
             </asp:GridView>
-             <asp:Button class="btn btn-info" ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click"  Visible="false" />
         </asp:Panel>
+                    <asp:Button class="btn btn-info" ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
     </div>
 </asp:Content>
