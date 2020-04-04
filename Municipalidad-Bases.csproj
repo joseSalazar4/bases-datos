@@ -146,6 +146,7 @@
     <Content Include="HomePage.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Propiedades.aspx" />
+    <Content Include="PropietarioJuridico.aspx" />
     <Content Include="Propietarios.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -225,6 +226,13 @@
     </Compile>
     <Compile Include="Propiedades.aspx.designer.cs">
       <DependentUpon>Propiedades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PropietarioJuridico.aspx.cs">
+      <DependentUpon>PropietarioJuridico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PropietarioJuridico.aspx.designer.cs">
+      <DependentUpon>PropietarioJuridico.aspx</DependentUpon>
     </Compile>
     <Compile Include="Propietarios.aspx.cs">
       <DependentUpon>Propietarios.aspx</DependentUpon>

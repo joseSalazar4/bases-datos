@@ -18,6 +18,31 @@ namespace Municipalidad_Bases
 
             }
         }
+
+        protected void RadioButtonPorcentaje_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void RadioButtonFijo_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void RadioButtonIntMor_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void RadioButtonConsumo_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void botonGuardar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
         

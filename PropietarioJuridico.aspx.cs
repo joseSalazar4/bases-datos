@@ -7,7 +7,7 @@ using System.Web.UI;
 
 namespace Municipalidad_Bases
 {
-    public partial class Propietarios : System.Web.UI.Page
+    public partial class PropiedadJuridica : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,7 +28,7 @@ namespace Municipalidad_Bases
                 gridViewPropietarios.Columns[0].Visible = true;
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPSPropietario";
+                cmd.CommandText = "SPSPropietarioJuridico";
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewPropietarios.DataSource = cmd.ExecuteReader();
@@ -46,10 +46,9 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPIPropietario";
+                cmd.CommandText = "SPIPropietarioJuridico";
                 cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@NumId", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
-                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
+                cmd.Parameters.Add("@NumID", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -58,23 +57,23 @@ namespace Municipalidad_Bases
 
         protected void botonNuevo_Click(object sender, EventArgs e)
         {
-            labelNombre.Text = "Nombre";
-            labelNumID.Text = "Número de ID";
-            labelTipoID.Text = "Tipo ID";
+            labelNombre.Text = "Nombre de Propietario";
+            labelNumID.Text = "Número de ID ";
             botonActualizar.Visible = false;
-            pnlDatosPropietarios.Visible = false;
+            pnlDatosPropietariosJuridicos.Visible = false;
             pnlAltaPropietarios.Visible = true;
         }
+
+
 
         protected void botonGuardar_Click(object sender, EventArgs e)
         {
             pnlAltaPropietarios.Visible = false;
-            pnlDatosPropietarios.Visible = true;
+            pnlDatosPropietariosJuridicos.Visible = true;
             GuardaUsuario();
             CargaDatosUsuario();
             TextBoxNombre.Text = "";
             TextBoxNumID.Text = "";
-            TextBoxTipoID.Text = "";
         }
 
         //--------------//
@@ -86,7 +85,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPDPropietario";
+                cmd.CommandText = "SPDPropiedad";
                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(ID);
                 cmd.Connection = conn;
                 conn.Open();
@@ -94,8 +93,10 @@ namespace Municipalidad_Bases
             }
         }
 
-        protected void gridViewPropietarios_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        protected void gridViewPropietariosJuridicosJuridicos_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
+
+
             gridViewPropietarios.Columns[0].Visible = true;
             GridViewRow row = (GridViewRow)gridViewPropietarios.Rows[e.RowIndex];
             eliminarUsuario(gridViewPropietarios.DataKeys[e.RowIndex].Value.ToString());
@@ -104,7 +105,7 @@ namespace Municipalidad_Bases
         }
 
         //--------------//
-        //    UPDATE
+        //    UPDATE    //
         //--------------//
         public void actualizarUsuario(int ID)
         {
@@ -112,28 +113,26 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPUPropietario";
+                cmd.CommandText = "SPUPropietarioJuridico";
                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
                 cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
-                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
+                cmd.Parameters.Add("@NumID", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
         }
+
         protected void linkActualizar_Click(object sender, EventArgs e)
         {
             gridViewPropietarios.Columns[0].Visible = true;
             pnlAltaPropietarios.Visible = true;
             botonGuardar.Visible = false;
-            botonAgregar.Visible = false;
             botonActualizar.Visible = true;
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropietarios.SelectedIndex = row.RowIndex;
             labelNombre.Text = "Se está actualizando el Nombre (antes era: " + row.Cells[1].Text + ") :";
             labelNumID.Text = "Se está actualizando el Número de ID (antes era: " + row.Cells[2].Text + ") :";
-            labelTipoID.Text = "Se está actualizando el tipo de ID (antes era: " + row.Cells[3].Text + ") :";
             labelID.Text = row.Cells[0].Text;
             gridViewPropietarios.Columns[0].Visible = false;
         }
@@ -146,7 +145,6 @@ namespace Municipalidad_Bases
             actualizarUsuario(Int32.Parse(labelID.Text));
             TextBoxNombre.Text = "";
             TextBoxNumID.Text = "";
-            TextBoxTipoID.Text = "";
             botonActualizar.Visible = false;
             CargaDatosUsuario();
         }
@@ -158,13 +156,13 @@ namespace Municipalidad_Bases
         public void BusquedaPropiedad()
         {
             if (txtBusqueda.Text.Trim() == "") return;
+
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPSPropietarioPorNumId";
-                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
+                cmd.CommandText = "SPSPropietarioJuridicoPorNumID";
+                cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewPropietarios.DataSource = cmd.ExecuteReader();
@@ -176,6 +174,7 @@ namespace Municipalidad_Bases
             BusquedaPropiedad();
         }
 
+
         //--------------//
         //    Elemen    //
         //--------------//
@@ -185,12 +184,12 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@NumCedula", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
-                cmd.CommandText = "SPSPropiedadesPorPropietario";
+                cmd.Parameters.Add("@numFinca", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
+                cmd.CommandText = "SPSPropietariosJuridicosPorPropiedad";
                 cmd.Connection = conn;
                 conn.Open();
-                gridPropeidadesPorPropietario.DataSource = cmd.ExecuteReader();
-                gridPropeidadesPorPropietario.DataBind();
+                gridPropiedadesPorPropietario.DataSource = cmd.ExecuteReader();
+                gridPropiedadesPorPropietario.DataBind();
             }
         }
 
@@ -198,27 +197,43 @@ namespace Municipalidad_Bases
         {
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropietarios.SelectedIndex = row.RowIndex;
-            labelID.Text = row.Cells[2].Text;
+            labelID.Text = row.Cells[1].Text;
             pnlAltaPropietarios.Visible = false;
-            pnlDatosPropietarios.Visible = false;
+            pnlDatosPropietariosJuridicos.Visible = false;
             panelConexiones.Visible = true;
             botonAgregar.Visible = false;
+            labelTitulo.Visible = false;
+            labelPropiedades.Visible = true;
+            labelRepresentantes.Visible = false;
             botonVolver.Visible = true;
             verPropiedades();
-            labelTitulo.Visible = false;
-            labelTituloProp.Visible = true;
         }
 
         protected void botonVolver_Click(object sender, EventArgs e)
         {
             pnlAltaPropietarios.Visible = false;
-            pnlDatosPropietarios.Visible = true;
+            pnlDatosPropietariosJuridicos.Visible = true;
             panelConexiones.Visible = false;
             CargaDatosUsuario();
             botonVolver.Visible = false;
             botonAgregar.Visible = true;
+
             labelTitulo.Visible = true;
-            labelTituloProp.Visible = false;
+            labelRepresentantes.Visible = false;
+            labelPropiedades.Visible = false;
+
+        }
+
+
+        protected void linkMostrarRepresentante_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void gridViewPropietarios_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
         }
     }
+
 }
