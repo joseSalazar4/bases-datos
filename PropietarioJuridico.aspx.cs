@@ -21,7 +21,7 @@ namespace Municipalidad_Bases
         //--------------//
         //    SELECT
         //--------------//
-        public void CargaDatosUsuario()  
+        public void CargaDatosUsuario()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
@@ -38,7 +38,7 @@ namespace Municipalidad_Bases
         }
 
         //--------------//
-        //   INSERT
+        //   INSERT     //
         //--------------//
         public void GuardaUsuario()
         {
@@ -48,7 +48,10 @@ namespace Municipalidad_Bases
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPIPropietarioJuridico";
                 cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@NumID", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
+                cmd.Parameters.Add("@NumId", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
+                cmd.Parameters.Add("@IDTipoIdResponsable", SqlDbType.Int).Value = Int64.Parse(TextBoxIDTipoIdResponsable.Text.Trim());
+                cmd.Parameters.Add("@NumIdResponsable", SqlDbType.VarChar).Value = TextBoxNumIdResponsable.Text.Trim();
+                cmd.Parameters.Add("@Responsable", SqlDbType.VarChar).Value = TextBoxResponsable.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -92,10 +95,8 @@ namespace Municipalidad_Bases
                 cmd.ExecuteNonQuery();
             }
         }
-
-        protected void gridViewPropietariosJuridicosJuridicos_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        protected void gridViewPropietarios_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-
 
             gridViewPropietarios.Columns[0].Visible = true;
             GridViewRow row = (GridViewRow)gridViewPropietarios.Rows[e.RowIndex];
@@ -217,23 +218,43 @@ namespace Municipalidad_Bases
             CargaDatosUsuario();
             botonVolver.Visible = false;
             botonAgregar.Visible = true;
+            panelResponsable.Visible = false;
 
             labelTitulo.Visible = true;
             labelRepresentantes.Visible = false;
             labelPropiedades.Visible = false;
-
         }
 
+        public void mostrarRepresentantes(int ID)
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SPSResponsable";
+                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                cmd.Connection = conn;
+                conn.Open();
+                GridViewResponsable.DataSource = cmd.ExecuteReader();
+                GridViewResponsable.DataBind();
+            }
+        }
 
         protected void linkMostrarRepresentante_Click(object sender, EventArgs e)
         {
-
-        }
-
-        protected void gridViewPropietarios_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-
+            gridViewPropietarios.Columns[0].Visible = true;
+            pnlAltaPropietarios.Visible = false;
+            pnlDatosPropietariosJuridicos.Visible = false;
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            gridViewPropietarios.SelectedIndex = row.RowIndex;
+            labelID.Text = row.Cells[0].Text;
+            gridViewPropietarios.Columns[0].Visible = false;
+            mostrarRepresentantes(Int32.Parse(labelID.Text));
+            labelTitulo.Visible = false;
+            labelRepresentantes.Visible = true;
+            labelPropiedades.Visible = false;
+            botonVolver.Visible = true;
+            panelResponsable.Visible = true;
         }
     }
-
 }

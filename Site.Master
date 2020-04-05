@@ -53,7 +53,7 @@
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/Propietarios">Propietarios</a></li>
                         <li><a runat="server" href="~/Propiedades">Propiedades</a></li>
-                        <li><a runat="server" href="~/PropietarioJuridico">Propiedad Juridica</a></li>
+                        <li><a runat="server" href="~/PropietarioJuridico">Propietarios Jurídicos</a></li>
                         <li><a runat="server" href="~/Usuarios">Usuarios</a></li>
                         <li><a runat="server" href="~/Servicios">Servicios</a></li>
                     </ul>
