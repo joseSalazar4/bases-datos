@@ -26,6 +26,7 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
+                gridViewUsuarios.Columns[0].Visible = true;
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSUsuario";
@@ -33,6 +34,7 @@ namespace Municipalidad_Bases
                 conn.Open();
                 gridViewUsuarios.DataSource = cmd.ExecuteReader();
                 gridViewUsuarios.DataBind();
+                gridViewUsuarios.Columns[0].Visible = false;
             }
         }
 

@@ -86,6 +86,7 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
+                gridViewPropiedades.Columns[0].Visible = true;
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPDPropiedad";
@@ -93,6 +94,8 @@ namespace Municipalidad_Bases
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
+                gridViewPropiedades.Columns[0].Visible = false;
+
             }
         }
 
