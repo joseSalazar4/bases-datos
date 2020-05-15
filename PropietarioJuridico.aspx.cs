@@ -19,7 +19,7 @@ namespace Municipalidad_Bases
 
 
         //--------------//
-        //    SELECT
+        //    SELECT    //
         //--------------//
         public void CargaDatosUsuario()
         {
@@ -44,17 +44,24 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPIPropietarioJuridico";
-                cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@NumId", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
-                cmd.Parameters.Add("@IDTipoIdResponsable", SqlDbType.Int).Value = Int64.Parse(TextBoxIDTipoIdResponsable.Text.Trim());
-                cmd.Parameters.Add("@NumIdResponsable", SqlDbType.VarChar).Value = TextBoxNumIdResponsable.Text.Trim();
-                cmd.Parameters.Add("@Responsable", SqlDbType.VarChar).Value = TextBoxResponsable.Text.Trim();
-                cmd.Connection = conn;
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "SPIPropietarioJuridico";
+                    cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                    cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
+                    cmd.Parameters.Add("@InIDTipoIdResponsable", SqlDbType.Int).Value = Int64.Parse(TextBoxIDTipoIdResponsable.Text.Trim());
+                    cmd.Parameters.Add("@InNumIdResponsable", SqlDbType.VarChar).Value = TextBoxNumIdResponsable.Text.Trim();
+                    cmd.Parameters.Add("@InResponsable", SqlDbType.VarChar).Value = TextBoxResponsable.Text.Trim();
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
         }
 
@@ -89,7 +96,7 @@ namespace Municipalidad_Bases
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPDPropiedad";
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(ID);
+                cmd.Parameters.Add("@InID", SqlDbType.Int).Value = Int64.Parse(ID);
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -115,9 +122,9 @@ namespace Municipalidad_Bases
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPUPropietarioJuridico";
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
-                cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@NumID", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
+                cmd.Parameters.Add("@InID", SqlDbType.Int).Value = ID;
+                cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                cmd.Parameters.Add("@InNumID", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -163,7 +170,7 @@ namespace Municipalidad_Bases
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSPropietarioJuridicoPorNumID";
-                cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
+                cmd.Parameters.Add("@InNumFinca", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewPropietarios.DataSource = cmd.ExecuteReader();
@@ -185,7 +192,7 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@numFinca", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
+                cmd.Parameters.Add("@InnumFinca", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
                 cmd.CommandText = "SPSPropietariosJuridicosPorPropiedad";
                 cmd.Connection = conn;
                 conn.Open();
@@ -232,7 +239,7 @@ namespace Municipalidad_Bases
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSResponsable";
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                cmd.Parameters.Add("@InID", SqlDbType.Int).Value = ID;
                 cmd.Connection = conn;
                 conn.Open();
                 GridViewResponsable.DataSource = cmd.ExecuteReader();
@@ -256,5 +263,17 @@ namespace Municipalidad_Bases
             botonVolver.Visible = true;
             panelResponsable.Visible = true;
         }
+        public void ShowMessage(string message)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append("<script type = 'text/javascript'>");
+            sb.Append("window.onload=function(){");
+            sb.Append("alert('");
+            sb.Append(message);
+            sb.Append("')};");
+            sb.Append("</script>");
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "ERROR", sb.ToString());
+        }
+
     }
 }

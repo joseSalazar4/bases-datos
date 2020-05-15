@@ -19,7 +19,7 @@ namespace Municipalidad_Bases
             sb.Append(message);
             sb.Append("')};");
             sb.Append("</script>");
-            ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "ERROR", sb.ToString());
         }
 
 
@@ -71,8 +71,8 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPIUsuario";
-                    cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                    cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
+                    cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                    cmd.Parameters.Add("@InPassword", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -117,7 +117,7 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPDUsuario";
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(idAlumno);
+                    cmd.Parameters.Add("@InID", SqlDbType.Int).Value = Int64.Parse(idAlumno);
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -152,9 +152,9 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPUUsuario";
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
-                    cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                    cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
+                    cmd.Parameters.Add("@InID", SqlDbType.Int).Value = ID;
+                    cmd.Parameters.Add("@Innombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                    cmd.Parameters.Add("@Inpassword", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -207,7 +207,7 @@ namespace Municipalidad_Bases
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSUsuarioPorNombre";
-                cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = txtBusqueda.Text.Trim();
+                cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = txtBusqueda.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewUsuarios.DataSource = cmd.ExecuteReader();
@@ -231,7 +231,7 @@ namespace Municipalidad_Bases
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@username", SqlDbType.VarChar).Value = labelID.Text;
+                    cmd.Parameters.Add("@Inusername", SqlDbType.VarChar).Value = labelID.Text;
                     cmd.CommandText = "SPSPropiedadesPorUsuario";
                     cmd.Connection = conn;
                     conn.Open();

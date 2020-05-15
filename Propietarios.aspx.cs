@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Web.UI.WebControls;
 using System;
 using System.Web.UI;
+using System.Text.RegularExpressions;
 
 namespace Municipalidad_Bases
 {
@@ -55,6 +56,7 @@ namespace Municipalidad_Bases
                 {
                     ShowMessage(ex.Errors[0].Message);
                 }
+
             }
         }
 
@@ -67,12 +69,15 @@ namespace Municipalidad_Bases
             {
                 try
                 {
+                    if (TextBoxTipoID.Text.Trim() == "") TextBoxTipoID.Text = "-1";
+                    int error = Regex.Matches(TextBoxTipoID.Text.Trim(), @"[a-zA-Z]").Count;
+                    if (error>0) TextBoxTipoID.Text = "-2";
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPIPropietario";
-                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                    cmd.Parameters.Add("@NumId", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
-                    cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
+                    cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                    cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
+                    cmd.Parameters.Add("@InTipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -117,7 +122,7 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPDPropietario";
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(ID);
+                    cmd.Parameters.Add("@InID", SqlDbType.Int).Value = Int64.Parse(ID);
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -150,10 +155,10 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPUPropietario";
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
-                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                    cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
-                    cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
+                    cmd.Parameters.Add("@InID", SqlDbType.Int).Value = ID;
+                    cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                    cmd.Parameters.Add("@InNumId", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
+                    cmd.Parameters.Add("@InTipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -207,7 +212,7 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPSPropietarioPorNumId";
-                    cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
+                    cmd.Parameters.Add("@InNumId", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
                     cmd.Connection = conn;
                     conn.Open();
                     gridViewPropietarios.DataSource = cmd.ExecuteReader();
@@ -235,7 +240,7 @@ namespace Municipalidad_Bases
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@NumCedula", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
+                    cmd.Parameters.Add("@InNumCedula", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
                     cmd.CommandText = "SPSPropiedadesPorPropietario";
                     cmd.Connection = conn;
                     conn.Open();

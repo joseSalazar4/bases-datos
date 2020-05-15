@@ -21,26 +21,47 @@ namespace Municipalidad_Bases
         {
             validarUsuasrio();
         }
+
+        public void ShowMessage(string message)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append("<script type = 'text/javascript'>");
+            sb.Append("window.onload=function(){");
+            sb.Append("alert('");
+            sb.Append(message);
+            sb.Append("')};");
+            sb.Append("</script>");
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "ERROR", sb.ToString());
+        }
+
         public void validarUsuasrio()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                SqlCommand command = new SqlCommand();
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "SPValidarUsuario";
-                command.Parameters.Add("@usuario", SqlDbType.VarChar).Value = textUsuario.Text;
-                command.Parameters.Add("@contrasena", SqlDbType.VarChar).Value = textContrasena.Text;
-                command.Connection = conn;
-                conn.Open();
+                try
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "SPValidarUsuario";
+                    command.Parameters.Add("@InUsuario", SqlDbType.VarChar).Value = textUsuario.Text;
+                    command.Parameters.Add("@InContrasena", SqlDbType.VarChar).Value = textContrasena.Text;
+                    command.Connection = conn;
+                    conn.Open();
 
-                SqlDataReader lector = command.ExecuteReader();
-                if (lector.Read())
-                {
-                    Response.Redirect(@"\Default.aspx");
-                    labelMensaje.Text = "";
+                    SqlDataReader lector = command.ExecuteReader();
+                    if (lector.Read())
+                    {
+                        Response.Redirect(@"\Default.aspx");
+                        labelMensaje.Text = "";
+                    }
+                    else
+                    {
+                        labelMensaje.Text = "El usuario o la contrasena no son correctos ";
+                    }
                 }
-                else
+                catch (SqlException ex)
                 {
+                    ShowMessage("HOLA WEI");
                     labelMensaje.Text = "El usuario o la contrasena no son correctos ";
                 }
             }
