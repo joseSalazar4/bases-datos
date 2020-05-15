@@ -9,6 +9,21 @@ namespace Municipalidad_Bases
 {
     public partial class Propietarios : System.Web.UI.Page
     {
+
+
+        public void ShowMessage(string message)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append("<script type = 'text/javascript'>");
+            sb.Append("window.onload=function(){");
+            sb.Append("alert('");
+            sb.Append(message);
+            sb.Append("')};");
+            sb.Append("</script>");
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
+        }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -17,23 +32,29 @@ namespace Municipalidad_Bases
             }
         }
 
-
         //--------------//
         //    SELECT
         //--------------//
-        public void CargaDatosUsuario()  
+        public void CargaDatosUsuario()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                gridViewPropietarios.Columns[0].Visible = true;
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPSPropietario";
-                cmd.Connection = conn;
-                conn.Open();
-                gridViewPropietarios.DataSource = cmd.ExecuteReader();
-                gridViewPropietarios.DataBind();
-                gridViewPropietarios.Columns[0].Visible = false;
+                try
+                {
+                    gridViewPropietarios.Columns[0].Visible = true;
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "SPSPropietario";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    gridViewPropietarios.DataSource = cmd.ExecuteReader();
+                    gridViewPropietarios.DataBind();
+                    gridViewPropietarios.Columns[0].Visible = false;
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
         }
 
@@ -44,15 +65,22 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPIPropietario";
-                cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@NumId", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
-                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
-                cmd.Connection = conn;
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "SPIPropietario";
+                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                    cmd.Parameters.Add("@NumId", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
+                    cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
         }
 
@@ -84,13 +112,20 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPDPropietario";
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(ID);
-                cmd.Connection = conn;
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "SPDPropietario";
+                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(ID);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
         }
 
@@ -110,16 +145,23 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPUPropietario";
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
-                cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
-                cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
-                cmd.Connection = conn;
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "SPUPropietario";
+                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                    cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(TextBoxNumID.Text.Trim());
+                    cmd.Parameters.Add("@TipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
         }
         protected void linkActualizar_Click(object sender, EventArgs e)
@@ -160,15 +202,21 @@ namespace Municipalidad_Bases
             if (txtBusqueda.Text.Trim() == "") return;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPSPropietarioPorNumId";
-                cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
-                cmd.Connection = conn;
-                conn.Open();
-                gridViewPropietarios.DataSource = cmd.ExecuteReader();
-                gridViewPropietarios.DataBind();
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "SPSPropietarioPorNumId";
+                    cmd.Parameters.Add("@NumId", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
+                    cmd.Connection = conn;
+                    conn.Open();
+                    gridViewPropietarios.DataSource = cmd.ExecuteReader();
+                    gridViewPropietarios.DataBind();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
         }
         protected void btnbuscar_Click(object sender, EventArgs e)
@@ -183,14 +231,21 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@NumCedula", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
-                cmd.CommandText = "SPSPropiedadesPorPropietario";
-                cmd.Connection = conn;
-                conn.Open();
-                gridPropeidadesPorPropietario.DataSource = cmd.ExecuteReader();
-                gridPropeidadesPorPropietario.DataBind();
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@NumCedula", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
+                    cmd.CommandText = "SPSPropiedadesPorPropietario";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    gridPropeidadesPorPropietario.DataSource = cmd.ExecuteReader();
+                    gridPropeidadesPorPropietario.DataBind();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
         }
 

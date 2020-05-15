@@ -36,7 +36,6 @@ namespace Municipalidad_Bases
                 gridViewPropiedades.Columns[0].Visible = false;
             }
         }
-
         //--------------//
         //   INSERT
         //--------------//
@@ -44,16 +43,38 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPIPropiedad";
-                cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(TextBoxNumFinca.Text.Trim());
-                cmd.Parameters.Add("@Valor", SqlDbType.Int).Value = Int64.Parse(TextBoxValor.Text.Trim());
-                cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = TextBoxDireccion.Text.Trim();
-                cmd.Connection = conn;
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    if (TextBoxValor.Text.Trim() == "") TextBoxValor.Text = "-1";
+                    if (TextBoxNumFinca.Text.Trim() == "") TextBoxNumFinca.Text = "-1";
+                    //FIX if (TextBoxDireccion.Text.Trim() == "") ;
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "SPIPropiedad";
+                    cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(TextBoxNumFinca.Text.Trim());
+                    cmd.Parameters.Add("@Valor", SqlDbType.Int).Value = Int64.Parse(TextBoxValor.Text.Trim());
+                    cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = TextBoxDireccion.Text.Trim();
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
+        }
+
+        public void ShowMessage(string message)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append("<script type = 'text/javascript'>");
+            sb.Append("window.onload=function(){");
+            sb.Append("alert('");
+            sb.Append(message);
+            sb.Append("')};");
+            sb.Append("</script>");
+            ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
         }
 
         protected void botonNuevo_Click(object sender, EventArgs e)
@@ -65,7 +86,6 @@ namespace Municipalidad_Bases
             pnlDatosPropiedades.Visible = false;
             pnlAltaPropiedad.Visible = true;
         }
-
 
 
         protected void botonGuardar_Click(object sender, EventArgs e)
@@ -86,16 +106,24 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                gridViewPropiedades.Columns[0].Visible = true;
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPDPropiedad";
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(ID);
-                cmd.Connection = conn;
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                gridViewPropiedades.Columns[0].Visible = false;
-
+                try
+                {
+                    if (TextBoxValor.Text.Trim() == "") TextBoxValor.Text = "-1";
+                    if (TextBoxNumFinca.Text.Trim() == "") TextBoxNumFinca.Text = "-1";
+                    gridViewPropiedades.Columns[0].Visible = true;
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "SPDPropiedad";
+                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = Int64.Parse(ID);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    gridViewPropiedades.Columns[0].Visible = false;
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
         }
 
@@ -115,16 +143,25 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPUPropiedad";
-                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
-                cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(TextBoxNumFinca.Text.Trim());
-                cmd.Parameters.Add("@Valor", SqlDbType.Int).Value = Int64.Parse(TextBoxValor.Text.Trim());
-                cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = TextBoxDireccion.Text.Trim();
-                cmd.Connection = conn;
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    if (TextBoxValor.Text.Trim() == "") TextBoxValor.Text = "-1";
+                    if (TextBoxNumFinca.Text.Trim() == "") TextBoxNumFinca.Text = "-1";
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "SPUPropiedad";
+                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                    cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(TextBoxNumFinca.Text.Trim());
+                    cmd.Parameters.Add("@Valor", SqlDbType.Int).Value = Int64.Parse(TextBoxValor.Text.Trim());
+                    cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = TextBoxDireccion.Text.Trim();
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
         }
 
@@ -166,14 +203,25 @@ namespace Municipalidad_Bases
 
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPSPropiedadPorNumFinca";
-                cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
-                cmd.Connection = conn;
-                conn.Open();
-                gridViewPropiedades.DataSource = cmd.ExecuteReader();
-                gridViewPropiedades.DataBind();
+                try
+                {
+                    if (TextBoxValor.Text.Trim() == "") TextBoxValor.Text = "-1";
+                    if (TextBoxNumFinca.Text.Trim() == "") TextBoxNumFinca.Text = "-1";
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "SPSPropiedadPorNumFinca";
+                    cmd.Parameters.Add("@NumFinca", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
+                    cmd.Connection = conn;
+                    conn.Open();
+                    gridViewPropiedades.DataSource = cmd.ExecuteReader();
+                    gridViewPropiedades.DataBind();
+                }
+
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+
             }
         }
         protected void btnbuscar_Click(object sender, EventArgs e)
@@ -189,14 +237,24 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@numFinca", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
-                cmd.CommandText = "SPSPropietariosPorPropiedad";
-                cmd.Connection = conn;
-                conn.Open();
-                gridPropietariosPorPropiedad.DataSource = cmd.ExecuteReader();
-                gridPropietariosPorPropiedad.DataBind();
+                try
+                {
+                    if (TextBoxValor.Text.Trim() == "") TextBoxValor.Text = "-1";
+                    if (TextBoxNumFinca.Text.Trim() == "") TextBoxNumFinca.Text = "-1";
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@numFinca", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
+                    cmd.CommandText = "SPSPropietariosPorPropiedad";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    gridPropietariosPorPropiedad.DataSource = cmd.ExecuteReader();
+                    gridPropietariosPorPropiedad.DataBind();
+                }
+
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
         }
 
@@ -235,14 +293,23 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@numFinca", SqlDbType.Int).Value = Int32.Parse(labelID.Text);
-                cmd.CommandText = "SPSUsuariosPorPropiedad";
-                cmd.Connection = conn;
-                conn.Open();
-                GridViewUsuarios.DataSource = cmd.ExecuteReader();
-                GridViewUsuarios.DataBind();
+                try
+                {
+                    if (TextBoxValor.Text.Trim() == "") TextBoxValor.Text = "-1";
+                    if (TextBoxNumFinca.Text.Trim() == "") TextBoxNumFinca.Text = "-1";
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@numFinca", SqlDbType.Int).Value = Int32.Parse(labelID.Text);
+                    cmd.CommandText = "SPSUsuariosPorPropiedad";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    GridViewUsuarios.DataSource = cmd.ExecuteReader();
+                    GridViewUsuarios.DataBind();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
             }
         }
 

@@ -8,7 +8,7 @@
 
         <asp:Panel runat="server" ID="pnlDatosPropiedades">
             <div>
-                <asp:Label Text="Número de Finca" runat="server" />
+                <asp:Label ID="labelBusqueda" Text="Número de Finca" runat="server" />
                 <asp:TextBox ID="txtBusqueda" runat="server"></asp:TextBox>
                 <asp:Button class="btn btn-info" Text="Buscar Propiedades" ID="btnbuscar" runat="server" OnClick="btnbuscar_Click" />
             </div>
