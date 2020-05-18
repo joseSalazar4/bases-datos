@@ -71,6 +71,7 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPIUsuario";
+                    cmd.Parameters.Add("@InFechaInsercion", SqlDbType.Date).Value =  DateTime.Now.ToString("yyyy-MM-dd");
                     cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                     cmd.Parameters.Add("@InPassword", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
                     cmd.Connection = conn;

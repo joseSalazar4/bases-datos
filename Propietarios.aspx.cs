@@ -67,14 +67,16 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
+                if (TextBoxTipoID.Text.Trim() == "") TextBoxTipoID.Text = "-1";
+                int error = Regex.Matches(TextBoxTipoID.Text.Trim(), @"[a-zA-Z]").Count;
+                if (error>0) TextBoxTipoID.Text = "-1";
+
                 try
                 {
-                    if (TextBoxTipoID.Text.Trim() == "") TextBoxTipoID.Text = "-1";
-                    int error = Regex.Matches(TextBoxTipoID.Text.Trim(), @"[a-zA-Z]").Count;
-                    if (error>0) TextBoxTipoID.Text = "-2";
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPIPropietario";
+                    cmd.Parameters.Add("@InFechaInsercion", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
                     cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                     cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
                     cmd.Parameters.Add("@InTipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
@@ -252,7 +254,7 @@ namespace Municipalidad_Bases
                     ShowMessage(ex.Errors[0].Message);
                 }
             }
-        }
+        }   
 
         protected void linkMostrarPropiedades_Click(object sender, EventArgs e)
         {
