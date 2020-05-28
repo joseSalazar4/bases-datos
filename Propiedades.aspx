@@ -14,7 +14,7 @@
             </div>
             <br />
 
-            <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="False" DataKeyNames="NumFinca" OnRowDeleting="gridViewPropiedades_RowDeleting">
+            <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="False" DataKeyNames="NumFinca" OnRowDeleting="gridViewPropiedades_RowDeleting" Width="1000">
                 <Columns>
                     <asp:BoundField DataField="NumFinca" HeaderText="Numero Finca" />
                     <asp:BoundField DataField="Valor" HeaderText="Valor" />
@@ -66,7 +66,9 @@
                 <asp:Label ID="labelDireccion" Text="Dirección" runat="server"></asp:Label>
                 <asp:TextBox ID="TextBoxDireccion" runat="server" />
             </div>
-           
+            <div>
+                <asp:Label ID="labelActualizar" runat="server" Visible="false"></asp:Label>
+            </div>
             <br />
 
             <asp:Button class="btn btn-info" ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />

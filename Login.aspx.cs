@@ -51,7 +51,7 @@ namespace Municipalidad_Bases
                     SqlDataReader lector = command.ExecuteReader();
                     if (lector.Read())
                     {
-                        Response.Redirect(@"\Default.aspx");
+                        Response.Redirect(@"\Propiedades.aspx");
                         labelMensaje.Text = "";
                     }
                     else

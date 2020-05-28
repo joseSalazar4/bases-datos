@@ -153,7 +153,7 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPUPropietario";
-                    cmd.Parameters.Add("@InNumIdViejo", SqlDbType.VarChar).Value = labelID;
+                    cmd.Parameters.Add("@InNumIdViejo", SqlDbType.VarChar).Value = labelActualizar.Text.Trim();
                     cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                     cmd.Parameters.Add("@InNumIdActualizado", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
                     cmd.Parameters.Add("@InTipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
@@ -178,7 +178,7 @@ namespace Municipalidad_Bases
             labelNombre.Text = "Se está actualizando el Nombre (antes era: " + row.Cells[0].Text + ") :";
             labelNumID.Text = "Se está actualizando el Número de ID (antes era: " + row.Cells[1].Text + ") :";
             labelTipoID.Text = "Se está actualizando el tipo de ID (antes era: " + row.Cells[2].Text + ") :";
-            labelID = row.Cells[0].Text;
+            labelActualizar.Text= row.Cells[0].Text;
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)

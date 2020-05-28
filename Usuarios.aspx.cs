@@ -137,7 +137,7 @@ namespace Municipalidad_Bases
         //--------------//
         //    UPDATE
         //--------------//
-        public void actualizarUsuario()
+        public void actualizarUsuario(string usernameViejo)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
@@ -148,9 +148,9 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPUUsuario";
-                    cmd.Parameters.Add("@InNombreViejo", SqlDbType.Int).Value = labelID;
-                    cmd.Parameters.Add("@InNombreActualizado", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                    cmd.Parameters.Add("@InPassword", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
+                    cmd.Parameters.Add("@InUsernameViejo", SqlDbType.VarChar).Value = usernameViejo;
+                    cmd.Parameters.Add("@InUsernameNuevo", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
+                    cmd.Parameters.Add("@InPasswordNueva", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -172,8 +172,7 @@ namespace Municipalidad_Bases
             gridViewUsuarios.SelectedIndex = row.RowIndex;
             labelNombre.Text = "Se está actualizando la Nombre (antes era:  " + row.Cells[0].Text + ") :";
             labelPassword.Text = "Se está actualizando el Password (antes era:  " + row.Cells[1].Text + ") :";
-            labelID = row.Cells[0].Text;
-
+            labelActualizar.Text = row.Cells[0].Text;
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)
@@ -181,8 +180,8 @@ namespace Municipalidad_Bases
             pnlAltaUsuarios.Visible = false;
             botonAgregar.Visible = true;
             botonGuardar.Visible = true;
-            actualizarUsuario();
-            TextBoxNombre.Text = "";
+            actualizarUsuario(labelActualizar.Text);
+            TextBoxNombre.Text = "";    
             TextBoxPassword.Text = "";
             botonActualizar.Visible = false;
             CargaDatosUsuario();

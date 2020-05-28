@@ -12,7 +12,7 @@
                 <asp:Button class="btn btn-info" Text="Buscar Usuarios" ID="btnbuscar" runat="server" OnClick="btnbuscar_Click" />
             </div>
             <br />
-            <asp:GridView ID="gridViewUsuarios" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewUsuarios_RowDeleting">
+            <asp:GridView ID="gridViewUsuarios" runat="server" AutoGenerateColumns="false" DataKeyNames="Nombre" OnRowDeleting="gridViewUsuarios_RowDeleting">
                 <Columns>
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                     <asp:BoundField DataField="Password" HeaderText="Password" />
@@ -41,6 +41,9 @@
             <div>
                 <asp:Label ID="labelPassword" Text="Password" runat="server"></asp:Label>
                 <asp:TextBox ID="TextBoxPassword" runat="server" />
+            </div>
+            <div>
+                <asp:Label ID="labelActualizar" runat="server" Visible="false"></asp:Label>
             </div>
             <br />
             <asp:Button class="btn btn-info" ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />

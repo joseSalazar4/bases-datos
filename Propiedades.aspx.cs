@@ -161,8 +161,8 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPUPropiedad";
-                    cmd.Parameters.Add("@InNumFincaViejo", SqlDbType.VarChar).Value = labelID;
-                    cmd.Parameters.Add("@InNumFincaActualizado", SqlDbType.VarChar).Value = TextBoxNumFinca.Text.Trim();
+                    cmd.Parameters.Add("@InNumFincaViejo", SqlDbType.VarChar).Value = labelActualizar.Text.Trim();
+                    cmd.Parameters.Add("@InNumFincaNuevo", SqlDbType.VarChar).Value = TextBoxNumFinca.Text.Trim();
                     cmd.Parameters.Add("@InValor", SqlDbType.Int).Value = Int64.Parse(TextBoxValor.Text.Trim());
                     cmd.Parameters.Add("@InDireccion", SqlDbType.VarChar).Value = TextBoxDireccion.Text.Trim();
                     cmd.Connection = conn;
@@ -186,7 +186,7 @@ namespace Municipalidad_Bases
             labelNumFinca.Text = "Se está actualizando el Número de Finca (antes era: " + row.Cells[0].Text + ") :";
             labelValor.Text = "Se está actualizando el Valor (antes era: " + row.Cells[1].Text + ") :";
             labelDireccion.Text = "Se está actualizando la Dirección (antes era:  " + row.Cells[2].Text + ") :";
-            labelID = row.Cells[0].Text;
+            labelActualizar.Text = row.Cells[0].Text;
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)
