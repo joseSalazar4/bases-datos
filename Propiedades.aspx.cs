@@ -10,6 +10,8 @@ namespace Municipalidad_Bases
 {
     public partial class Propiedades : System.Web.UI.Page
     {
+        string labelID;
+
 
         public void ShowMessage(string message)
         {
@@ -39,7 +41,6 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                gridViewPropiedades.Columns[0].Visible = true;
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSPropiedad";
@@ -47,7 +48,6 @@ namespace Municipalidad_Bases
                 conn.Open();
                 gridViewPropiedades.DataSource = cmd.ExecuteReader();
                 gridViewPropiedades.DataBind();
-                gridViewPropiedades.Columns[0].Visible = false;
             }
         }
         //--------------//
@@ -89,7 +89,7 @@ namespace Municipalidad_Bases
         protected void botonNuevo_Click(object sender, EventArgs e)
         {
             labelDireccion.Text = "Dirección ";
-            labelNumFinca.Text = "Número de Finca";
+            labelNumFinca.Text = "Número de Finca ";
             labelValor.Text = "Valor ";
             botonActualizar.Visible = false;
             pnlDatosPropiedades.Visible = false;
@@ -119,15 +119,13 @@ namespace Municipalidad_Bases
                 {
                     if (TextBoxValor.Text.Trim() == "") TextBoxValor.Text = "-1";
                     if (TextBoxNumFinca.Text.Trim() == "") TextBoxNumFinca.Text = "-1";
-                    gridViewPropiedades.Columns[0].Visible = true;
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPDPropiedad";
-                    cmd.Parameters.Add("@InID", SqlDbType.Int).Value = Int64.Parse(ID);
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = ID;
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
-                    gridViewPropiedades.Columns[0].Visible = false;
                 }
                 catch (SqlException ex)
                 {
@@ -138,17 +136,15 @@ namespace Municipalidad_Bases
 
         protected void gridViewPropiedades_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            gridViewPropiedades.Columns[0].Visible = true;
             GridViewRow row = (GridViewRow)gridViewPropiedades.Rows[e.RowIndex];
             eliminarUsuario(gridViewPropiedades.DataKeys[e.RowIndex].Value.ToString());
             CargaDatosUsuario();
-            gridViewPropiedades.Columns[0].Visible = false;
         }
 
         //--------------//
         //    UPDATE    //
         //--------------//
-        public void actualizarUsuario(int ID)
+        public void actualizarUsuario()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
@@ -165,8 +161,8 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPUPropiedad";
-                    cmd.Parameters.Add("@InID", SqlDbType.Int).Value = ID;
-                    cmd.Parameters.Add("@InNumFinca", SqlDbType.Int).Value = Int64.Parse(TextBoxNumFinca.Text.Trim());
+                    cmd.Parameters.Add("@InNumFincaViejo", SqlDbType.VarChar).Value = labelID;
+                    cmd.Parameters.Add("@InNumFincaActualizado", SqlDbType.VarChar).Value = TextBoxNumFinca.Text.Trim();
                     cmd.Parameters.Add("@InValor", SqlDbType.Int).Value = Int64.Parse(TextBoxValor.Text.Trim());
                     cmd.Parameters.Add("@InDireccion", SqlDbType.VarChar).Value = TextBoxDireccion.Text.Trim();
                     cmd.Connection = conn;
@@ -182,17 +178,15 @@ namespace Municipalidad_Bases
 
         protected void linkActualizar_Click(object sender, EventArgs e)
         {
-            gridViewPropiedades.Columns[0].Visible = true;
             pnlAltaPropiedad.Visible = true;
             botonGuardar.Visible = false;
             botonActualizar.Visible = true;
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
-            labelNumFinca.Text = "Se está actualizando el Número de Finca (antes era: " + row.Cells[1].Text + ") :";
-            labelValor.Text = "Se está actualizando el Valor (antes era: " + row.Cells[2].Text + ") :";
-            labelDireccion.Text = "Se está actualizando la Dirección (antes era:  " + row.Cells[3].Text + ") :";
-            labelID.Text = row.Cells[0].Text;
-            gridViewPropiedades.Columns[0].Visible = false;
+            labelNumFinca.Text = "Se está actualizando el Número de Finca (antes era: " + row.Cells[0].Text + ") :";
+            labelValor.Text = "Se está actualizando el Valor (antes era: " + row.Cells[1].Text + ") :";
+            labelDireccion.Text = "Se está actualizando la Dirección (antes era:  " + row.Cells[2].Text + ") :";
+            labelID = row.Cells[0].Text;
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)
@@ -200,7 +194,7 @@ namespace Municipalidad_Bases
             pnlAltaPropiedad.Visible = false;
             botonGuardar.Visible = true;
             botonAgregar.Visible = true;
-            actualizarUsuario(Int32.Parse(labelID.Text));
+            actualizarUsuario();
             TextBoxDireccion.Text = "";
             TextBoxNumFinca.Text = "";
             TextBoxValor.Text = "";
@@ -227,7 +221,7 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPSPropiedadPorNumFinca";
-                    cmd.Parameters.Add("@InNumFinca", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = txtBusqueda.Text.Trim();
                     cmd.Connection = conn;
                     conn.Open();
                     gridViewPropiedades.DataSource = cmd.ExecuteReader();
@@ -260,7 +254,7 @@ namespace Municipalidad_Bases
                     if (TextBoxNumFinca.Text.Trim() == "") TextBoxNumFinca.Text = "-1";
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@InnumFinca", SqlDbType.Int).Value = Int64.Parse(labelID.Text);
+                    cmd.Parameters.Add("@InnumFinca", SqlDbType.VarChar).Value = labelID;
                     cmd.CommandText = "SPSPropietariosPorPropiedad";
                     cmd.Connection = conn;
                     conn.Open();
@@ -279,7 +273,7 @@ namespace Municipalidad_Bases
         {
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
-            labelID.Text = row.Cells[1].Text;
+            labelID = row.Cells[0].Text;
             pnlAltaPropiedad.Visible = false;
             pnlDatosPropiedades.Visible = false;
             panelConexiones.Visible = true;
@@ -316,7 +310,7 @@ namespace Municipalidad_Bases
                     if (TextBoxNumFinca.Text.Trim() == "") TextBoxNumFinca.Text = "-1";
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@InnumFinca", SqlDbType.Int).Value = Int32.Parse(labelID.Text);
+                    cmd.Parameters.Add("@InnumFinca", SqlDbType.VarChar).Value = labelID;
                     cmd.CommandText = "SPSUsuariosPorPropiedad";
                     cmd.Connection = conn;
                     conn.Open();
@@ -335,7 +329,7 @@ namespace Municipalidad_Bases
         {
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
-            labelID.Text = row.Cells[1].Text;
+            labelID = row.Cells[0].Text;
             pnlAltaPropiedad.Visible = false;
             pnlDatosPropiedades.Visible = false;
             panelUsuarios.Visible = true;
@@ -346,5 +340,11 @@ namespace Municipalidad_Bases
             labelTituloPropietarios.Visible =false ;
             labelUsuarios.Visible = true;
         }
+
+        protected void linkMostrarConceptosCobro_Click(object sender, EventArgs e)
+        {
+
+        }
+        
     }
 }

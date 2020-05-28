@@ -61,7 +61,7 @@ namespace Municipalidad_Bases
                 }
                 catch (SqlException ex)
                 {
-                    ShowMessage("HOLA WEI");
+                    ShowMessage(ex.Errors[0].Message);
                     labelMensaje.Text = "El usuario o la contrasena no son correctos ";
                 }
             }

@@ -14,9 +14,8 @@
             </div>
             <br />
 
-            <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewPropiedades_RowDeleting">
+            <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="False" DataKeyNames="NumFinca" OnRowDeleting="gridViewPropiedades_RowDeleting">
                 <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="ID" />
                     <asp:BoundField DataField="NumFinca" HeaderText="Numero Finca" />
                     <asp:BoundField DataField="Valor" HeaderText="Valor" />
                     <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
@@ -30,16 +29,20 @@
 
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="linkMostrarPropietarios" runat="server" Text="Ver Propietarios" OnClick="linkMostrarPropietarios_Click" />
+                            <asp:LinkButton ID="linkMostrarPropietarios" runat="server" OnClick="linkMostrarPropietarios_Click" Text="Ver Propietarios" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="linkMostrarUsuarios" runat="server" OnClick="linkMostrarUsuarios_Click" Text="Ver Usuarios" />
                         </ItemTemplate>
                     </asp:TemplateField>
 
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="linkMostrarUsuarios" runat="server" Text="Ver Usuarios" OnClick="linkMostrarUsuarios_Click" />
+                            <asp:LinkButton ID="linkMostrarConceptosCobro" runat="server" Text="Ver Conceptos de Cobro" OnClick="linkMostrarConceptosCobro_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
-
 
                 </Columns>
             </asp:GridView>
@@ -63,9 +66,7 @@
                 <asp:Label ID="labelDireccion" Text="Dirección" runat="server"></asp:Label>
                 <asp:TextBox ID="TextBoxDireccion" runat="server" />
             </div>
-            <div>
-                <asp:Label ID="labelID" Text="ID" runat="server" Visible="false"></asp:Label>
-            </div>
+           
             <br />
 
             <asp:Button class="btn btn-info" ID="botonGuardar" runat="server" Text="Guardar" OnClick="botonGuardar_Click" />

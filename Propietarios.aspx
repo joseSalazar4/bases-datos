@@ -13,7 +13,6 @@
             <br />
             <asp:GridView ID="gridViewPropietarios" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewPropietarios_RowDeleting">
                 <Columns>
-                    <asp:BoundField DataField="ID" HeaderText="ID" />
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                     <asp:BoundField DataField="NumId" HeaderText="Numero ID" />
                     <asp:BoundField DataField="TipoId" HeaderText="Tipo ID" />
@@ -47,9 +46,6 @@
             <div>
                 <asp:Label ID="labelTipoID" Text="Tipo ID" runat="server"></asp:Label>
                 <asp:TextBox ID="TextBoxTipoID" runat="server" />
-            </div>
-            <div>
-                <asp:Label ID="labelID" Text="ID" runat="server" Visible="false"></asp:Label>
             </div>
             <br />
             <asp:Button class="btn btn-info" ID="botonGuardar"  runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
