@@ -11,7 +11,7 @@ namespace Municipalidad_Bases
     public partial class Propietarios : System.Web.UI.Page
     {
 
-        string labelID;
+        public static string labelID,labelAux;
         public void ShowMessage(string message)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -74,7 +74,8 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPIPropietario";
-                    cmd.Parameters.Add("@InFechaInsercion", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
+                    string m = DateTime.Now.ToString("yyyy-MM-dd");
+                    cmd.Parameters.Add("@InFechaInsercion", SqlDbType.Date).Value = m;
                     cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                     cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
                     cmd.Parameters.Add("@InTipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
@@ -122,7 +123,7 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPDPropietario";
-                    cmd.Parameters.Add("@InID", SqlDbType.VarChar).Value = ID;
+                    cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = ID;
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -153,9 +154,9 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPUPropietario";
-                    cmd.Parameters.Add("@InNumIdViejo", SqlDbType.VarChar).Value = labelActualizar.Text.Trim();
                     cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
-                    cmd.Parameters.Add("@InNumIdActualizado", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
+                    cmd.Parameters.Add("@InNumIdViejo", SqlDbType.VarChar).Value = labelActualizar.Text.Trim();
+                    cmd.Parameters.Add("@InNumIdNuevo", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
                     cmd.Parameters.Add("@InTipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
                     cmd.Connection = conn;
                     conn.Open();
@@ -178,7 +179,7 @@ namespace Municipalidad_Bases
             labelNombre.Text = "Se está actualizando el Nombre (antes era: " + row.Cells[0].Text + ") :";
             labelNumID.Text = "Se está actualizando el Número de ID (antes era: " + row.Cells[1].Text + ") :";
             labelTipoID.Text = "Se está actualizando el tipo de ID (antes era: " + row.Cells[2].Text + ") :";
-            labelActualizar.Text= row.Cells[0].Text;
+            labelActualizar.Text= row.Cells[1].Text;
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)
@@ -236,7 +237,7 @@ namespace Municipalidad_Bases
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@InNumCedula", SqlDbType.VarChar).Value = labelID;
+                    cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = labelID;
                     cmd.CommandText = "SPSPropiedadesPorPropietario";
                     cmd.Connection = conn;
                     conn.Open();
@@ -276,5 +277,44 @@ namespace Municipalidad_Bases
             labelTitulo.Visible = true;
             labelTituloProp.Visible = false;
         }
+        public void eliminarRelacionPropietario()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = labelAux;
+                    cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = labelID;
+                    cmd.CommandText = "SPDPropiedadXPropietario";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
+        }
+
+
+        protected void EliminarRPropiedad_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            gridPropeidadesPorPropietario.SelectedIndex = row.RowIndex;
+            labelAux = row.Cells[0].Text;
+            pnlAltaPropietarios.Visible = false;
+            pnlDatosPropietarios.Visible = false;
+            botonAgregar.Visible = false;
+            eliminarRelacionPropietario();
+            labelTitulo.Visible = false;
+            labelTituloProp.Visible = true;
+            verPropiedades();
+
+        }
+
+       
     }
 }

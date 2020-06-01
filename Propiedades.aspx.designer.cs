@@ -42,6 +42,15 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl labelUsuarios;
 
         /// <summary>
+        /// labelCC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl labelCC;
+
+        /// <summary>
         /// pnlDatosPropiedades control.
         /// </summary>
         /// <remarks>
@@ -78,15 +87,6 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Button btnbuscar;
 
         /// <summary>
-        /// gridViewPropiedades control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridViewPropiedades;
-
-        /// <summary>
         /// botonAgregar control.
         /// </summary>
         /// <remarks>
@@ -96,6 +96,15 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Button botonAgregar;
 
         /// <summary>
+        /// gridViewPropiedades control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gridViewPropiedades;
+
+        /// <summary>
         /// pnlAltaPropiedad control.
         /// </summary>
         /// <remarks>
@@ -103,15 +112,6 @@ namespace Municipalidad_Bases
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAltaPropiedad;
-
-        /// <summary>
-        /// labelMensajeError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelMensajeError;
 
         /// <summary>
         /// labelNumFinca control.
@@ -204,15 +204,6 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Panel panelConexiones;
 
         /// <summary>
-        /// LblN control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblN;
-
-        /// <summary>
         /// gridPropietariosPorPropiedad control.
         /// </summary>
         /// <remarks>
@@ -220,6 +211,33 @@ namespace Municipalidad_Bases
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gridPropietariosPorPropiedad;
+
+        /// <summary>
+        /// labelRNumId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelRNumId;
+
+        /// <summary>
+        /// TextBoxRNumId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxRNumId;
+
+        /// <summary>
+        /// ButtonInsertarRPropietario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonInsertarRPropietario;
 
         /// <summary>
         /// botonVolver control.
@@ -240,15 +258,6 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Panel panelUsuarios;
 
         /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-
-        /// <summary>
         /// GridViewUsuarios control.
         /// </summary>
         /// <remarks>
@@ -258,12 +267,102 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.GridView GridViewUsuarios;
 
         /// <summary>
-        /// Button1 control.
+        /// labelRNombre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Label labelRNombre;
+
+        /// <summary>
+        /// TextBoxRNombre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxRNombre;
+
+        /// <summary>
+        /// ButtonInsertarRUsuario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonInsertarRUsuario;
+
+        /// <summary>
+        /// botonVolver1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button botonVolver1;
+
+        /// <summary>
+        /// panelConceptos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelConceptos;
+
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+
+        /// <summary>
+        /// GridViewConceptos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewConceptos;
+
+        /// <summary>
+        /// labelRID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelRID;
+
+        /// <summary>
+        /// TextBoxRID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxRID;
+
+        /// <summary>
+        /// ButtonInsertarRCC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonInsertarRCC;
+
+        /// <summary>
+        /// botonVolver2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button botonVolver2;
     }
 }

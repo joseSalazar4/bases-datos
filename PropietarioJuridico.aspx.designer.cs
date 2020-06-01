@@ -60,15 +60,6 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.TextBox txtBusqueda;
 
         /// <summary>
-        /// btnbuscar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnbuscar;
-
-        /// <summary>
         /// gridViewPropietarios control.
         /// </summary>
         /// <remarks>
@@ -220,50 +211,5 @@ namespace Municipalidad_Bases
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button botonActualizar;
-
-        /// <summary>
-        /// panelConexiones control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelConexiones;
-
-        /// <summary>
-        /// gridPropiedadesPorPropietario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridPropiedadesPorPropietario;
-
-        /// <summary>
-        /// panelResponsable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelResponsable;
-
-        /// <summary>
-        /// GridViewResponsable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewResponsable;
-
-        /// <summary>
-        /// botonVolver control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button botonVolver;
     }
 }

@@ -11,7 +11,7 @@
                 <asp:Button class="btn btn-info" Text="Buscar Propietarios" ID="btnbuscar" runat="server" OnClick="btnbuscar_Click" />
             </div>
             <br />
-            <asp:GridView ID="gridViewPropietarios" runat="server" AutoGenerateColumns="false" DataKeyNames="ID" OnRowDeleting="gridViewPropietarios_RowDeleting" Width="1000">
+            <asp:GridView ID="gridViewPropietarios" runat="server" AutoGenerateColumns="false" DataKeyNames="NumId" OnRowDeleting="gridViewPropietarios_RowDeleting" >
                 <Columns>
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                     <asp:BoundField DataField="NumId" HeaderText="Numero ID" />
@@ -19,13 +19,13 @@
                     <asp:CommandField ShowDeleteButton="true" EditText="Eliminar" />
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton  ID="linkActualizar" runat="server" Text="Actualizar" OnClick="linkActualizar_Click" />
+                            <asp:LinkButton  ID="linkActualizar" runat="server" Text=" Actualizar" OnClick="linkActualizar_Click"/>
                         </ItemTemplate>
                     </asp:TemplateField>
 
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="linkMostrarPropiedades" runat="server" Text="Ver Propiedades" OnClick="linkMostrarPropiedades_Click" />
+                            <asp:LinkButton ID="linkMostrarPropiedades" runat="server" Text=" Propiedades " OnClick="linkMostrarPropiedades_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -61,6 +61,11 @@
                     <asp:BoundField DataField="numFinca" HeaderText="Número de Finca" />
                     <asp:BoundField DataField="valor" HeaderText="Valor" />
                     <asp:BoundField DataField="direccion" HeaderText="Dirección" />
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="EliminarRPropiedad" runat="server" Text="Eliminar relación" OnClick="EliminarRPropiedad_Click" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
             <asp:Button class="btn btn-info" ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />

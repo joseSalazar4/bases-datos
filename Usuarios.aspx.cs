@@ -10,7 +10,7 @@ namespace Municipalidad_Bases
 {
     public partial class Usuarios : System.Web.UI.Page
     {
-        string labelID;
+        public static string labelID,labelAux;
         public void ShowMessage(string message)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -49,7 +49,7 @@ namespace Municipalidad_Bases
                     conn.Open();
                     gridViewUsuarios.DataSource = cmd.ExecuteReader();
                     gridViewUsuarios.DataBind();
-                }   
+                }
                 catch (SqlException ex)
                 {
                     ShowMessage(ex.Errors[0].Message);
@@ -69,7 +69,6 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPIUsuario";
-                    cmd.Parameters.Add("@InFechaInsercion", SqlDbType.Date).Value =  DateTime.Now.ToString("yyyy-MM-dd");
                     cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                     cmd.Parameters.Add("@InPassword", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
                     cmd.Connection = conn;
@@ -181,7 +180,7 @@ namespace Municipalidad_Bases
             botonAgregar.Visible = true;
             botonGuardar.Visible = true;
             actualizarUsuario(labelActualizar.Text);
-            TextBoxNombre.Text = "";    
+            TextBoxNombre.Text = "";
             TextBoxPassword.Text = "";
             botonActualizar.Visible = false;
             CargaDatosUsuario();
@@ -191,16 +190,16 @@ namespace Municipalidad_Bases
         //    SEARCH    //
         //--------------//
 
-        public void BusquedaPropiedad()
+        public void BusquedaUsuario()
         {
             if (txtBusqueda.Text.Trim() == "") return;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                
+
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSUsuarioPorNombre";
-                cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = txtBusqueda.Text.Trim();
+                cmd.Parameters.Add("@InUsername", SqlDbType.VarChar).Value = txtBusqueda.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewUsuarios.DataSource = cmd.ExecuteReader();
@@ -209,7 +208,7 @@ namespace Municipalidad_Bases
         }
         protected void btnbuscar_Click(object sender, EventArgs e)
         {
-            BusquedaPropiedad();
+            BusquedaUsuario();
         }
 
 
@@ -265,5 +264,43 @@ namespace Municipalidad_Bases
             labelTitulo.Visible = true;
             labelTituloProp.Visible = false;
         }
+
+        public void eliminarRelacionPropiedad()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = labelAux;
+                    cmd.Parameters.Add("@InUsername", SqlDbType.VarChar).Value = labelID;
+                    cmd.CommandText = "SPDUsuarioXPropiedad";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
+        }
+
+
+        protected void linkEliminarRPropiedad_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            gridPropeidadesPorUsuario.SelectedIndex = row.RowIndex;
+            labelAux = row.Cells[0].Text;
+            pnlAltaUsuarios.Visible = false;
+            pnlDatosUsuarios.Visible = false;
+            botonAgregar.Visible = false;
+            eliminarRelacionPropiedad();
+            labelTitulo.Visible = false;
+            labelTituloProp.Visible = true; 
+            verPropiedades();
+        }
+
     }
 }

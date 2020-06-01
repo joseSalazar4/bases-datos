@@ -55,6 +55,12 @@
                     <asp:BoundField DataField="numFinca" HeaderText="Número de Finca" />
                     <asp:BoundField DataField="valor" HeaderText="Valor" />
                     <asp:BoundField DataField="direccion" HeaderText="Dirección" />
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="linkEliminarRPropiedad" runat="server" Text="Eliminar Relación" OnClick="linkEliminarRPropiedad_Click"/>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                
                 </Columns>
             </asp:GridView>
         </asp:Panel>

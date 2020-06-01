@@ -17,7 +17,6 @@ namespace Municipalidad_Bases
             }
         }
 
-
         //--------------//
         //    SELECT    //
         //--------------//
@@ -25,7 +24,6 @@ namespace Municipalidad_Bases
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
-                gridViewPropietarios.Columns[0].Visible = true;
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSPropietarioJuridico";
@@ -33,7 +31,6 @@ namespace Municipalidad_Bases
                 conn.Open();
                 gridViewPropietarios.DataSource = cmd.ExecuteReader();
                 gridViewPropietarios.DataBind();
-                gridViewPropietarios.Columns[0].Visible = false;
             }
         }
 
@@ -105,11 +102,9 @@ namespace Municipalidad_Bases
         protected void gridViewPropietarios_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
 
-            gridViewPropietarios.Columns[0].Visible = true;
             GridViewRow row = (GridViewRow)gridViewPropietarios.Rows[e.RowIndex];
             eliminarUsuario(gridViewPropietarios.DataKeys[e.RowIndex].Value.ToString());
             CargaDatosUsuario();
-            gridViewPropietarios.Columns[0].Visible = false;
         }
 
         //--------------//
@@ -133,7 +128,6 @@ namespace Municipalidad_Bases
 
         protected void linkActualizar_Click(object sender, EventArgs e)
         {
-            gridViewPropietarios.Columns[0].Visible = true;
             pnlAltaPropietarios.Visible = true;
             botonGuardar.Visible = false;
             botonActualizar.Visible = true;
@@ -142,7 +136,6 @@ namespace Municipalidad_Bases
             labelNombre.Text = "Se está actualizando el Nombre (antes era: " + row.Cells[1].Text + ") :";
             labelNumID.Text = "Se está actualizando el Número de ID (antes era: " + row.Cells[2].Text + ") :";
             labelID.Text = row.Cells[0].Text;
-            gridViewPropietarios.Columns[0].Visible = false;
         }
 
         protected void botonActualizar_Click(object sender, EventArgs e)
@@ -177,6 +170,7 @@ namespace Municipalidad_Bases
                 gridViewPropietarios.DataBind();
             }
         }
+        /*
         protected void btnbuscar_Click(object sender, EventArgs e)
         {
             BusquedaPropiedad();
@@ -200,7 +194,6 @@ namespace Municipalidad_Bases
                 gridPropiedadesPorPropietario.DataBind();
             }
         }
-
         protected void linkMostrarPropiedades_Click(object sender, EventArgs e)
         {
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
@@ -216,53 +209,8 @@ namespace Municipalidad_Bases
             botonVolver.Visible = true;
             verPropiedades();
         }
+        */
 
-        protected void botonVolver_Click(object sender, EventArgs e)
-        {
-            pnlAltaPropietarios.Visible = false;
-            pnlDatosPropietariosJuridicos.Visible = true;
-            panelConexiones.Visible = false;
-            CargaDatosUsuario();
-            botonVolver.Visible = false;
-            botonAgregar.Visible = true;
-            panelResponsable.Visible = false;
-
-            labelTitulo.Visible = true;
-            labelRepresentantes.Visible = false;
-            labelPropiedades.Visible = false;
-        }
-
-        public void mostrarRepresentantes(int ID)
-        {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPSResponsable";
-                cmd.Parameters.Add("@InID", SqlDbType.Int).Value = ID;
-                cmd.Connection = conn;
-                conn.Open();
-                GridViewResponsable.DataSource = cmd.ExecuteReader();
-                GridViewResponsable.DataBind();
-            }
-        }
-
-        protected void linkMostrarRepresentante_Click(object sender, EventArgs e)
-        {
-            gridViewPropietarios.Columns[0].Visible = true;
-            pnlAltaPropietarios.Visible = false;
-            pnlDatosPropietariosJuridicos.Visible = false;
-            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
-            gridViewPropietarios.SelectedIndex = row.RowIndex;
-            labelID.Text = row.Cells[0].Text;
-            gridViewPropietarios.Columns[0].Visible = false;
-            mostrarRepresentantes(Int32.Parse(labelID.Text));
-            labelTitulo.Visible = false;
-            labelRepresentantes.Visible = true;
-            labelPropiedades.Visible = false;
-            botonVolver.Visible = true;
-            panelResponsable.Visible = true;
-        }
         public void ShowMessage(string message)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -275,5 +223,14 @@ namespace Municipalidad_Bases
             ClientScript.RegisterClientScriptBlock(this.GetType(), "ERROR", sb.ToString());
         }
 
+        protected void linkEliminar_Click(EventArgs e)
+        {
+
+        }
+
+        protected void linkEliminar_Click1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
