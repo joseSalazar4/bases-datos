@@ -3,7 +3,6 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.UI.WebControls;
 using System;
-using System.Web.UI;
 
 
 namespace Municipalidad_Bases
@@ -301,6 +300,39 @@ namespace Municipalidad_Bases
             labelTituloProp.Visible = true; 
             verPropiedades();
         }
+        //---------------//
+        // Insertar User //
+        //---------------//
+        public void insertarRelacionPropiedad()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InUsername", SqlDbType.VarChar).Value = labelID;
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = TextBoxRNumFinca.Text.Trim();
+                    cmd.CommandText = "SPIUsuarioXPropiedad";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
+        }
+
+        protected void ButtonInsertarRPropiedad_Click(object sender, EventArgs e)
+        {
+            insertarRelacionPropiedad();
+            verPropiedades();
+            TextBoxRNumFinca.Text = "";
+        }
+
 
     }
+
 }

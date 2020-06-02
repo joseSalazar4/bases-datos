@@ -68,7 +68,14 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-            <asp:Button class="btn btn-info" ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
+            <br />
+            <div>
+                <asp:Label ID="labelRNumFinca" Text="Numero Finca: " runat="server"></asp:Label>
+                <asp:TextBox ID="TextBoxRNumFinca" runat="server" />
+                <asp:Button class="btn btn-info" ID="ButtonInsertarRPropiedad" runat="server" Text="Insertar" OnClick=  "ButtonInsertarRPropiedad_Click" />
+            </div>
+            <br />
         </asp:Panel>
+            <asp:Button class="btn btn-info" ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
     </div>
 </asp:Content>

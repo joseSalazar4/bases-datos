@@ -314,7 +314,37 @@ namespace Municipalidad_Bases
             verPropiedades();
 
         }
+        //---------------//
+        // Insertar PROP //
+        //---------------//
+        public void insertarRelacionPropiedad()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = labelID;
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = TextBoxRNumFinca.Text.Trim();
+                    cmd.CommandText = "SPIPropiedadXPropietario";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
+        }
+        protected void ButtonInsertarRPropiedad_Click(object sender, EventArgs e)
+        {
+            insertarRelacionPropiedad();
+            verPropiedades();
+            TextBoxRNumFinca.Text = "";
+        }
 
-       
+
     }
 }

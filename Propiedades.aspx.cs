@@ -59,11 +59,8 @@ namespace Municipalidad_Bases
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 if (TextBoxValor.Text.Trim() == "") TextBoxValor.Text = "-1";
-                if (TextBoxNumFinca.Text.Trim() == "") TextBoxNumFinca.Text = "-1";
                 int error = Regex.Matches(TextBoxValor.Text.Trim(), @"[a-zA-Z]").Count;
                 if (error > 0) TextBoxValor.Text = "-2";
-                error = Regex.Matches(TextBoxNumFinca.Text.Trim(), @"[a-zA-Z]").Count;
-                if (error > 0) TextBoxNumFinca.Text = "-2";
 
 
                 try
@@ -72,8 +69,8 @@ namespace Municipalidad_Bases
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPIPropiedad";
                     cmd.Parameters.Add("@InFechaInsercion", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
-                    cmd.Parameters.Add("@InNumFinca", SqlDbType.Int).Value = Int64.Parse(TextBoxNumFinca.Text.Trim());
-                    cmd.Parameters.Add("@InValor", SqlDbType.Int).Value = Int64.Parse(TextBoxValor.Text.Trim());
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = TextBoxNumFinca.Text.Trim();
+                    cmd.Parameters.Add("@InValor", SqlDbType.Money).Value = float.Parse(TextBoxValor.Text.Trim());
                     cmd.Parameters.Add("@InDireccion", SqlDbType.VarChar).Value = TextBoxDireccion.Text.Trim();
                     cmd.Connection = conn;
                     conn.Open();

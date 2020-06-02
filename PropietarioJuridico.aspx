@@ -12,16 +12,12 @@
                 <asp:TextBox ID="txtBusqueda" runat="server"></asp:TextBox>
             </div>
             <br />
-            <asp:GridView ID="gridViewPropietarios" runat="server" AutoGenerateColumns="false" DataKeyNames="NumId" OnRowDeleting="gridViewPropietarios_RowDeleting">
-                <Columns>
-                    
+            <asp:GridView ID="gridViewPropietarios" runat="server" AutoGenerateColumns="false" DataKeyNames="NumId" >
+            <Columns>
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                     <asp:BoundField DataField="NumId" HeaderText="Número ID" />
                     <asp:BoundField DataField="IDTipoIDResponsable" HeaderText="Tipo ID Responsable" />
                     <asp:BoundField DataField="Responsable" HeaderText="Responsable" />
-
-                    <asp:CommandField ShowDeleteButton="true" EditText="Eliminar" />
-
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton ID="linkActualizar" runat="server" Text="Actualizar" OnClick="linkActualizar_Click" />
@@ -29,7 +25,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="linkEliminar" runat="server" Text="Eliminar" OnClick="linkEliminar_Click1"/>
+                            <asp:LinkButton ID="linkEliminar" runat="server" Text="Eliminar" OnClick="linkEliminar_Click"/>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -50,6 +46,10 @@
                 <asp:TextBox ID="TextBoxNumID" runat="server" />
             </div>
             <div>
+                <asp:Label ID="labelTipoID" Text="Tipo ID" runat="server"></asp:Label>
+                <asp:TextBox ID="TextBoxTipoID" runat="server" />
+            </div>
+            <div>
                 <asp:Label ID="labelIDTipoIdResponsable" Text="Tipo ID Responsable" runat="server"></asp:Label>
                 <asp:TextBox ID="TextBoxIDTipoIdResponsable" runat="server" />
             </div>
@@ -61,14 +61,32 @@
                 <asp:Label ID="labelResponsable" Text="Responsable" runat="server"></asp:Label>
                 <asp:TextBox ID="TextBoxResponsable" runat="server" />
             </div>
-            <div>
-                <asp:Label ID="labelID" Text="ID" runat="server" Visible="false"></asp:Label>
-            </div>
             <br />
             <asp:Button class="btn btn-info" ID="botonGuardar"  runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
             <asp:Button class="btn btn-info" ID="botonActualizar" runat="server" Text="Actualizar" OnClick="botonActualizar_Click" />
 
         </asp:Panel>
-        
+         <asp:Panel ID="panelConexiones" runat="server" Visible="false">
+            <asp:GridView ID="gridPropeidadesPorPropietario" runat="server" AutoGenerateColumns="false">
+                <Columns>
+                    <asp:BoundField DataField="numFinca" HeaderText="Número de Finca" />
+                    <asp:BoundField DataField="valor" HeaderText="Valor" />
+                    <asp:BoundField DataField="direccion" HeaderText="Dirección" />
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="EliminarRPropiedad" runat="server" Text="Eliminar relación" OnClick="EliminarRPropiedad_Click" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+            <br />
+            <div>
+                <asp:Label ID="labelRNumFinca" Text="Numero Finca: " runat="server"></asp:Label>
+                <asp:TextBox ID="TextBoxRNumFinca" runat="server" />
+                <asp:Button class="btn btn-info" ID="ButtonInsertarRPropiedad" runat="server" Text="Insertar" OnClick=  "ButtonInsertarRPropiedad_Click" />
+            </div>
+            <br />
+        </asp:Panel>
+            <asp:Button class="btn btn-info" ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
     </div>
 </asp:Content>

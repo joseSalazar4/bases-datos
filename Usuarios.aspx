@@ -2,8 +2,8 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
-        <h2 id="labelTitulo" runat="server" >Usuarios</h2>
-        <h2 ID="labelTituloProp" runat="server" visible="false">Propiedades</h2> 
+        <h2 id="labelTitulo" runat="server">Usuarios</h2>
+        <h2 id="labelTituloProp" runat="server" visible="false">Propiedades</h2>
         <asp:Panel runat="server" ID="pnlDatosUsuarios">
 
             <div>
@@ -57,13 +57,19 @@
                     <asp:BoundField DataField="direccion" HeaderText="Dirección" />
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="linkEliminarRPropiedad" runat="server" Text="Eliminar Relación" OnClick="linkEliminarRPropiedad_Click"/>
+                            <asp:LinkButton ID="linkEliminarRPropiedad" runat="server" Text="Eliminar Relación" OnClick="linkEliminarRPropiedad_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                
                 </Columns>
             </asp:GridView>
+            <br />
+            <div>
+                <asp:Label ID="labelRNumFinca" Text="Numero Finca: " runat="server"></asp:Label>
+                <asp:TextBox ID="TextBoxRNumFinca" runat="server" />
+                <asp:Button class="btn btn-info" ID="ButtonInsertarRPropiedad" runat="server" Text="Insertar" OnClick="ButtonInsertarRPropiedad_Click" />
+            </div>
+            <br />
         </asp:Panel>
-                    <asp:Button class="btn btn-info" ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
+        <asp:Button class="btn btn-info" ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
     </div>
 </asp:Content>

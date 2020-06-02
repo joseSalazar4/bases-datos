@@ -6,7 +6,7 @@
         <h2 id="labelTituloPropietarios" runat="server" visible="false">Propietarios</h2>
         <h2 id="labelUsuarios" runat="server" visible="false">Usuarios</h2>
         <h2 id="labelCC" runat="server" visible="false">Conceptos de Cobros</h2>
-       
+
 
         <asp:Panel runat="server" ID="pnlDatosPropiedades">
             <div>
@@ -14,16 +14,14 @@
                 <asp:TextBox ID="txtBusqueda" runat="server"></asp:TextBox>
                 <asp:Button class="btn btn-info" Text="Buscar Propiedades" ID="btnbuscar" runat="server" OnClick="btnbuscar_Click" />
             </div>
-            <br />
-
-            <br />
-            <asp:Button class="btn btn-info" ID="botonAgregar" Text="Agregar Propiedad" runat="server" OnClick="botonNuevo_Click" />
-
-
+            <div>
+                <asp:Button class="btn btn-info" ID="botonAgregar" Text="Agregar Propiedad" runat="server" OnClick="botonNuevo_Click" />
+            </div>
+            <br/>
             <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="False" DataKeyNames="NumFinca" OnRowDeleting="gridViewPropiedades_RowDeleting" Width="940px">
                 <Columns>
                     <asp:BoundField DataField="NumFinca" HeaderText="Numero Finca" />
-                    <asp:BoundField DataField="Valor" HeaderText="Valor"  />
+                    <asp:BoundField DataField="Valor" HeaderText="Valor" />
                     <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
                     <asp:CommandField ShowDeleteButton="true" DeleteText="Eliminar" />
 
@@ -83,7 +81,7 @@
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                     <asp:BoundField DataField="NumId" HeaderText="Numero ID" />
                     <asp:BoundField DataField="TipoId" HeaderText="Tipo ID" />
-                      <asp:TemplateField>
+                    <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton ID="EliminarRPropietatio" runat="server" Text="Eliminar relación" OnClick="EliminarRPropietatio_Click" />
                         </ItemTemplate>
@@ -91,13 +89,12 @@
                 </Columns>
             </asp:GridView>
             <br />
+            <br />
             <div>
                 <asp:Label ID="labelRNumId" Text="Numero ID" runat="server"></asp:Label>
+                <asp:Button class="btn btn-info" ID="ButtonInsertarRPropietario" runat="server" Text="Insertar" OnClick="ButtonInsertarRPropietario_Click" />
                 <asp:TextBox ID="TextBoxRNumId" runat="server" />
             </div>
-            <br />
-            <asp:Button class="btn btn-info" ID="ButtonInsertarRPropietario" runat="server" Text="Insertar" OnClick="ButtonInsertarRPropietario_Click"/>
-            <br />
             <br />
             <asp:Button class="btn btn-info" ID="botonVolver" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
         </asp:Panel>
@@ -116,34 +113,34 @@
                 </Columns>
             </asp:GridView>
             <br />
+            <br />
             <div>
                 <asp:Label ID="labelRNombre" Text="Nombre" runat="server"></asp:Label>
                 <asp:TextBox ID="TextBoxRNombre" runat="server" />
+                <asp:Button class="btn btn-info" ID="ButtonInsertarRUsuario" runat="server" Text="Insertar" OnClick="ButtonInsertarRUsuario_Click" />
             </div>
             <br />
-            <asp:Button class="btn btn-info" ID="ButtonInsertarRUsuario" runat="server" Text="Insertar" OnClick="ButtonInsertarRUsuario_Click"/>
-            <br />
-            <br />
+
             <asp:Button class="btn btn-info" ID="botonVolver1" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
         </asp:Panel>
 
 
-     <asp:Panel ID="panelConceptos" runat="server" Visible="false">
+        <asp:Panel ID="panelConceptos" runat="server" Visible="false">
             <asp:Label ID="Label2" Text="" runat="server"></asp:Label>
             <asp:GridView ID="GridViewConceptos" runat="server" AutoGenerateColumns="false" Width="1100px">
                 <Columns>
-                    
-                    <asp:BoundField DataField="ID" HeaderText="ID"/>
-                    <asp:BoundField DataField="Nombre" HeaderText="Nombre"/>
-                    <asp:BoundField DataField="DiasRestantesVigencia" HeaderText="DiasRestantesVigencia"/>
-                    <asp:BoundField DataField="ValorMetrosCubicos" HeaderText="ValorMetrosCubicos"/>
-                    <asp:BoundField DataField="ValorPorcentaje" HeaderText="ValorPorcentaje"/>
-                    <asp:BoundField DataField="TasaInteresMor" HeaderText="TasaInteresMor"/>
-                    <asp:BoundField DataField="EsRecurrente" HeaderText="EsRecurrente"/>
-                    <asp:BoundField DataField="EsImpuesto" HeaderText="EsImpuesto"/>
-                    <asp:BoundField DataField="DiaCorte" HeaderText="DiaCorte"/>
-                    <asp:BoundField DataField="EsFijo" HeaderText="EsFijo"/>
-                    <asp:BoundField DataField="Monto" HeaderText="Monto"/>
+
+                    <asp:BoundField DataField="ID" HeaderText="ID" />
+                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                    <asp:BoundField DataField="DiasRestantesVigencia" HeaderText="DiasRestantesVigencia" />
+                    <asp:BoundField DataField="ValorMetrosCubicos" HeaderText="ValorMetrosCubicos" />
+                    <asp:BoundField DataField="ValorPorcentaje" HeaderText="ValorPorcentaje" />
+                    <asp:BoundField DataField="TasaInteresMor" HeaderText="TasaInteresMor" />
+                    <asp:BoundField DataField="EsRecurrente" HeaderText="EsRecurrente" />
+                    <asp:BoundField DataField="EsImpuesto" HeaderText="EsImpuesto" />
+                    <asp:BoundField DataField="DiaCorte" HeaderText="DiaCorte" />
+                    <asp:BoundField DataField="EsFijo" HeaderText="EsFijo" />
+                    <asp:BoundField DataField="Monto" HeaderText="Monto" />
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton ID="EliminarRCC" runat="server" Text="Eliminar relación" OnClick="EliminarRCC_Click" />
@@ -151,14 +148,15 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-         <br />
-         <div>
+            <br />
+            <br />
+            <div>
                 <asp:Label ID="labelRID" Text="ID" runat="server"></asp:Label>
                 <asp:TextBox ID="TextBoxRID" runat="server" />
-            </div><br />
-            <asp:Button class="btn btn-info" ID="ButtonInsertarRCC" runat="server" Text="Insertar" OnClick="ButtonInsertarRCC_Click" />
-            <br /><br />
-        <asp:Button class="btn btn-info" ID="botonVolver2" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
+                <asp:Button class="btn btn-info" ID="ButtonInsertarRCC" runat="server" Text="Insertar" OnClick="ButtonInsertarRCC_Click" />
+            </div>
+            <br />
+            <asp:Button class="btn btn-info" ID="botonVolver2" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />
         </asp:Panel>
     </div>
 

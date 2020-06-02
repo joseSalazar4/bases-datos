@@ -222,15 +222,6 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Label labelRNumId;
 
         /// <summary>
-        /// TextBoxRNumId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxRNumId;
-
-        /// <summary>
         /// ButtonInsertarRPropietario control.
         /// </summary>
         /// <remarks>
@@ -238,6 +229,15 @@ namespace Municipalidad_Bases
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonInsertarRPropietario;
+
+        /// <summary>
+        /// TextBoxRNumId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxRNumId;
 
         /// <summary>
         /// botonVolver control.
