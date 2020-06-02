@@ -198,8 +198,8 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@InNumFinca", SqlDbType.Int).Value = labelID;
-                cmd.CommandText = "SPSPropietariosJuridicosPorPropiedad";
+                cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = labelID;
+                cmd.CommandText = "SPSPropiedadesPorPropietarioJuridico";
                 cmd.Connection = conn;
                 conn.Open();
                 gridPropeidadesPorPropietario.DataSource = cmd.ExecuteReader();
@@ -272,7 +272,7 @@ namespace Municipalidad_Bases
 
         }
         //---------------//
-        // Insertar User //
+        // Insertar Prop //
         //---------------//
         public void insertarRelacionPropiedad()
         {
@@ -296,6 +296,16 @@ namespace Municipalidad_Bases
             }
         }
 
+        //---------------//
+        // Insertar PROP //
+        //---------------//
+
+        protected void ButtonInsertarRPropiedad_Click(object sender, EventArgs e)
+        {
+            insertarRelacionPropiedad();
+            verPropiedades();
+            TextBoxRNumFinca.Text = "";
+        }
 
         protected void linkEliminar_Click(object sender, EventArgs e)
         {
@@ -306,16 +316,7 @@ namespace Municipalidad_Bases
             CargaDatosUsuario();
         }
 
-        //---------------//
-        // Insertar PROP //
-        //---------------//
-       
-        protected void ButtonInsertarRPropiedad_Click(object sender, EventArgs e)
-        {
-            insertarRelacionPropiedad();
-            verPropiedades();
-            TextBoxRNumFinca.Text = "";
-        }
+
         protected void botonVolver_Click(object sender, EventArgs e)
         {
 

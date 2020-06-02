@@ -28,6 +28,11 @@
                             <asp:LinkButton ID="linkEliminar" runat="server" Text="Eliminar" OnClick="linkEliminar_Click"/>
                         </ItemTemplate>
                     </asp:TemplateField>
+                     <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="linkMostrarPropiedades" runat="server" Text=" Propiedades " OnClick="linkMostrarPropiedades_Click" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
 
