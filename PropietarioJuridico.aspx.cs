@@ -92,6 +92,10 @@ namespace Municipalidad_Bases
             CargaDatosUsuario();
             TextBoxNombre.Text = "";
             TextBoxNumID.Text = "";
+            TextBoxNumIdResponsable.Text = "";
+            TextBoxIDTipoIdResponsable.Text = "";
+            TextBoxTipoID.Text = "";
+            TextBoxResponsable.Text = "";
         }
 
         //--------------//
@@ -104,7 +108,7 @@ namespace Municipalidad_Bases
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPDPropietario";
-                cmd.Parameters.Add("@InPropietario", SqlDbType.VarChar).Value = ID;
+                cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = ID;
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -121,7 +125,7 @@ namespace Municipalidad_Bases
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPUPropietarioJuridico";
-                cmd.Parameters.Add("@InNumIdViejo", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
+                cmd.Parameters.Add("@InNumIdViejo", SqlDbType.VarChar).Value = labelID;
                 cmd.Parameters.Add("@InNumIdNuevo", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
                 cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                 cmd.Parameters.Add("@InTipoID", SqlDbType.VarChar).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
@@ -146,7 +150,7 @@ namespace Municipalidad_Bases
             labelTipoID.Text = "Se está actualizando el tipo de ID (antes era: 4) :";
             labelIDTipoIdResponsable.Text = "Se está actualizando Tipo ID del Responsable (antes era: " + row.Cells[2].Text + ") :";
             labelNumIdResponsable.Text = "Se está actualizando Número ID Responsable  :";
-            labelResponsable.Text = "Se está actualizando(antes era: " + row.Cells[3].Text + ") :";
+            labelResponsable.Text = "Se está actualizando el nombre del representante(antes era: " + row.Cells[3].Text + ") :";
             labelID = row.Cells[1].Text;
         }
 
@@ -175,7 +179,7 @@ namespace Municipalidad_Bases
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPSPropietarioJuridicoPorNumID";
-                cmd.Parameters.Add("@InNumFinca", SqlDbType.Int).Value = Int64.Parse(txtBusqueda.Text.Trim());
+                cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = txtBusqueda.Text.Trim();
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewPropietarios.DataSource = cmd.ExecuteReader();

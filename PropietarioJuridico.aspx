@@ -10,6 +10,7 @@
             <div>
                 <asp:Label Text="Nombre Propietario" runat="server" />
                 <asp:TextBox ID="txtBusqueda" runat="server"></asp:TextBox>
+                 <asp:Button class="btn btn-info" Text="Buscar Propietarios Jurídicos" ID="btnbuscar" runat="server" OnClick="btnbuscar_Click" />
             </div>
             <br />
             <asp:GridView ID="gridViewPropietarios" runat="server" AutoGenerateColumns="false" DataKeyNames="NumId" >
