@@ -48,10 +48,15 @@ namespace Municipalidad_Bases
                     command.Connection = conn;
                     conn.Open();
 
-                    SqlDataReader lector = command.ExecuteReader();
-                    if (lector.Read())
+                    string Tipo = (string)command.ExecuteScalar();
+                    if (Tipo == "Admin")
                     {
                         Response.Redirect(@"\Propiedades.aspx");
+                        labelMensaje.Text = "";
+                    }
+                    else if (Tipo == "Cliente")
+                    {
+                        Response.Redirect(@"\ConsultaPropiedad.aspx");
                         labelMensaje.Text = "";
                     }
                     else
