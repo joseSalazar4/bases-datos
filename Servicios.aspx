@@ -25,12 +25,12 @@
             <asp:Button class="btn btn-info" ID="botonGuardar"  runat="server" Text="Guardar" OnClick="botonGuardar_Click" />
         </asp:Panel>
 
-        <br/>
-        <asp:RadioButton ID="RadioButtonPorcentaje" runat="server" Text="Porcentaje" OnCheckedChanged="RadioButtonPorcentaje_CheckedChanged" />
-        <asp:RadioButton ID="RadioButtonConsumo" runat="server" Text="Consumo" OnCheckedChanged="RadioButtonConsumo_CheckedChanged"/>
-        <asp:RadioButton ID="RadioButtonIntMor" runat="server" Text="Interes Moratorio" OnCheckedChanged="RadioButtonIntMor_CheckedChanged"/>
-        <asp:RadioButton ID="RadioButtonFijo" runat="server" Text="Fijo" OnCheckedChanged="RadioButtonFijo_CheckedChanged"/>
-        <br />
+            <br/>
+            <asp:RadioButton ID="RadioButtonPorcentaje" runat="server" Text="Porcentaje" OnCheckedChanged="RadioButtonPorcentaje_CheckedChanged" />
+            <asp:RadioButton ID="RadioButtonConsumo" runat="server" Text="Consumo" OnCheckedChanged="RadioButtonConsumo_CheckedChanged"/>
+            <asp:RadioButton ID="RadioButtonIntMor" runat="server" Text="Interes Moratorio" OnCheckedChanged="RadioButtonIntMor_CheckedChanged"/>
+            <asp:RadioButton ID="RadioButtonFijo" runat="server" Text="Fijo" OnCheckedChanged="RadioButtonFijo_CheckedChanged"/>
+            <br />
         <asp:TextBox ID="textBoxTipoConsumo" runat="server" /> 
         <asp:Button ID="botonGenerarCC" runat="server" class="btn btn-info" Text="Generar Concepto de Cobro" />
     </asp:Panel>

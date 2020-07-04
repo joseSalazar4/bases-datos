@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Propiedades" Language="C#"  AutoEventWireup="true" CodeBehind="ConsultaPropiedad.aspx.cs" Inherits="Municipalidad_Bases.ConsultaPropiedad" %>
+﻿<%@ Page Title="Propiedades" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ConsultaPropiedad.aspx.cs" Inherits="Municipalidad_Bases.ConsultaPropiedad" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
@@ -7,7 +7,7 @@
 
         <asp:Panel runat="server" ID="pnlDatosPropiedades">
             <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="False" DataKeyNames="NumFinca" Width="940px">
-                <Columns> 
+                <Columns>
                     <asp:BoundField DataField="NumFinca" HeaderText="Numero Finca" />
                     <asp:BoundField DataField="Valor" HeaderText="Valor" />
                     <asp:BoundField DataField="Direccion" HeaderText="Dirección" />

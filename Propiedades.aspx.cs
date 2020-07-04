@@ -3,7 +3,6 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.UI.WebControls;
 using System;
-using System.Web.UI;
 using System.Text.RegularExpressions;
 
 namespace Municipalidad_Bases
@@ -32,7 +31,6 @@ namespace Municipalidad_Bases
                 CargaDatosUsuario();
             }
         }
-
 
         //--------------//
         //    SELECT
