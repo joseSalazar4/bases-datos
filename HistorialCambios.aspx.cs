@@ -43,40 +43,32 @@ namespace Municipalidad_Bases
             CalendarInicio.Visible = false;
         }
 
-        protected void CalendarFinal_SelectionChanged(object sender, EventArgs e)
-        {
-            labelFechaFin = CalendarFinal.SelectedDate.ToShortDateString();
-
-        }
-
         protected void ButtonConsultarCambios_Click(object sender, EventArgs e)
         {
             string nombreSP = "";
             CalendarFinal.Visible = false;
             CalendarInicio.Visible = false;
-            if (RBLSeleccion.SelectedValue == "m")
+            if (RBLSeleccion.SelectedValue == "1")
             {
                 nombreSP = "SPSPropiedad";
             }
 
-            else if (RBLSeleccion.SelectedValue=="m")
+            else if (RBLSeleccion.SelectedValue=="2")
             {
                 nombreSP = "SPSPropietario";
             }
 
-            else if (RBLSeleccion.SelectedValue=="ms")
+            else if (RBLSeleccion.SelectedValue=="3")
             {
                 nombreSP = "";
             }
 
-            else if (RBLSeleccion.SelectedValue != "")
+            else if (RBLSeleccion.SelectedValue == "4")
             {
-                labelFecha.Visible = true;
-                labelFecha.InnerText = RBLSeleccion.SelectedValue;
                 nombreSP = "";
             }
 
-           /* using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -85,7 +77,8 @@ namespace Municipalidad_Bases
                 conn.Open();
                 gridViewRawInfo.DataSource = cmd.ExecuteReader();
                 gridViewRawInfo.DataBind();
-            }*/
+            }
+
             if (gridViewRawInfo.Rows.Count>1)
             {
                 rowActual = gridViewRawInfo.Rows[0];
@@ -93,12 +86,14 @@ namespace Municipalidad_Bases
                 ButtonBack.Visible = true;
                 ButtonNext.Visible = true;
             }
+            ButtonNext.Visible = true;
+            ButtonBack.Visible = true;
         }
 
         public void actualizarTablas()
         {
             labelFecha.InnerText = rowActual.Cells[0].ToString();
-            gridViewAntes.DataSource= deserializeJSON(rowActual.Cells[1].ToString());
+            gridViewAntes.DataSource = deserializeJSON(rowActual.Cells[1].ToString());
             gridViewAntes.DataBind();
             gridViewDespues.DataSource = deserializeJSON(rowActual.Cells[2].ToString());
             gridViewDespues.DataBind();
@@ -107,54 +102,38 @@ namespace Municipalidad_Bases
         }
         protected void ButtonNext_Click(object sender, EventArgs e)
         {
-            indexCambio += 1;
-            rowActual = gridViewRawInfo.Rows[indexCambio];
+
+            if (gridViewRawInfo.Rows.Count < indexCambio)
+            {
+                indexCambio += 1;
+                return;
+            }
+                rowActual = gridViewRawInfo.Rows[indexCambio];
             actualizarTablas();
         }
 
         protected void ButtonBack_Click(object sender, EventArgs e)
         {
+            if (indexCambio == 0) return;
             indexCambio -= 1;
             rowActual = gridViewRawInfo.Rows[indexCambio];
             actualizarTablas();
         }
-
-        protected void RadioButtonPropietarioJuridico_CheckedChanged(object sender, EventArgs e)
+        protected void CalendarFinal_SelectionChanged(object sender, EventArgs e)
         {
-           // RadioButtonPropiedad.Checked = RadioButtonUsuario.Checked = RadioButtonPropietario.Checked = false;
-            PanelCalendars.Visible = true;
-            CalendarFinal.Visible = true;
+            labelFechaFin = CalendarFinal.SelectedDate.ToShortDateString();
 
         }
-
-        protected void RadioButtonPropietario_CheckedChanged(object sender, EventArgs e)
-        {
-            //RadioButtonPropiedad.Checked = RadioButtonUsuario.Checked = RadioButtonPropietarioJuridico.Checked = false;
-            labelFecha.InnerText = "Propietario";
-            labelFecha.Visible = true;
-            PanelCalendars.Visible = true;
-        }
-
-        protected void RadioButtonPropiedad_CheckedChanged(object sender, EventArgs e)  
-        {
-           // RadioButtonPropietario.Checked = RadioButtonUsuario.Checked = RadioButtonPropietarioJuridico.Checked = false;
-            PanelCalendars.Visible = true;
-        }
-
-        protected void RadioButtonUsuario_CheckedChanged(object sender, EventArgs e)
-        {
-            //RadioButtonPropiedad.Checked = RadioButtonPropietario.Checked = RadioButtonPropietarioJuridico.Checked = false;
-            PanelCalendars.Visible = true;
-        }
-
         protected void CalendarInicio_SelectionChanged(object sender, EventArgs e)
         {
             labelFechaInicio = CalendarInicio.SelectedDate.ToShortDateString();
         }
 
+        
+
 
         //CHECK THEM ONLY IF THE OTHER DOESN'T WORK OUT
-       
+
         public void processJson()
         {
             string[,] DataValue = new string[gridViewRawInfo.Rows.Count, gridViewRawInfo.Columns.Count];

@@ -27,7 +27,7 @@
             <asp:Button class="btn btn-info" ID="ButtonConsultarCambios" runat="server" Text="Consultar" OnClick="ButtonConsultarCambios_Click" />
         </asp:Panel>
         <br />
-        <asp:Panel runat="server" ID="PanelCalendars"   >                
+        <asp:Panel runat="server" ID="PanelCalendars">                
             <div style="float: left;">
                 <asp:Calendar ID="CalendarInicio" runat="server" SelectionMode="Day" OnSelectionChanged="CalendarInicio_SelectionChanged" />
             </div>
@@ -40,7 +40,8 @@
             <br />
 
         <asp:Panel runat="server" ID="PanelInfo" Visible="false">
-            <asp:GridView ID="gridViewRawInfo" runat="server" AutoGenerateColumns="False" Width="940px">
+            <asp:GridView ID="gridViewRawInfo" runat="server" AutoGenerateColumns="True" Width="940px">
+                
             </asp:GridView>
         </asp:Panel>
 
