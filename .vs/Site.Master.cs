@@ -9,6 +9,9 @@ namespace Municipalidad_Bases
 {
     public partial class SiteMaster : MasterPage
     {
-        
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

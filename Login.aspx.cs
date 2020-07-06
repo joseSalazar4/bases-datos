@@ -48,16 +48,17 @@ namespace Municipalidad_Bases
                     command.Connection = conn;
                     conn.Open();
 
+                    Session["User"] = textUsuario.Text;
                     string Tipo = (string)command.ExecuteScalar();
-                    if (Tipo == "Admin")
+                    if (Tipo == "admin")
                     {
+                        labelMensaje.Text = "";
                         Response.Redirect(@"\Propiedades.aspx");
-                        labelMensaje.Text = "";
                     }
-                    else if (Tipo == "Cliente")
+                    else if (Tipo == "cliente")
                     {
-                        Response.Redirect(@"\ConsultaPropiedad.aspx");
                         labelMensaje.Text = "";
+                        Response.Redirect(@"\ConsultaPropiedad.aspx");
                     }
                     else
                     {

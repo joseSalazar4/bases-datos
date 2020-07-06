@@ -11,7 +11,7 @@ namespace Municipalidad_Bases
 {
 
 
-    public partial class SiteMaster
+    public partial class SiteMasterClient
     {
 
         /// <summary>
@@ -21,6 +21,6 @@ namespace Municipalidad_Bases
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContents;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent2;
     }
 }

@@ -1,9 +1,9 @@
-﻿<%@ Page Title="Propiedades" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ConsultaPropiedad.aspx.cs" Inherits="Municipalidad_Bases.ConsultaPropiedad" %>
+﻿<%@ Page Title="Propiedades" Language="C#" MasterPageFile="~/ClientSite.Master" AutoEventWireup="true" CodeBehind="ConsultaPropiedad.aspx.cs" Inherits="Municipalidad_Bases.ConsultaPropiedad" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
-        <h2 id="labelTitulo" runat="server">Propiedades</h2>
-        <h2 id="labelCC" runat="server" visible="false">Conceptos de Cobros</h2>
+        <h3 id="labelTitulo" runat="server">Propiedades</h3>
+        <h5 id="labelCC" runat="server" visible="false">(Estado: 1 Pago y 0 Pendiente)</h5>
 
         <asp:Panel runat="server" ID="pnlDatosPropiedades">
             <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="False" DataKeyNames="NumFinca" Width="940px">
@@ -13,7 +13,7 @@
                     <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="linkMostrarConceptosCobro" runat="server" Text="Conceptos de Cobro" OnClick="linkMostrarConceptosCobro_Click" />
+                            <asp:LinkButton ID="linkMostrarRecibos" runat="server" Text="Recibos" OnClick="linkMostrarRecibos_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -21,16 +21,12 @@
         </asp:Panel>
 
         <asp:Panel ID="panelCC" runat="server" Visible="false">
-            <asp:GridView ID="GridViewRecibos" runat="server" AutoGenerateColumns="false">
+            <asp:GridView ID="GridViewRecibos" runat="server" AutoGenerateColumns="true">
                 <Columns>
-                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                    <asp:BoundField DataField="Password" HeaderText="Password" />
                 </Columns>
             </asp:GridView>
             <br />
-            <br />
-
-            <asp:Button class="btn btn-info" ID="botonVolver1" runat="server" Text="Volver" OnClick="botonVolver1_Click" Visible="false" />
+            <asp:Button class="btn btn-info" ID="botonVolver1" runat="server" Text="Volver" OnClick="botonVolver1_Click" />
         </asp:Panel>
 
        

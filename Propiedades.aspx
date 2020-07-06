@@ -6,6 +6,7 @@
         <h2 id="labelTituloPropietarios" runat="server" visible="false">Propietarios</h2>
         <h2 id="labelUsuarios" runat="server" visible="false">Usuarios</h2>
         <h2 id="labelCC" runat="server" visible="false">Conceptos de Cobros</h2>
+        <h2 id="labelRecibos" runat="server" visible="false">Recibos</h2>
 
 
         <asp:Panel runat="server" ID="pnlDatosPropiedades">
@@ -17,7 +18,7 @@
             <div>
                 <asp:Button class="btn btn-info" ID="botonAgregar" Text="Agregar Propiedad" runat="server" OnClick="botonNuevo_Click" />
             </div>
-            <br/>
+            <br />
             <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="False" DataKeyNames="NumFinca" OnRowDeleting="gridViewPropiedades_RowDeleting" Width="940px">
                 <Columns>
                     <asp:BoundField DataField="NumFinca" HeaderText="Numero Finca" />
@@ -45,6 +46,12 @@
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton ID="linkMostrarConceptosCobro" runat="server" Text="Conceptos de Cobro" OnClick="linkMostrarConceptosCobro_Click" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="LinkMostrarRecibos" runat="server" Text="Ver Recibos" OnClick="LinkMostrarRecibos_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
 
@@ -119,6 +126,17 @@
                 <asp:TextBox ID="TextBoxRNombre" runat="server" />
                 <asp:Button class="btn btn-info" ID="ButtonInsertarRUsuario" runat="server" Text="Insertar" OnClick="ButtonInsertarRUsuario_Click" />
             </div>
+            <br />
+        </asp:Panel>
+
+
+        <asp:Panel ID="panelRecibos" runat="server" Visible="false">
+            
+            <h2 id="H1" runat="server" visible="false">(Estado 0 es Pendiente \n Estado 1 es Pago)</h2>
+            <asp:GridView ID="GridViewRecibos" runat="server" AutoGenerateColumns="true">
+                <Columns>
+                </Columns>
+            </asp:GridView>
             <br />
 
             <asp:Button class="btn btn-info" ID="botonVolver1" runat="server" Text="Volver" OnClick="botonVolver_Click" Visible="false" />

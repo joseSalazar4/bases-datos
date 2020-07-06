@@ -28,7 +28,9 @@ namespace Municipalidad_Bases
         {
             if (!IsPostBack)
             {
+                Session["User"].ToString();
                 CargaDatosUsuario();
+
             }
         }
 
@@ -300,6 +302,8 @@ namespace Municipalidad_Bases
             labelTituloPropietarios.Visible = false;
             labelUsuarios.Visible = false;
             labelCC.Visible = false;
+            labelRecibos.Visible = false;
+                 
 
         }
 
@@ -614,6 +618,53 @@ namespace Municipalidad_Bases
                 }
             }
         }
+
+        
+        //--------------//
+        //  Ver Recibos  //
+        //--------------//
+        public void verRecibos()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = labelID;
+                    cmd.CommandText = "SPSReciboPorPropiedad";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    GridViewRecibos.DataSource = cmd.ExecuteReader();
+                    GridViewRecibos.DataBind();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
+        }
+
+        protected void LinkMostrarRecibos_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            gridViewPropiedades.SelectedIndex = row.RowIndex;
+            labelID = row.Cells[0].Text;
+            pnlAltaPropiedad.Visible = false;
+            pnlDatosPropiedades.Visible = false;
+            panelConceptos.Visible = false;
+            panelRecibos.Visible = true;
+            botonAgregar.Visible = false;
+            botonVolver2.Visible = true;
+
+            verRecibos();
+            labelTitulo.Visible = false;
+            labelTituloPropietarios.Visible = false;
+            labelUsuarios.Visible = false;
+            labelCC.Visible = false;
+            labelRecibos.Visible = true;
+        }
+
         protected void ButtonInsertarRCC_Click(object sender, EventArgs e)
         {
             insertarRelacionCC();

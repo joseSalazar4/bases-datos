@@ -2,26 +2,27 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.EnterpriseServices.Internal;
 using System.Net;
 using System.Net.Sockets;
 using System.Web.Helpers;
+using System.Web.UI.WebControls;
 
 namespace Municipalidad_Bases
 {
     public partial class ConsultaPropiedad : System.Web.UI.Page
     {
+        public static string labelID, user;
+        string IPActual = GetLocalIPAddress();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                //CargaDatosUsuario();
-                labelTitulo.InnerText = IPActual;
-            }
+                user = Session["User"].ToString();
+                CargaDatosUsuario();
+            }   
         }
 
-        
-
-        string IPActual = GetLocalIPAddress();
         public static string GetLocalIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
@@ -36,7 +37,7 @@ namespace Municipalidad_Bases
         }
 
         //--------------//
-        //    SELECT
+        //    SELECT    //
         //--------------//
         public void CargaDatosUsuario() 
         {
@@ -44,18 +45,26 @@ namespace Municipalidad_Bases
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SPSPropiedad";
+                cmd.Parameters.Add("@InUsername", SqlDbType.VarChar).Value = user;
+                cmd.CommandText = "SPSPropiedadesPorUsuario";
                 cmd.Connection = conn;
                 conn.Open();
                 gridViewPropiedades.DataSource = cmd.ExecuteReader();
                 gridViewPropiedades.DataBind();
+                labelTitulo.InnerText = "Propiedades";
                 labelCC.Visible = false;
+
+
             }
         }
         
 
         protected void botonVolver1_Click(object sender, EventArgs e)
         {
+            botonVolver1.Visible = false;
+            panelCC.Visible = false;
+            CargaDatosUsuario();
+            pnlDatosPropiedades.Visible = true;
 
         }
 
@@ -71,6 +80,42 @@ namespace Municipalidad_Bases
             ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
         }
 
-       
+        //----------------//
+        //  Ver Recibos  //
+        //--------------//
+        public void verRecibos()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = labelID;
+                    cmd.CommandText = "SPSReciboPorPropiedad";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    GridViewRecibos.DataSource = cmd.ExecuteReader();
+                    GridViewRecibos.DataBind();
+                    labelTitulo.InnerText = "Finca número: "+labelID;
+                    botonVolver1.Visible = true;
+                    labelCC.Visible = true;
+                    panelCC.Visible = true;
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
+        }
+
+        protected void linkMostrarRecibos_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            gridViewPropiedades.SelectedIndex = row.RowIndex;
+            labelID = row.Cells[0].Text;
+            verRecibos();
+            pnlDatosPropiedades.Visible = false;
+        }
     }
 }
