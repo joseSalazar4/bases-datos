@@ -111,23 +111,20 @@ namespace Municipalidad_Bases
     public void actualizarTablas()
         {
             
-            labelFecha.InnerText = rowActual.Cells[0].ToString();
+            labelFecha.InnerText = rowActual.Cells[0].Text;
             gridViewAntes.DataSource = deserializeJSON(rowActual.Cells[1].ToString());
             gridViewAntes.DataBind();
             gridViewDespues.DataSource = deserializeJSON(rowActual.Cells[2].ToString());
             gridViewDespues.DataBind();
-            labelUserChange.InnerText = rowActual.Cells[3].ToString();
-            labelIP.InnerText = rowActual.Cells[4].ToString();
+            labelUserChange.InnerText = rowActual.Cells[3].Text;
+            labelIP.InnerText = rowActual.Cells[4].Text;
         }
         protected void ButtonNext_Click(object sender, EventArgs e)
         {
-
-            if (gridViewRawInfo.Rows.Count < indexCambio)
-            {
-                indexCambio += 1;
-                return;
-            }
-                rowActual = gridViewRawInfo.Rows[indexCambio];
+            int m = gridViewRawInfo.Rows.Count;
+            if (gridViewRawInfo.Rows.Count < indexCambio) return;    
+            indexCambio += 1;
+            rowActual = gridViewRawInfo.Rows[indexCambio];
             actualizarTablas();
         }
 
