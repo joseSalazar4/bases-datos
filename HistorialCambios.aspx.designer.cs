@@ -51,24 +51,6 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Panel PanelInsercion;
 
         /// <summary>
-        /// labelIdentificador control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelIdentificador;
-
-        /// <summary>
-        /// TextBoxIdentificador control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxIdentificador;
-
-        /// <summary>
         /// ButtonConsultarCambios control.
         /// </summary>
         /// <remarks>

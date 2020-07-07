@@ -17,13 +17,14 @@
         <asp:ListItem Value="2">Propiedad</asp:ListItem>
         <asp:ListItem Value="3">Propietario</asp:ListItem>
         <asp:ListItem Value="4">Propietario Juridico</asp:ListItem>
+        <asp:ListItem Value="5">Propiedad y Usuario</asp:ListItem>
+        <asp:ListItem Value="6">Propiedad y Propietario</asp:ListItem>
+        <asp:ListItem Value="7">Concepto de Cobro</asp:ListItem>
     </asp:RadioButtonList>
             </div>
                 <br />
         </asp:Panel>
         <asp:Panel runat="server" ID="PanelInsercion">
-            <asp:Label ID="labelIdentificador" Text="Indique el identificador" runat="server"></asp:Label>
-            <asp:TextBox ID="TextBoxIdentificador" runat="server" />
             <asp:Button class="btn btn-info" ID="ButtonConsultarCambios" runat="server" Text="Consultar" OnClick="ButtonConsultarCambios_Click" />
         </asp:Panel>
         <br />
@@ -50,9 +51,7 @@
             <div>
                 <div style="float: left;">
                     <asp:GridView ID="gridViewAntes" runat="server" AutoGenerateColumns="True">
-                        <Columns>
-                            <asp:BoundField />
-                        </Columns>
+                       
                     </asp:GridView>
                 </div>
 

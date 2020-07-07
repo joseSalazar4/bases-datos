@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Web.UI.WebControls;
 using System;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace Municipalidad_Bases
 {
@@ -619,10 +620,23 @@ namespace Municipalidad_Bases
             }
         }
 
-        
+
         //--------------//
         //  Ver Recibos  //
         //--------------//
+        public void modificarTipoID()
+        {
+            var IDEntidad = new Dictionary<string, string>();
+            IDEntidad.Add("llave", "content");
+            string result = IDEntidad["llave"];
+
+
+            for (int row = 0; row < GridViewRecibos.Rows.Count; row++)
+            {
+                string texto = GridViewRecibos.Rows[row].Cells[0].Text;
+
+            }
+        }
         public void verRecibos()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -637,6 +651,7 @@ namespace Municipalidad_Bases
                     conn.Open();
                     GridViewRecibos.DataSource = cmd.ExecuteReader();
                     GridViewRecibos.DataBind();
+                    modificarTipoID();
                 }
                 catch (SqlException ex)
                 {

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Collections;
 using System.Web.Configuration;
+using System.Text.RegularExpressions;
 
 namespace Municipalidad_Bases
 {
@@ -25,7 +26,11 @@ namespace Municipalidad_Bases
 
         public DataTable deserializeJSON(string JSON)
         {
-            var table = JsonConvert.DeserializeObject<DataTable>(JSON);
+            JSON = Regex.Unescape(JSON);
+            JSON = JSON.Insert(0, "[");
+            JSON = JSON.Insert(JSON.Length, "]");
+            JSON.Replace(" ","");
+            DataTable table = JsonConvert.DeserializeObject<DataTable>(JSON);
             return table;
         }
         
@@ -67,6 +72,18 @@ namespace Municipalidad_Bases
             {
                 nombreSP = "";
             }
+            else if (RBLSeleccion.SelectedValue == "5")
+            {
+                nombreSP = "";
+            }
+            else if (RBLSeleccion.SelectedValue == "6")
+            {
+                nombreSP = "";
+            }
+            else if (RBLSeleccion.SelectedValue == "7")
+            {
+                nombreSP = "";
+            }
 
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
@@ -79,19 +96,21 @@ namespace Municipalidad_Bases
                 gridViewRawInfo.DataBind();
             }
 
-            if (gridViewRawInfo.Rows.Count>1)
+            if (gridViewRawInfo.Rows.Count>1 || true)
             {
                 rowActual = gridViewRawInfo.Rows[0];
                 actualizarTablas();
+
                 ButtonBack.Visible = true;
                 ButtonNext.Visible = true;
             }
             ButtonNext.Visible = true;
             ButtonBack.Visible = true;
         }
-
-        public void actualizarTablas()
+ 
+    public void actualizarTablas()
         {
+            
             labelFecha.InnerText = rowActual.Cells[0].ToString();
             gridViewAntes.DataSource = deserializeJSON(rowActual.Cells[1].ToString());
             gridViewAntes.DataBind();
