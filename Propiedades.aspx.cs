@@ -69,7 +69,7 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPIPropiedad";
-                    cmd.Parameters.Add("@InFecha", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
+                    cmd.Parameters.Add("@InFechaInsercion", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
                     cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = TextBoxNumFinca.Text.Trim();
                     cmd.Parameters.Add("@InValor", SqlDbType.Money).Value = float.Parse(TextBoxValor.Text.Trim());
                     cmd.Parameters.Add("@InDireccion", SqlDbType.VarChar).Value = TextBoxDireccion.Text.Trim();

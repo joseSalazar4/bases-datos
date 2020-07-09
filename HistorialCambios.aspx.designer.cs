@@ -141,6 +141,15 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl labelIP;
 
         /// <summary>
+        /// H1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl H1;
+
+        /// <summary>
         /// gridViewAntes control.
         /// </summary>
         /// <remarks>
@@ -148,6 +157,15 @@ namespace Municipalidad_Bases
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gridViewAntes;
+
+        /// <summary>
+        /// H2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl H2;
 
         /// <summary>
         /// gridViewDespues control.
