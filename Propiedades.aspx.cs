@@ -1,32 +1,18 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Web.UI.WebControls;
-using System;
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
-using System.Net.Sockets;
+﻿using System;
 using System.Net;
+using System.Data;
+using System.Net.Sockets;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Web.UI.WebControls;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Municipalidad_Bases
 {
     public partial class Propiedades : System.Web.UI.Page
     {
         public static string labelID, labelAux;
-
-        string IPActual = GetLocalIPAddress();
-        public static string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
-        }
 
         public void ShowMessage(string message)
         {
@@ -44,7 +30,6 @@ namespace Municipalidad_Bases
         {
             if (!IsPostBack)
             {
-                //Session["User"].ToString();
                 CargaDatosUsuario();
 
             }
@@ -84,7 +69,7 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPIPropiedad";
-                    cmd.Parameters.Add("@InFechaInsercion", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
+                    cmd.Parameters.Add("@InFecha", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
                     cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = TextBoxNumFinca.Text.Trim();
                     cmd.Parameters.Add("@InValor", SqlDbType.Money).Value = float.Parse(TextBoxValor.Text.Trim());
                     cmd.Parameters.Add("@InDireccion", SqlDbType.VarChar).Value = TextBoxDireccion.Text.Trim();
@@ -98,7 +83,6 @@ namespace Municipalidad_Bases
                 }
             }
         }
-
 
         protected void botonNuevo_Click(object sender, EventArgs e)
         {
@@ -639,19 +623,7 @@ namespace Municipalidad_Bases
         //--------------//
         //  Ver Recibos  //
         //--------------//
-        public void modificarTipoID()
-        {
-            var IDEntidad = new Dictionary<string, string>();
-            IDEntidad.Add("llave", "content");
-            string result = IDEntidad["llave"];
-
-
-            for (int row = 0; row < GridViewRecibos.Rows.Count; row++)
-            {
-                string texto = GridViewRecibos.Rows[row].Cells[0].Text;
-
-            }
-        }
+        
         public void verRecibos()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -666,7 +638,7 @@ namespace Municipalidad_Bases
                     conn.Open();
                     GridViewRecibos.DataSource = cmd.ExecuteReader();
                     GridViewRecibos.DataBind();
-                    modificarTipoID();
+                   
                 }
                 catch (SqlException ex)
                 {

@@ -1,25 +1,16 @@
 ﻿using System;
-using System.Web;
 using System.Data;
-using System.Linq;
-using System.Web.UI;
 using Newtonsoft.Json;
-using System.Web.Helpers;
 using System.Configuration;
 using System.Data.SqlClient;
-using Microsoft.Ajax.Utilities;
 using System.Web.UI.WebControls;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Collections;
-using System.Web.Configuration;
 using System.Text.RegularExpressions;
 
 namespace Municipalidad_Bases
 {
     public partial class HomePage : System.Web.UI.Page
     {
-        public static int indexCambio = 1;
+        public static int indexCambio = 0;
         public static string[,] listaDatos;
         public static GridViewRow rowActual;
         public static string labelFechaInicio, labelFechaFin;
@@ -105,14 +96,12 @@ namespace Municipalidad_Bases
             }
             else
             {
-                ButtonNext.Visible = true;
-                ButtonBack.Visible = true;
+                ButtonNext.Visible = false;
+                ButtonBack.Visible = false;
             }
         }
- 
-    public void actualizarTablas()
+        public void actualizarTablas()
         {
-            _ = rowActual.Cells[2].Text;
             labelFecha.InnerText = rowActual.Cells[0].Text;
             gridViewAntes.DataSource = deserializeJSON(rowActual.Cells[1].Text);
             gridViewAntes.DataBind();
@@ -124,7 +113,7 @@ namespace Municipalidad_Bases
         protected void ButtonNext_Click(object sender, EventArgs e)
         {
             int m = gridViewRawInfo.Rows.Count;
-            if (gridViewRawInfo.Rows.Count < indexCambio ) return;    
+            if (gridViewRawInfo.Rows.Count < indexCambio+1 ) ButtonNext.Visible=false;    
             indexCambio += 1;
             rowActual = gridViewRawInfo.Rows[indexCambio];
             actualizarTablas();
@@ -132,7 +121,7 @@ namespace Municipalidad_Bases
 
         protected void ButtonBack_Click(object sender, EventArgs e)
         {
-            if (indexCambio == 0) return;
+            if (indexCambio-1 == -1) ButtonBack.Visible=false;
             indexCambio -= 1;
             rowActual = gridViewRawInfo.Rows[indexCambio];
             actualizarTablas();
@@ -146,7 +135,5 @@ namespace Municipalidad_Bases
         {
             labelFechaInicio = CalendarInicio.SelectedDate.ToShortDateString();
         }
-
-        
     }
 }

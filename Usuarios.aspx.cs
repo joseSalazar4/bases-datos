@@ -1,10 +1,10 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Web.UI.WebControls;
-using System;
+﻿using System;
 using System.Net;
+using System.Data;
 using System.Net.Sockets;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 
 namespace Municipalidad_Bases
 {
@@ -131,6 +131,7 @@ namespace Municipalidad_Bases
                     cmd.Parameters.Add("@InUsername", SqlDbType.VarChar).Value = username;
                     cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
                     cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
+                    cmd.Parameters.Add("@InFecha", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -166,7 +167,7 @@ namespace Municipalidad_Bases
                     cmd.Parameters.Add("@InUsernameViejo", SqlDbType.VarChar).Value = usernameViejo;
                     cmd.Parameters.Add("@InUsernameNuevo", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                     cmd.Parameters.Add("@InPasswordNueva", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
-
+                    cmd.Parameters.Add("@InFecha", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
                     cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
                     cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
                     cmd.Connection = conn;
@@ -296,6 +297,7 @@ namespace Municipalidad_Bases
                     cmd.Parameters.Add("@InUsername", SqlDbType.VarChar).Value = labelID;
                     cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
                     cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
+                    cmd.Parameters.Add("@InFecha", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
                     cmd.CommandText = "SPDUsuarioXPropiedad";
                     cmd.Connection = conn;
                     conn.Open();
@@ -337,6 +339,7 @@ namespace Municipalidad_Bases
                     cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = TextBoxRNumFinca.Text.Trim();
                     cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
                     cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
+                    cmd.Parameters.Add("@InFecha", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
                     cmd.CommandText = "SPIUsuarioXPropiedad";
                     cmd.Connection = conn;
                     conn.Open();

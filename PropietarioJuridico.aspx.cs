@@ -1,12 +1,11 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Web.UI.WebControls;
-using System;
-using System.Web.UI;
-using System.Text.RegularExpressions;
+﻿using System;
 using System.Net;
+using System.Data;
 using System.Net.Sockets;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 namespace Municipalidad_Bases
 {
@@ -123,6 +122,9 @@ namespace Municipalidad_Bases
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SPDPropietario";
                 cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = ID;
+                cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
+                cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
+                cmd.Parameters.Add("@InFecha", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
                 cmd.Connection = conn;
                 conn.Open();
                 cmd.ExecuteNonQuery();
