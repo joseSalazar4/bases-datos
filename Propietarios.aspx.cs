@@ -5,6 +5,8 @@ using System.Web.UI.WebControls;
 using System;
 using System.Web.UI;
 using System.Text.RegularExpressions;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Municipalidad_Bases
 {
@@ -12,6 +14,8 @@ namespace Municipalidad_Bases
     {
 
         public static string labelID,labelAux;
+
+        string IPActual = GetLocalIPAddress();
         public void ShowMessage(string message)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -24,7 +28,18 @@ namespace Municipalidad_Bases
             ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", sb.ToString());
         }
 
-
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -79,6 +94,8 @@ namespace Municipalidad_Bases
                     cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                     cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
                     cmd.Parameters.Add("@InTipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
+                    cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
+                    cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -124,6 +141,9 @@ namespace Municipalidad_Bases
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPDPropietario";
                     cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = ID;
+
+                    cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
+                    cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -158,6 +178,9 @@ namespace Municipalidad_Bases
                     cmd.Parameters.Add("@InNumIdViejo", SqlDbType.VarChar).Value = labelActualizar.Text.Trim();
                     cmd.Parameters.Add("@InNumIdNuevo", SqlDbType.VarChar).Value = TextBoxNumID.Text.Trim();
                     cmd.Parameters.Add("@InTipoId", SqlDbType.Int).Value = Int64.Parse(TextBoxTipoID.Text.Trim());
+
+                    cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
+                    cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -287,6 +310,9 @@ namespace Municipalidad_Bases
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = labelAux;
                     cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = labelID;
+
+                    cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
+                    cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
                     cmd.CommandText = "SPDPropiedadXPropietario";
                     cmd.Connection = conn;
                     conn.Open();
@@ -327,6 +353,9 @@ namespace Municipalidad_Bases
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@InNumId", SqlDbType.VarChar).Value = labelID;
                     cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = TextBoxRNumFinca.Text.Trim();
+
+                    cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
+                    cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
                     cmd.CommandText = "SPIPropiedadXPropietario";
                     cmd.Connection = conn;
                     conn.Open();

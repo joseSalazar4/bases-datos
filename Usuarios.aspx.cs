@@ -3,13 +3,16 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.UI.WebControls;
 using System;
-
+using System.Net;
+using System.Net.Sockets;
 
 namespace Municipalidad_Bases
 {
     public partial class Usuarios : System.Web.UI.Page
     {
         public static string labelID,labelAux;
+
+        string IPActual = GetLocalIPAddress();
         public void ShowMessage(string message)
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -21,7 +24,18 @@ namespace Municipalidad_Bases
             sb.Append("</script>");
             ClientScript.RegisterClientScriptBlock(this.GetType(), "ERROR", sb.ToString());
         }
-
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -70,6 +84,7 @@ namespace Municipalidad_Bases
                     cmd.CommandText = "SPIUsuario";
                     cmd.Parameters.Add("@InNombre", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                     cmd.Parameters.Add("@InPassword", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
+
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -114,6 +129,8 @@ namespace Municipalidad_Bases
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPDUsuario";
                     cmd.Parameters.Add("@InUsername", SqlDbType.VarChar).Value = username;
+                    cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
+                    cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -149,6 +166,9 @@ namespace Municipalidad_Bases
                     cmd.Parameters.Add("@InUsernameViejo", SqlDbType.VarChar).Value = usernameViejo;
                     cmd.Parameters.Add("@InUsernameNuevo", SqlDbType.VarChar).Value = TextBoxNombre.Text.Trim();
                     cmd.Parameters.Add("@InPasswordNueva", SqlDbType.VarChar).Value = TextBoxPassword.Text.Trim();
+
+                    cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
+                    cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -274,6 +294,8 @@ namespace Municipalidad_Bases
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = labelAux;
                     cmd.Parameters.Add("@InUsername", SqlDbType.VarChar).Value = labelID;
+                    cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
+                    cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
                     cmd.CommandText = "SPDUsuarioXPropiedad";
                     cmd.Connection = conn;
                     conn.Open();
@@ -313,6 +335,8 @@ namespace Municipalidad_Bases
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@InUsername", SqlDbType.VarChar).Value = labelID;
                     cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = TextBoxRNumFinca.Text.Trim();
+                    cmd.Parameters.Add("@InNombreUsuario", SqlDbType.VarChar).Value = Session["User"].ToString();
+                    cmd.Parameters.Add("@InIp", SqlDbType.VarChar).Value = IPActual;
                     cmd.CommandText = "SPIUsuarioXPropiedad";
                     cmd.Connection = conn;
                     conn.Open();

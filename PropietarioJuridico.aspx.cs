@@ -5,12 +5,15 @@ using System.Web.UI.WebControls;
 using System;
 using System.Web.UI;
 using System.Text.RegularExpressions;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Municipalidad_Bases
 {
     public partial class PropiedadJuridica : System.Web.UI.Page
     {
         public static string labelID, labelAux;
+        public string IPActual = GetLocalIPAddress();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -18,7 +21,18 @@ namespace Municipalidad_Bases
                 CargaDatosUsuario();
             }
         }
-
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
+        }
         //--------------//
         //    SELECT    //
         //--------------//

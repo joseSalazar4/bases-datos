@@ -5,6 +5,8 @@ using System.Web.UI.WebControls;
 using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Net;
 
 namespace Municipalidad_Bases
 {
@@ -12,6 +14,19 @@ namespace Municipalidad_Bases
     {
         public static string labelID, labelAux;
 
+        string IPActual = GetLocalIPAddress();
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
+        }
 
         public void ShowMessage(string message)
         {
@@ -29,7 +44,7 @@ namespace Municipalidad_Bases
         {
             if (!IsPostBack)
             {
-                Session["User"].ToString();
+                //Session["User"].ToString();
                 CargaDatosUsuario();
 
             }
