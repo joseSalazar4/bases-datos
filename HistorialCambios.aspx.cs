@@ -54,25 +54,18 @@ namespace Municipalidad_Bases
 
             else if (RBLSeleccion.SelectedValue=="3")
             {
-                nombreSP = "";
+                nombreSP = "SPSCambiosUsuarios";
             }
 
             else if (RBLSeleccion.SelectedValue == "4")
             {
-                nombreSP = "";
+                nombreSP = "SPSCambiosPropiedadXPropietario";
             }
             else if (RBLSeleccion.SelectedValue == "5")
             {
-                nombreSP = "";
+                nombreSP = "SPSCambiosPropiedadXUsuario";
             }
-            else if (RBLSeleccion.SelectedValue == "6")
-            {
-                nombreSP = "";
-            }
-            else if (RBLSeleccion.SelectedValue == "7")
-            {
-                nombreSP = "";
-            }
+            
 
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
@@ -113,9 +106,13 @@ namespace Municipalidad_Bases
         protected void ButtonNext_Click(object sender, EventArgs e)
         {
             int m = gridViewRawInfo.Rows.Count;
-            if (gridViewRawInfo.Rows.Count < indexCambio+1 ) ButtonNext.Visible=false;    
+            if (gridViewRawInfo.Rows.Count <= (indexCambio + 1))
+            {
+                ButtonNext.Visible = false;
+                return;
+            }
             indexCambio += 1;
-            rowActual = gridViewRawInfo.Rows[indexCambio];
+            rowActual = gridViewRawInfo.Rows[indexCambio];  
             actualizarTablas();
         }
 

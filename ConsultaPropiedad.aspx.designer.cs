@@ -60,13 +60,22 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Panel panelCC;
 
         /// <summary>
-        /// GridViewRecibos control.
+        /// GridViewRecibosPendientes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewRecibos;
+        protected global::System.Web.UI.WebControls.GridView GridViewRecibosPendientes;
+
+        /// <summary>
+        /// GridViewRecibosPagos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewRecibosPagos;
 
         /// <summary>
         /// botonVolver1 control.

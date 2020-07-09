@@ -21,15 +21,26 @@
         </asp:Panel>
 
         <asp:Panel ID="panelCC" runat="server" Visible="false">
-            <asp:GridView ID="GridViewRecibos" runat="server" AutoGenerateColumns="true">
-                <Columns>
-                </Columns>
+            <h2>Recibos Pendientes</h2>
+            <br />
+
+                <asp:GridView ID="GridViewRecibosPendientes" runat="server" AutoGenerateColumns="true">
+            <columns>
+                </columns>
             </asp:GridView>
+            <br />
+            <h2>Recibos Pagos</h2>
+            <br />
+                <asp:GridView ID="GridViewRecibosPagos" runat="server" AutoGenerateColumns="true">
+                    <Columns>
+                    </Columns>
+                </asp:GridView>
+            
             <br />
             <asp:Button class="btn btn-info" ID="botonVolver1" runat="server" Text="Volver" OnClick="botonVolver1_Click" />
         </asp:Panel>
 
-       
+
     </div>
 
 </asp:Content>

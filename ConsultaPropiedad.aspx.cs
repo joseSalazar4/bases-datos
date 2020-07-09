@@ -81,7 +81,7 @@ namespace Municipalidad_Bases
         //----------------//
         //  Ver Recibos  //
         //--------------//
-        public void verRecibos()
+        public void verRecibosPendientes()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
@@ -90,11 +90,11 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = labelID;
-                    cmd.CommandText = "SPSReciboPorPropiedad";
+                    cmd.CommandText = "SPSRecibosPendientes";
                     cmd.Connection = conn;
                     conn.Open();
-                    GridViewRecibos.DataSource = cmd.ExecuteReader();
-                    GridViewRecibos.DataBind();
+                    GridViewRecibosPendientes.DataSource = cmd.ExecuteReader();
+                    GridViewRecibosPendientes.DataBind();
                     labelTitulo.InnerText = "Finca número: "+labelID;
                     botonVolver1.Visible = true;
                     labelCC.Visible = true;
@@ -106,13 +106,37 @@ namespace Municipalidad_Bases
                 }
             }
         }
-
+        public void verRecibosPagos()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = labelID;
+                    cmd.CommandText = "SPSReciboPagos";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    GridViewRecibosPagos.DataSource = cmd.ExecuteReader();
+                    GridViewRecibosPagos.DataBind();
+                    botonVolver1.Visible = true;
+                    labelCC.Visible = true;
+                    panelCC.Visible = true;
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
+        }
         protected void linkMostrarRecibos_Click(object sender, EventArgs e)
         {
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
             labelID = row.Cells[0].Text;
-            verRecibos();
+            verRecibosPendientes();
+            verRecibosPagos();
             pnlDatosPropiedades.Visible = false;
         }
     }

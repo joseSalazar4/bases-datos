@@ -18,9 +18,8 @@
                     <asp:ListItem Value="1">Propiedad</asp:ListItem>
                     <asp:ListItem Value="2">Propietario</asp:ListItem>
                     <asp:ListItem Value="3">Usuario</asp:ListItem>
-                    <asp:ListItem Value="4">Propietario Juridico</asp:ListItem>
-                    <asp:ListItem Value="5">Propiedad y Usuario</asp:ListItem>
-                    <asp:ListItem Value="6">Propiedad y Propietario</asp:ListItem>
+                    <asp:ListItem Value="4">Propiedad y Usuario</asp:ListItem>
+                    <asp:ListItem Value="5">Propiedad y Propietario</asp:ListItem>
                 </asp:RadioButtonList>
             </div>
             <br />
