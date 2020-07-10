@@ -53,13 +53,13 @@
             <h4 id="labelUserChange" runat="server"></h4>
             <h4 id="labelIP" runat="server"></h4>
 
-            <h4 id="H1" runat="server">Antes</h4>
+            <h4 id="H1" runat="server" Visible ="false" >Antes</h4>
             <asp:GridView ID="gridViewAntes" runat="server" AutoGenerateColumns="True">
             </asp:GridView>
 
             <br />
             <br />
-            <h4 id="H2" runat="server">Despues</h4>
+            <h4 id="H2" Visible="false" runat="server" >Despues</h4>
             <asp:GridView ID="gridViewDespues" runat="server" AutoGenerateColumns="True">
             </asp:GridView>
         </asp:Panel>

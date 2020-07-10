@@ -19,7 +19,17 @@
                 </Columns>
             </asp:GridView>
         </asp:Panel>
-
+        <asp:Panel ID="panelComprobantes" runat="server" Visible="false">  
+            <asp:GridView ID ="GridViewComprobantes" runat="server" AutoGenerateColumns="true">
+                <Columns>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="linkMostrarRecibosDeComprobante" runat="server" Text=" Ver Recibos" OnClick="linkMostrarRecibosDeComprobante_Click" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+        </asp:Panel>
         <asp:Panel ID="panelCC" runat="server" Visible="false">
             <h2>Recibos Pendientes</h2>
             <br />
@@ -40,7 +50,8 @@
             <asp:Button class="btn btn-info" ID="botonVolver1" runat="server" Text="Volver" OnClick="botonVolver1_Click" />
         </asp:Panel>
 
-
+    <asp:Button class="btn btn-info" ID="ButtonMostrarComprobantes" runat="server" Text="Ver Comprobantes" OnClick="ButtonMostrarComprobantes_Click" />
+        <asp:TextBox ID="TxtBoxNumFinca" runat="server" Text=""/>
     </div>
 
 </asp:Content>

@@ -42,6 +42,8 @@ namespace Municipalidad_Bases
             string nombreSP = "";
             CalendarFinal.Visible = false;
             CalendarInicio.Visible = false;
+            H1.Visible = true;
+            H2.Visible = true;
             if (RBLSeleccion.SelectedValue == "1")
             {
                 nombreSP = "SPSCambiosPropiedades";

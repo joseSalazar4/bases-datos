@@ -10,8 +10,8 @@ namespace Municipalidad_Bases
 {
     public partial class ConsultaPropiedad : System.Web.UI.Page
     {
-        public static string labelID, user;
-        string IPActual = GetLocalIPAddress();
+        public static string labelID, user,labelAux;
+        public string IPActual = GetLocalIPAddress();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -55,7 +55,66 @@ namespace Municipalidad_Bases
 
             }
         }
-        
+        public void verRecibosDeComprobante()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InId", SqlDbType.Int).Value = Int64.Parse(labelAux);
+                cmd.CommandText = "SPSRecibosDeComprobantePago";
+                cmd.Connection = conn;
+                conn.Open();
+                GridViewRecibosPagos.DataSource = cmd.ExecuteReader();
+                GridViewRecibosPagos.DataBind();
+                labelCC.Visible = false;
+                labelTitulo.InnerText = "Recibos";
+                labelTitulo.Visible = true;
+
+
+            }
+        }
+        protected void linkMostrarRecibosDeComprobante_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            GridViewComprobantes.SelectedIndex = row.RowIndex;
+            labelAux = row.Cells[2].Text;
+            verRecibosDeComprobante();
+            GridViewRecibosPagos.Visible = true;
+            GridViewRecibosPendientes.Visible = false;
+            panelCC.Visible = true;
+            panelComprobantes.Visible = false;
+
+        }
+        public void verComprobantes()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = TxtBoxNumFinca.Text;
+                cmd.CommandText = "SPSComprobantePagoXPropiedad";
+                cmd.Connection = conn;
+                conn.Open();
+                GridViewComprobantes.DataSource = cmd.ExecuteReader();
+                GridViewComprobantes.DataBind();
+                labelTitulo.InnerText = "Comprobantes";
+                labelTitulo.Visible = true;
+                labelCC.Visible = false;
+
+            }
+        }
+
+        protected void ButtonMostrarComprobantes_Click(object sender, EventArgs e)
+        {
+            if (TxtBoxNumFinca.Text == "") return;
+            verComprobantes();
+            panelCC.Visible = false;
+            pnlDatosPropiedades.Visible = false;
+            panelComprobantes.Visible = true;
+            GridViewComprobantes.Visible = true;
+        }
+
 
         protected void botonVolver1_Click(object sender, EventArgs e)
         {
@@ -106,6 +165,7 @@ namespace Municipalidad_Bases
                 }
             }
         }
+
         public void verRecibosPagos()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
