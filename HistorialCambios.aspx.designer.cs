@@ -114,13 +114,13 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Panel PanelProcessed;
 
         /// <summary>
-        /// labelFecha control.
+        /// labelIP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl labelFecha;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl labelIP;
 
         /// <summary>
         /// labelUserChange control.
@@ -132,13 +132,13 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl labelUserChange;
 
         /// <summary>
-        /// labelIP control.
+        /// labelFecha control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl labelIP;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl labelFecha;
 
         /// <summary>
         /// H1 control.

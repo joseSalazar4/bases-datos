@@ -49,9 +49,9 @@
         <asp:Panel runat="server" ID="PanelProcessed">
 
 
-            <h4 id="labelFecha" runat="server"></h4>
-            <h4 id="labelUserChange" runat="server"></h4>
             <h4 id="labelIP" runat="server"></h4>
+            <h4 id="labelUserChange" runat="server"></h4>
+            <h4 id="labelFecha" runat="server"></h4>
 
             <h4 id="H1" runat="server" Visible ="false" >Antes</h4>
             <asp:GridView ID="gridViewAntes" runat="server" AutoGenerateColumns="True">

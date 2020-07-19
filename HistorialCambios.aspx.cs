@@ -97,13 +97,13 @@ namespace Municipalidad_Bases
         }
         public void actualizarTablas()
         {
-            labelFecha.InnerText = rowActual.Cells[0].Text;
+            labelFecha.InnerText = "Fecha de Mod: "+rowActual.Cells[0].Text;
             gridViewAntes.DataSource = deserializeJSON(rowActual.Cells[1].Text);
             gridViewAntes.DataBind();
             gridViewDespues.DataSource = deserializeJSON(rowActual.Cells[2].Text);
             gridViewDespues.DataBind();
-            labelUserChange.InnerText = rowActual.Cells[3].Text;
-            labelIP.InnerText = rowActual.Cells[4].Text;
+            labelUserChange.InnerText = "Usuario: "+rowActual.Cells[3].Text;
+            labelIP.InnerText = "IP: "+rowActual.Cells[4].Text;
         }
         protected void ButtonNext_Click(object sender, EventArgs e)
         {

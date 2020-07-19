@@ -166,6 +166,8 @@ namespace Municipalidad_Bases
             }
         }
 
+        
+
         public void verRecibosPagos()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -199,5 +201,6 @@ namespace Municipalidad_Bases
             verRecibosPagos();
             pnlDatosPropiedades.Visible = false;
         }
+        
     }
 }

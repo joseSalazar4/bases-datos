@@ -19,6 +19,7 @@
                 </Columns>
             </asp:GridView>
         </asp:Panel>
+
         <asp:Panel ID="panelComprobantes" runat="server" Visible="false">  
             <asp:GridView ID ="GridViewComprobantes" runat="server" AutoGenerateColumns="true">
                 <Columns>
@@ -33,9 +34,19 @@
         <asp:Panel ID="panelCC" runat="server" Visible="false">
             <h2>Recibos Pendientes</h2>
             <br />
-
-                <asp:GridView ID="GridViewRecibosPendientes" runat="server" AutoGenerateColumns="true">
+                <asp:GridView ID="GridViewRecibosPendientes" runat="server" AutoGenerateColumns="true" Width="90%" CssClass="mygrdContent" 
+                    PagerStyle-CssClass="pager" HeaderStyle-CssClass="header" RowStyle-CssClass="rows" >
+                    
+<RowStyle HorizontalAlign="Center" />
             <columns>
+            <asp:TemplateField>
+            <ItemTemplate>
+            <asp:RadioButtonList runat="server" ID="rdbItem" CssClass="rdbItem" RepeatDirection="Horizontal">
+                            <asp:ListItem Text="Yes" />
+                            <asp:ListItem Text="No" />
+                        </asp:RadioButtonList>
+            </ItemTemplate>
+        </asp:TemplateField>
                 </columns>
             </asp:GridView>
             <br />
@@ -53,6 +64,82 @@
     <asp:Button class="btn btn-info" ID="ButtonMostrarComprobantes" runat="server" Text="Ver Comprobantes" OnClick="ButtonMostrarComprobantes_Click" />
         <asp:TextBox ID="TxtBoxNumFinca" runat="server" Text=""/>
     </div>
+    <style>
+        .grdContent {
+            width: 80%;
+            border: solid 2px black;
+            min-width: 80%;
+        }
+
+        .header {
+            background-color: #646464;
+            font-family: Arial;
+            color: White;
+            border: none 0px transparent;
+            height: 25px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .rows {
+            background-color: #fff;
+            font-family: Arial;
+            font-size: 14px;
+            color: #000;
+            min-height: 25px;
+            text-align: center;
+            border: none 0px transparent;
+        }
+
+            .rows:hover {
+                background-color: #5bc0de;
+                font-family: Arial;
+                color: #fff;
+            }
+
+        .selectedrow {
+            background-color: #ff8000;
+            font-family: Arial;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .mydatagrid a /** FOR THE PAGING ICONS  **/ {
+            background-color: Transparent;
+            padding: 5px 5px 5px 5px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .mygrdContent a:hover /** FOR THE PAGING ICONS  HOVER STYLES**/ {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .mygrdContent span /** FOR THE PAGING ICONS CURRENT PAGE INDICATOR **/ {
+            background-color: #c9c9c9;
+            color: #000;
+            padding: 5px 5px 5px 5px;
+        }
+
+        .pager {
+            background-color: #646464;
+            font-family: Arial;
+            color: White;
+            height: 30px;
+            text-align: center;
+        }
+
+        .mygrdContent td {
+            padding: 5px;
+        }
+
+        .mygrdContent th {
+            padding: 5px;
+        }
+    </style> 
 
 </asp:Content>
 
