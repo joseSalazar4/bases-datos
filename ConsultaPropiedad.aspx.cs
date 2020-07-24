@@ -5,20 +5,23 @@ using System.Net.Sockets;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 namespace Municipalidad_Bases
 {
     public partial class ConsultaPropiedad : System.Web.UI.Page
     {
-        public static string labelID, user,labelAux;
+        public static string labelID, user, labelAux;
         public string IPActual = GetLocalIPAddress();
+        public static DataTable tablaRecibosPorPagar;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 user = Session["User"].ToString();
                 CargaDatosUsuario();
-            }   
+            }
         }
 
         public static string GetLocalIPAddress()
@@ -37,7 +40,7 @@ namespace Municipalidad_Bases
         //--------------//
         //    SELECT    //
         //--------------//
-        public void CargaDatosUsuario() 
+        public void CargaDatosUsuario()
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
@@ -154,9 +157,10 @@ namespace Municipalidad_Bases
                     conn.Open();
                     GridViewRecibosPendientes.DataSource = cmd.ExecuteReader();
                     GridViewRecibosPendientes.DataBind();
-                    labelTitulo.InnerText = "Finca número: "+labelID;
+                    labelTitulo.InnerText = "Finca número: " + labelID;
                     botonVolver1.Visible = true;
                     labelCC.Visible = true;
+                    //Fails when doing column visible false
                     panelCC.Visible = true;
                 }
                 catch (SqlException ex)
@@ -166,7 +170,126 @@ namespace Municipalidad_Bases
             }
         }
 
-        
+        public void verRecibosPorPagar()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = labelID;
+                    cmd.CommandText = "SPSRecibosPendientes";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    GridViewRecibosPendientes2.DataSource = cmd.ExecuteReader();
+                    GridViewRecibosPendientes2.DataBind();
+                    labelTitulo.InnerText = "Finca número: " + labelID;
+                    botonVolver1.Visible = true;
+                    labelCC.Visible = true;
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
+        }
+        protected void ButtonMostrarPantallaPagos_Click(object sender, EventArgs e)
+        {
+            panelCC.Visible = false;
+            panelPagar.Visible = true;
+            verRecibosPorPagar();
+        }
+
+        protected void ButtonCotizar_Click(object sender, EventArgs e)
+        {
+
+            enviarRecibosPriori();
+        }
+        public string DataTableToJSONWithStringBuilder(DataTable table)
+        {
+            string JSON = string.Empty;
+            JSON = Newtonsoft.Json.JsonConvert.SerializeObject(table);
+            JSON = Regex.Unescape(JSON);
+            JSON = JSON.Replace(@"\", "");
+            Console.WriteLine(JSON);
+            return JSON;
+        }
+
+        DataTable getTablaRecibosPendientes()
+        {
+            tablaRecibosPorPagar = new DataTable();
+            tablaRecibosPorPagar.Columns.Add("IDConceptoCobro");
+            tablaRecibosPorPagar.Columns.Add("Monto");
+            tablaRecibosPorPagar.Columns.Add("FechaVence");
+            tablaRecibosPorPagar.Columns.Add("FechaInsercion");
+            tablaRecibosPorPagar.Columns.Add("ID");
+            tablaRecibosPorPagar.Columns.Add("IDPropiedad");
+            tablaRecibosPorPagar.Columns.Add("Estado");
+            
+            foreach (GridViewRow gvrow in GridViewRecibosPendientes2.Rows)
+            {
+                var checkbox = gvrow.FindControl("CheckBox1") as CheckBox;
+                if (checkbox.Checked)
+                {
+                    DataRow dr = tablaRecibosPorPagar.NewRow();
+                    for (int i = 1; i < gvrow.Cells.Count - 1; i++)
+                    {
+                        gvrow.Cells[i].Visible = true;
+                        dr[i] = gvrow.Cells[i].Text;
+                        if (i > 4)
+                        {
+                            gvrow.Cells[7].Visible = false;
+                            gvrow.Cells[6].Visible = false;
+                            gvrow.Cells[5].Visible = false;
+                        }
+                    }
+                    tablaRecibosPorPagar.Rows.Add(dr);
+                }
+            }
+            return tablaRecibosPorPagar;
+        }
+
+        public void enviarRecibosPriori()
+        {
+            DataTable tabla = getTablaRecibosPendientes();
+            string JSON = DataTableToJSONWithStringBuilder(tabla);
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "SPGenerarInteresesMoratorios";
+                    cmd.Parameters.Add("@JSON", SqlDbType.VarChar).Value = JSON;
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
+        }
+
+        protected void GridViewRecibosPendientes2_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //GridViewRecibosPendientes2;
+            e.Row.Cells[7].Visible = false;
+            e.Row.Cells[6].Visible = false;
+            e.Row.Cells[5].Visible = false;
+        }
+
+        protected void GridViewRecibosPendientes_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            int i = e.Row.Cells.Count;
+            //e.Row.Cells[i - 1].Visible = false;
+            //e.Row.Cells[i - 2].Visible = false;
+            //e.Row.Cells[i - 3].Visible = false;
+        }
+
 
         public void verRecibosPagos()
         {
@@ -201,6 +324,6 @@ namespace Municipalidad_Bases
             verRecibosPagos();
             pnlDatosPropiedades.Visible = false;
         }
-        
+
     }
 }

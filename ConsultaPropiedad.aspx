@@ -20,8 +20,8 @@
             </asp:GridView>
         </asp:Panel>
 
-        <asp:Panel ID="panelComprobantes" runat="server" Visible="false">  
-            <asp:GridView ID ="GridViewComprobantes" runat="server" AutoGenerateColumns="true">
+        <asp:Panel ID="panelComprobantes" runat="server" Visible="false">
+            <asp:GridView ID="GridViewComprobantes" runat="server" AutoGenerateColumns="true">
                 <Columns>
                     <asp:TemplateField>
                         <ItemTemplate>
@@ -31,53 +31,69 @@
                 </Columns>
             </asp:GridView>
         </asp:Panel>
+
+        <asp:Panel ID="panelPagar" runat="server" Visible="false">
+            <h2>Recibos Pendientes</h2>
+            <h3>Seleccione los recibos a pagar</h3>
+            <br />
+             <asp:GridView ID="GridViewRecibosPendientesCOPY" runat="server" AutoGenerateColumns="true" Visible="false">
+                 <Columns>
+                 </Columns>
+             </asp:GridView>
+            <asp:GridView ID="GridViewRecibosPendientes2" runat="server" AutoGenerateColumns="true" Width="60%" CssClass="mygrdContent"
+                PagerStyle-CssClass="pager" HeaderStyle-CssClass="header" RowStyle-CssClass="rows" OnRowDataBound="GridViewRecibosPendientes2_RowDataBound"                
+            AlternatingRowStyleBackColor="White">
+                <Columns>
+                <asp:TemplateField HeaderText="Select Data">  
+                    
+                    <ItemTemplate>  
+                        <asp:CheckBox ID="CheckBox1" runat="server" />  
+                    </ItemTemplate>  
+                </asp:TemplateField> 
+                </Columns>
+            </asp:GridView>
+            <asp:Button class="btn btn-info" ID="ButtonCotizar" runat="server" Text="Cotizar" OnClick="ButtonCotizar_Click" />
+        </asp:Panel>
         <asp:Panel ID="panelCC" runat="server" Visible="false">
+
             <h2>Recibos Pendientes</h2>
             <br />
-                <asp:GridView ID="GridViewRecibosPendientes" runat="server" AutoGenerateColumns="true" Width="90%" CssClass="mygrdContent" 
-                    PagerStyle-CssClass="pager" HeaderStyle-CssClass="header" RowStyle-CssClass="rows" >
-                    
-<RowStyle HorizontalAlign="Center" />
-            <columns>
-            <asp:TemplateField>
-            <ItemTemplate>
-            <asp:RadioButtonList runat="server" ID="rdbItem" CssClass="rdbItem" RepeatDirection="Horizontal">
-                            <asp:ListItem Text="Yes" />
-                            <asp:ListItem Text="No" />
-                        </asp:RadioButtonList>
-            </ItemTemplate>
-        </asp:TemplateField>
-                </columns>
+            <asp:GridView ID="GridViewRecibosPendientes" runat="server" AutoGenerateColumns="true" Width="90%" CssClass="mygrdContent"
+                PagerStyle-CssClass="pager" HeaderStyle-CssClass="header" RowStyle-CssClass="rows" OnRowDataBound="GridViewRecibosPendientes_RowDataBound">
+                <Columns>
+                </Columns>
             </asp:GridView>
             <br />
             <h2>Recibos Pagos</h2>
             <br />
-                <asp:GridView ID="GridViewRecibosPagos" runat="server" AutoGenerateColumns="true">
-                    <Columns>
-                    </Columns>
-                </asp:GridView>
-            
+            <asp:GridView ID="GridViewRecibosPagos" runat="server" AutoGenerateColumns="true" Width="90%" CssClass="mygrdContent"
+                PagerStyle-CssClass="pager" HeaderStyle-CssClass="header" RowStyle-CssClass="rows" >
+                <Columns></Columns>
+            </asp:GridView>
             <br />
             <asp:Button class="btn btn-info" ID="botonVolver1" runat="server" Text="Volver" OnClick="botonVolver1_Click" />
+
+            <asp:Button class="btn btn-info" ID="ButtonMostrarPantallaPagos" runat="server" Text="Ir a Pagar Recibos" OnClick="ButtonMostrarPantallaPagos_Click" />
         </asp:Panel>
 
-    <asp:Button class="btn btn-info" ID="ButtonMostrarComprobantes" runat="server" Text="Ver Comprobantes" OnClick="ButtonMostrarComprobantes_Click" />
-        <asp:TextBox ID="TxtBoxNumFinca" runat="server" Text=""/>
+        <asp:Button class="btn btn-info" ID="ButtonMostrarComprobantes" runat="server" Text="Ver Comprobantes" OnClick="ButtonMostrarComprobantes_Click" />
+
+        <asp:TextBox ID="TxtBoxNumFinca" runat="server" Text="" />
     </div>
     <style>
         .grdContent {
             width: 80%;
-            border: solid 2px black;
+            border: solid 4px black;
             min-width: 80%;
+            text-align: center;
         }
 
         .header {
             background-color: #646464;
             font-family: Arial;
             color: White;
-            border: none 0px transparent;
             height: 25px;
-            text-align: center;
+            text-align:  center !important;
             font-size: 16px;
         }
 
@@ -95,6 +111,7 @@
                 background-color: #5bc0de;
                 font-family: Arial;
                 color: #fff;
+                text-align: center;
             }
 
         .selectedrow {
@@ -139,7 +156,7 @@
         .mygrdContent th {
             padding: 5px;
         }
-    </style> 
+    </style>
 
 </asp:Content>
 

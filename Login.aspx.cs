@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Windows.Forms;
 
 namespace Municipalidad_Bases
 {
@@ -14,9 +15,10 @@ namespace Municipalidad_Bases
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
+       
         protected void botonLogin_Click(object sender, EventArgs e)
         {
             validarUsuasrio();

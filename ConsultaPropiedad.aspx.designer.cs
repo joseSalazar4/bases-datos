@@ -69,6 +69,42 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.GridView GridViewComprobantes;
 
         /// <summary>
+        /// panelPagar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelPagar;
+
+        /// <summary>
+        /// GridViewRecibosPendientesCOPY control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewRecibosPendientesCOPY;
+
+        /// <summary>
+        /// GridViewRecibosPendientes2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewRecibosPendientes2;
+
+        /// <summary>
+        /// ButtonCotizar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonCotizar;
+
+        /// <summary>
         /// panelCC control.
         /// </summary>
         /// <remarks>
@@ -103,6 +139,15 @@ namespace Municipalidad_Bases
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button botonVolver1;
+
+        /// <summary>
+        /// ButtonMostrarPantallaPagos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonMostrarPantallaPagos;
 
         /// <summary>
         /// ButtonMostrarComprobantes control.
