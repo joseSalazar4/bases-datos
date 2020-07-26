@@ -53,6 +53,9 @@
                 </Columns>
             </asp:GridView>
             <asp:Button class="btn btn-info" ID="ButtonCotizar" runat="server" Text="Cotizar" OnClick="ButtonCotizar_Click" />
+            <br />
+            <asp:Button class="btn btn-info" ID="ButtonCancelar" runat="server" Text="Cancelar" OnClick="ButtonPagar_Click" />
+            <asp:Button class="btn btn-info" ID="ButtonPagar" runat="server" Text="Pagar" OnClick="ButtonPagar_Click" />
         </asp:Panel>
         <asp:Panel ID="panelCC" runat="server" Visible="false">
 

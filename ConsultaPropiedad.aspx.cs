@@ -11,9 +11,9 @@ namespace Municipalidad_Bases
 {
     public partial class ConsultaPropiedad : System.Web.UI.Page
     {
-        public static string labelID, user, labelAux;
         public string IPActual = GetLocalIPAddress();
         public static DataTable tablaRecibosPorPagar;
+        public static string labelID, user, labelAux, JSONRecibos;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -199,12 +199,16 @@ namespace Municipalidad_Bases
             panelCC.Visible = false;
             panelPagar.Visible = true;
             verRecibosPorPagar();
+            ButtonMostrarComprobantes.Visible = false;
+            TxtBoxNumFinca.Visible = false;
+            ButtonPagar.Visible = false;    
         }
 
         protected void ButtonCotizar_Click(object sender, EventArgs e)
         {
-
+            ButtonCotizar.Visible = false;
             enviarRecibosPriori();
+            ButtonPagar.Visible = true;
         }
         public string DataTableToJSONWithStringBuilder(DataTable table)
         {
@@ -233,7 +237,7 @@ namespace Municipalidad_Bases
                 if (checkbox.Checked)
                 {
                     DataRow dr = tablaRecibosPorPagar.NewRow();
-                    for (int i = 1; i < gvrow.Cells.Count - 1; i++)
+                    for (int i = 1; i < gvrow.Cells.Count - 1; ++i)
                     {
                         gvrow.Cells[i].Visible = true;
                         dr[i] = gvrow.Cells[i].Text;
@@ -280,6 +284,55 @@ namespace Municipalidad_Bases
             e.Row.Cells[7].Visible = false;
             e.Row.Cells[6].Visible = false;
             e.Row.Cells[5].Visible = false;
+        }
+
+        void cancelarRecibosMoratorios()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InTablaApParaProcesar", SqlDbType.VarChar).Value = JSONRecibos;
+                    cmd.CommandText = "SPCancelarRecibosMoratorios";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    GridViewRecibosPagos.DataSource = cmd.ExecuteReader();
+                    GridViewRecibosPagos.DataBind();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
+        }
+        void procesarPagoRecibos()
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InTablaApParaProcesar", SqlDbType.VarChar).Value = JSONRecibos;
+                    cmd.CommandText = "SPGenerarAPS";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    GridViewRecibosPagos.DataSource = cmd.ExecuteReader();
+                    GridViewRecibosPagos.DataBind();
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
+            verRecibosPendientes();
+            verRecibosPagos();
+        }
+        protected void ButtonPagar_Click(object sender, EventArgs e)
+        {
+            procesarPagoRecibos();
         }
 
         protected void GridViewRecibosPendientes_RowDataBound(object sender, GridViewRowEventArgs e)

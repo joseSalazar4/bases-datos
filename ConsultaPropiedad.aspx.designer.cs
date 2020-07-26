@@ -105,6 +105,24 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Button ButtonCotizar;
 
         /// <summary>
+        /// ButtonCancelar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonCancelar;
+
+        /// <summary>
+        /// ButtonPagar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonPagar;
+
+        /// <summary>
         /// panelCC control.
         /// </summary>
         /// <remarks>
