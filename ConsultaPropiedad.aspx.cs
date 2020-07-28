@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace Municipalidad_Bases
 {
@@ -160,7 +161,6 @@ namespace Municipalidad_Bases
                     labelTitulo.InnerText = "Finca número: " + labelID;
                     botonVolver1.Visible = true;
                     labelCC.Visible = true;
-                    //Fails when doing column visible false
                     panelCC.Visible = true;
                 }
                 catch (SqlException ex)
@@ -211,42 +211,41 @@ namespace Municipalidad_Bases
             ButtonPagar.Visible = true;
         }
         public string DataTableToJSONWithStringBuilder(DataTable table)
-        {
+        {   
             string JSON = string.Empty;
-            JSON = Newtonsoft.Json.JsonConvert.SerializeObject(table);
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+            };
+            JSON = Newtonsoft.Json.JsonConvert.SerializeObject(table,settings);
             JSON = Regex.Unescape(JSON);
-            JSON = JSON.Replace(@"\", "");
-            Console.WriteLine(JSON);
             return JSON;
         }
 
-        DataTable getTablaRecibosPendientes()
+        DataTable getTablaRecibosPendientes(int tipo)
         {
             tablaRecibosPorPagar = new DataTable();
             tablaRecibosPorPagar.Columns.Add("IDConceptoCobro");
             tablaRecibosPorPagar.Columns.Add("Monto");
             tablaRecibosPorPagar.Columns.Add("FechaVence");
             tablaRecibosPorPagar.Columns.Add("FechaInsercion");
-            tablaRecibosPorPagar.Columns.Add("ID");
-            tablaRecibosPorPagar.Columns.Add("IDPropiedad");
-            tablaRecibosPorPagar.Columns.Add("Estado");
+            tablaRecibosPorPagar.Columns.Add("IDRecibo");
+            tablaRecibosPorPagar.Columns.Add("IDPropiedad");    
             
             foreach (GridViewRow gvrow in GridViewRecibosPendientes2.Rows)
             {
-                var checkbox = gvrow.FindControl("CheckBox1") as CheckBox;
-                if (checkbox.Checked)
+                var checkbox = gvrow.FindControl("CheckBoxSeleccion") as CheckBox;
+                if (checkbox.Checked || tipo == 1)
                 {
+                    int i=1;
                     DataRow dr = tablaRecibosPorPagar.NewRow();
-                    for (int i = 1; i < gvrow.Cells.Count - 1; ++i)
+                    if (tipo == 1) i=0;
+                    for (i = 1; i < gvrow.Cells.Count - 1; ++i)
                     {
+                        
                         gvrow.Cells[i].Visible = true;
-                        dr[i] = gvrow.Cells[i].Text;
-                        if (i > 4)
-                        {
-                            gvrow.Cells[7].Visible = false;
-                            gvrow.Cells[6].Visible = false;
-                            gvrow.Cells[5].Visible = false;
-                        }
+                        dr[i-1] = gvrow.Cells[i].Text;
+                        if (i > 4) gvrow.Cells[i].Visible = false;
                     }
                     tablaRecibosPorPagar.Rows.Add(dr);
                 }
@@ -256,8 +255,12 @@ namespace Municipalidad_Bases
 
         public void enviarRecibosPriori()
         {
-            DataTable tabla = getTablaRecibosPendientes();
+            DataTable tabla = getTablaRecibosPendientes(0);
             string JSON = DataTableToJSONWithStringBuilder(tabla);
+            labelTitulo.InnerText = JSON;
+            labelTitulo.Visible = true;
+
+            GridViewRecibosPendientes2.Columns[0].Visible = false;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 try
@@ -265,10 +268,12 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPGenerarInteresesMoratorios";
-                    cmd.Parameters.Add("@JSON", SqlDbType.VarChar).Value = JSON;
+                    cmd.Parameters.Add("@JSONRecibos", SqlDbType.VarChar).Value = JSON; 
                     cmd.Connection = conn;
                     conn.Open();
-                    cmd.ExecuteNonQuery();
+                    GridViewRecibosPendientes2.DataSource = cmd.ExecuteReader();
+                    GridViewRecibosPendientes2.DataBind();
+                    GridViewRecibosPendientes2.Columns[0].Visible = false;
                 }
 
                 catch (SqlException ex)
@@ -280,7 +285,6 @@ namespace Municipalidad_Bases
 
         protected void GridViewRecibosPendientes2_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            //GridViewRecibosPendientes2;
             e.Row.Cells[7].Visible = false;
             e.Row.Cells[6].Visible = false;
             e.Row.Cells[5].Visible = false;
@@ -288,18 +292,22 @@ namespace Municipalidad_Bases
 
         void cancelarRecibosMoratorios()
         {
+            labelTitulo.Visible = true;
+            labelTitulo.InnerText = JSONRecibos;
+
+            GridViewRecibosPendientes2.Columns[0].Visible = true;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 try
                 {
+
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@InTablaApParaProcesar", SqlDbType.VarChar).Value = JSONRecibos;
+                    cmd.Parameters.Add("@JSONRecibos", SqlDbType.VarChar).Value = JSONRecibos;
                     cmd.CommandText = "SPCancelarRecibosMoratorios";
                     cmd.Connection = conn;
                     conn.Open();
-                    GridViewRecibosPagos.DataSource = cmd.ExecuteReader();
-                    GridViewRecibosPagos.DataBind();
+                    cmd.ExecuteNonQuery();
                 }
                 catch (SqlException ex)
                 {
@@ -315,8 +323,8 @@ namespace Municipalidad_Bases
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@InTablaApParaProcesar", SqlDbType.VarChar).Value = JSONRecibos;
-                    cmd.CommandText = "SPGenerarAPS";
+                    cmd.Parameters.Add("@JSONRecibos", SqlDbType.VarChar).Value = JSONRecibos;
+                    cmd.CommandText = "SPPagarRecibos";
                     cmd.Connection = conn;
                     conn.Open();
                     GridViewRecibosPagos.DataSource = cmd.ExecuteReader();
@@ -332,17 +340,29 @@ namespace Municipalidad_Bases
         }
         protected void ButtonPagar_Click(object sender, EventArgs e)
         {
+
+            DataTable tablaCancelar = getTablaRecibosPendientes(1);
+            JSONRecibos = DataTableToJSONWithStringBuilder(tablaCancelar);
             procesarPagoRecibos();
+        }
+
+        protected void ButtonCancelar_Click(object sender, EventArgs e)
+        {
+            ButtonCancelar.Visible = false;
+            ButtonCotizar.Visible = true;
+            DataTable tablaCancelar = getTablaRecibosPendientes(1);
+            JSONRecibos = DataTableToJSONWithStringBuilder(tablaCancelar);
+            cancelarRecibosMoratorios();
+            ButtonPagar.Visible = false;
         }
 
         protected void GridViewRecibosPendientes_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             int i = e.Row.Cells.Count;
-            //e.Row.Cells[i - 1].Visible = false;
-            //e.Row.Cells[i - 2].Visible = false;
-            //e.Row.Cells[i - 3].Visible = false;
+            e.Row.Cells[i - 1].Visible = false;
+            e.Row.Cells[i - 2].Visible = false;
+            e.Row.Cells[i - 3].Visible = false;
         }
-
 
         public void verRecibosPagos()
         {

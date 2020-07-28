@@ -6,7 +6,8 @@
         <h5 id="labelCC" runat="server" visible="false">(Estado: 1 Pago y 0 Pendiente)</h5>
 
         <asp:Panel runat="server" ID="pnlDatosPropiedades">
-            <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="False" DataKeyNames="NumFinca" Width="940px">
+            <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="False" DataKeyNames="NumFinca" Width="940px"  CssClass="mygrdContent"
+                PagerStyle-CssClass="pager" HeaderStyle-CssClass="header" RowStyle-CssClass="rows">
                 <Columns>
                     <asp:BoundField DataField="NumFinca" HeaderText="Numero Finca" />
                     <asp:BoundField DataField="Valor" HeaderText="Valor" />
@@ -21,7 +22,8 @@
         </asp:Panel>
 
         <asp:Panel ID="panelComprobantes" runat="server" Visible="false">
-            <asp:GridView ID="GridViewComprobantes" runat="server" AutoGenerateColumns="true">
+            <asp:GridView ID="GridViewComprobantes" runat="server" AutoGenerateColumns="true"  CssClass="mygrdContent"
+                PagerStyle-CssClass="pager" HeaderStyle-CssClass="header" RowStyle-CssClass="rows">
                 <Columns>
                     <asp:TemplateField>
                         <ItemTemplate>
@@ -36,25 +38,21 @@
             <h2>Recibos Pendientes</h2>
             <h3>Seleccione los recibos a pagar</h3>
             <br />
-             <asp:GridView ID="GridViewRecibosPendientesCOPY" runat="server" AutoGenerateColumns="true" Visible="false">
-                 <Columns>
-                 </Columns>
-             </asp:GridView>
+             
             <asp:GridView ID="GridViewRecibosPendientes2" runat="server" AutoGenerateColumns="true" Width="60%" CssClass="mygrdContent"
                 PagerStyle-CssClass="pager" HeaderStyle-CssClass="header" RowStyle-CssClass="rows" OnRowDataBound="GridViewRecibosPendientes2_RowDataBound"                
-            AlternatingRowStyleBackColor="White">
+            AlternatingRowStyleBackColor="White" Visible="true">
                 <Columns>
-                <asp:TemplateField HeaderText="Select Data">  
-                    
+                <asp:TemplateField HeaderText="Elegir Recibo">  
                     <ItemTemplate>  
-                        <asp:CheckBox ID="CheckBox1" runat="server" />  
+                        <asp:CheckBox ID="CheckBoxSeleccion" runat="server" />  
                     </ItemTemplate>  
                 </asp:TemplateField> 
                 </Columns>
             </asp:GridView>
             <asp:Button class="btn btn-info" ID="ButtonCotizar" runat="server" Text="Cotizar" OnClick="ButtonCotizar_Click" />
             <br />
-            <asp:Button class="btn btn-info" ID="ButtonCancelar" runat="server" Text="Cancelar" OnClick="ButtonPagar_Click" />
+            <asp:Button class="btn btn-info" ID="ButtonCancelar" runat="server" Text="Cancelar" OnClick="ButtonCancelar_Click" />
             <asp:Button class="btn btn-info" ID="ButtonPagar" runat="server" Text="Pagar" OnClick="ButtonPagar_Click" />
         </asp:Panel>
         <asp:Panel ID="panelCC" runat="server" Visible="false">
