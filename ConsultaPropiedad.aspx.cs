@@ -54,7 +54,6 @@ namespace Municipalidad_Bases
                 gridViewPropiedades.DataSource = cmd.ExecuteReader();
                 gridViewPropiedades.DataBind();
                 labelTitulo.InnerText = "Propiedades";
-                labelCC.Visible = false;
 
 
             }
@@ -71,7 +70,6 @@ namespace Municipalidad_Bases
                 conn.Open();
                 GridViewRecibosPagos.DataSource = cmd.ExecuteReader();
                 GridViewRecibosPagos.DataBind();
-                labelCC.Visible = false;
                 labelTitulo.InnerText = "Recibos";
                 labelTitulo.Visible = true;
 
@@ -104,7 +102,6 @@ namespace Municipalidad_Bases
                 GridViewComprobantes.DataBind();
                 labelTitulo.InnerText = "Comprobantes";
                 labelTitulo.Visible = true;
-                labelCC.Visible = false;
 
             }
         }
@@ -116,7 +113,11 @@ namespace Municipalidad_Bases
             panelCC.Visible = false;
             pnlDatosPropiedades.Visible = false;
             panelComprobantes.Visible = true;
+            ButtonMostrarComprobantes.Visible = false;
+            ButtonMostrarComprobantes.Visible = false;
+            TxtBoxNumFinca.Visible = false;
             GridViewComprobantes.Visible = true;
+            botonVolver1.Visible = true;    
         }
 
 
@@ -125,6 +126,8 @@ namespace Municipalidad_Bases
             botonVolver1.Visible = false;
             panelCC.Visible = false;
             CargaDatosUsuario();
+            ButtonMostrarComprobantes.Visible = true;
+            TxtBoxNumFinca.Visible = true;
             pnlDatosPropiedades.Visible = true;
 
         }
@@ -160,7 +163,6 @@ namespace Municipalidad_Bases
                     GridViewRecibosPendientes.DataBind();
                     labelTitulo.InnerText = "Finca número: " + labelID;
                     botonVolver1.Visible = true;
-                    labelCC.Visible = true;
                     panelCC.Visible = true;
                 }
                 catch (SqlException ex)
@@ -186,7 +188,6 @@ namespace Municipalidad_Bases
                     GridViewRecibosPendientes2.DataBind();
                     labelTitulo.InnerText = "Finca número: " + labelID;
                     botonVolver1.Visible = true;
-                    labelCC.Visible = true;
                 }
                 catch (SqlException ex)
                 {
@@ -201,12 +202,14 @@ namespace Municipalidad_Bases
             verRecibosPorPagar();
             ButtonMostrarComprobantes.Visible = false;
             TxtBoxNumFinca.Visible = false;
-            ButtonPagar.Visible = false;    
+            ButtonPagar.Visible = false;
+            ButtonCancelar.Visible = false;
         }
 
         protected void ButtonCotizar_Click(object sender, EventArgs e)
         {
             ButtonCotizar.Visible = false;
+            ButtonCancelar.Visible = true;
             enviarRecibosPriori();
             ButtonPagar.Visible = true;
         }
@@ -379,7 +382,6 @@ namespace Municipalidad_Bases
                     GridViewRecibosPagos.DataSource = cmd.ExecuteReader();
                     GridViewRecibosPagos.DataBind();
                     botonVolver1.Visible = true;
-                    labelCC.Visible = true;
                     panelCC.Visible = true;
                 }
                 catch (SqlException ex)
@@ -392,11 +394,12 @@ namespace Municipalidad_Bases
         {
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
-            labelID = row.Cells[0].Text;
+            labelID = row.Cells[0].Text;    
             verRecibosPendientes();
             verRecibosPagos();
+            TxtBoxNumFinca.Visible = false;
+            ButtonMostrarComprobantes.Visible = false;
             pnlDatosPropiedades.Visible = false;
         }
-
     }
 }

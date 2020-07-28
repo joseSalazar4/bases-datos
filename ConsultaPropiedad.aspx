@@ -3,7 +3,6 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
         <h3 id="labelTitulo" runat="server">Propiedades</h3>
-        <h5 id="labelCC" runat="server" visible="false">(Estado: 1 Pago y 0 Pendiente)</h5>
 
         <asp:Panel runat="server" ID="pnlDatosPropiedades">
             <asp:GridView ID="gridViewPropiedades" runat="server" AutoGenerateColumns="False" DataKeyNames="NumFinca" Width="940px"  CssClass="mygrdContent"
@@ -27,7 +26,7 @@
                 <Columns>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="linkMostrarRecibosDeComprobante" runat="server" Text=" Ver Recibos" OnClick="linkMostrarRecibosDeComprobante_Click" />
+                            <asp:LinkButton ID="linkMostrarRecibosDeComprobante" runat="server" Text=" Ver Detalle" OnClick="linkMostrarRecibosDeComprobante_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
