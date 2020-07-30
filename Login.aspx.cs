@@ -54,23 +54,19 @@ namespace Municipalidad_Bases
                     string Tipo = (string)command.ExecuteScalar();
                     if (Tipo == "admin")
                     {
-                        labelMensaje.Text = "";
                         Response.Redirect(@"\Propiedades.aspx");
                     }
                     else if (Tipo == "cliente")
                     {
-                        labelMensaje.Text = "";
                         Response.Redirect(@"\ConsultaPropiedad.aspx");
                     }
                     else
                     {
-                        labelMensaje.Text = "El usuario o la contrasena no son correctos ";
                     }
                 }
                 catch (SqlException ex)
                 {
                     ShowMessage(ex.Errors[0].Message);
-                    labelMensaje.Text = "El usuario o la contrasena no son correctos ";
                 }
             }
         }

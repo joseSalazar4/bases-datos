@@ -7,12 +7,16 @@ using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using System.Linq;
+using System.Collections.Generic;
+using Microsoft.Ajax.Utilities;
 
 namespace Municipalidad_Bases
 {
     public partial class ConsultaPropiedad : System.Web.UI.Page
     {
         public string IPActual = GetLocalIPAddress();
+        public static string[] listaTiposCC = {"1", "2", "3" , "4", "5", "6", "7", "8", "9","12"};
         public static DataTable tablaRecibosPorPagar;
         public static string labelID, user, labelAux, JSONRecibos;
 
@@ -117,7 +121,7 @@ namespace Municipalidad_Bases
             ButtonMostrarComprobantes.Visible = false;
             TxtBoxNumFinca.Visible = false;
             GridViewComprobantes.Visible = true;
-            botonVolver1.Visible = true;    
+            botonVolver1.Visible = true;
         }
 
 
@@ -214,13 +218,13 @@ namespace Municipalidad_Bases
             ButtonPagar.Visible = true;
         }
         public string DataTableToJSONWithStringBuilder(DataTable table)
-        {   
+        {
             string JSON = string.Empty;
             var settings = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,
             };
-            JSON = Newtonsoft.Json.JsonConvert.SerializeObject(table,settings);
+            JSON = Newtonsoft.Json.JsonConvert.SerializeObject(table, settings);
             JSON = Regex.Unescape(JSON);
             return JSON;
         }
@@ -233,21 +237,21 @@ namespace Municipalidad_Bases
             tablaRecibosPorPagar.Columns.Add("FechaVence");
             tablaRecibosPorPagar.Columns.Add("FechaInsercion");
             tablaRecibosPorPagar.Columns.Add("IDRecibo");
-            tablaRecibosPorPagar.Columns.Add("IDPropiedad");    
-            
+            tablaRecibosPorPagar.Columns.Add("IDPropiedad");
+
             foreach (GridViewRow gvrow in GridViewRecibosPendientes2.Rows)
             {
                 var checkbox = gvrow.FindControl("CheckBoxSeleccion") as CheckBox;
                 if (checkbox.Checked || tipo == 1)
                 {
-                    int i=1;
+                    int i = 1;
                     DataRow dr = tablaRecibosPorPagar.NewRow();
-                    if (tipo == 1) i=0;
+                    if (tipo == 1) i = 0;
                     for (i = 1; i < gvrow.Cells.Count - 1; ++i)
                     {
-                        
+
                         gvrow.Cells[i].Visible = true;
-                        dr[i-1] = gvrow.Cells[i].Text;
+                        dr[i - 1] = gvrow.Cells[i].Text;
                         if (i > 4) gvrow.Cells[i].Visible = false;
                     }
                     tablaRecibosPorPagar.Rows.Add(dr);
@@ -260,9 +264,10 @@ namespace Municipalidad_Bases
         {
             DataTable tabla = getTablaRecibosPendientes(0);
             string JSON = DataTableToJSONWithStringBuilder(tabla);
-            labelTitulo.InnerText = JSON;
-            labelTitulo.Visible = true;
+            if (!checkSelectionsDone()) return;
 
+            labelTitulo.InnerText = "Seleccionaste bien las varas puto :)";
+            labelTitulo.Visible = true;
             GridViewRecibosPendientes2.Columns[0].Visible = false;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
@@ -271,7 +276,7 @@ namespace Municipalidad_Bases
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "SPGenerarInteresesMoratorios";
-                    cmd.Parameters.Add("@JSONRecibos", SqlDbType.VarChar).Value = JSON; 
+                    cmd.Parameters.Add("@JSONRecibos", SqlDbType.VarChar).Value = JSON;
                     cmd.Connection = conn;
                     conn.Open();
                     GridViewRecibosPendientes2.DataSource = cmd.ExecuteReader();
@@ -320,6 +325,7 @@ namespace Municipalidad_Bases
         }
         void procesarPagoRecibos()
         {
+
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 try
@@ -358,6 +364,40 @@ namespace Municipalidad_Bases
             cancelarRecibosMoratorios();
             ButtonPagar.Visible = false;
         }
+        public bool seleccionCorrecta(List<string> lista)
+        {
+            bool seleccionCorrecta = true;
+            
+            string ultimo = lista[lista.Count - 1], elemento;
+
+            for(int i = 0; i <= lista.Count-2;++i) {
+                    elemento = lista[i];
+                    if (Int64.Parse(elemento) + 1 != Int64.Parse(lista[i+1])) seleccionCorrecta = false;
+            }
+            return seleccionCorrecta;
+        }
+        protected bool checkSelectionsDone()
+        {
+            foreach (string tipoCC in listaTiposCC)
+            {
+                List<string> seleccionados = new List<string>();
+                foreach (GridViewRow row in GridViewRecibosPendientes2.Rows)
+                {
+                    var checkbox = row.FindControl("CheckBoxSeleccion") as CheckBox;
+                    int indiceActual = row.RowIndex;
+                    if (row.Cells[1].Text == tipoCC && checkbox.Checked)
+                    {
+                        seleccionados.Add(indiceActual.ToString());
+                    }
+                }
+                if (seleccionados.Count != 0)
+                {
+                    bool seleccion = seleccionCorrecta(seleccionados);
+                    if (!seleccion) return false;
+                }
+            }
+            return true;
+        }
 
         protected void GridViewRecibosPendientes_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -394,7 +434,7 @@ namespace Municipalidad_Bases
         {
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
-            labelID = row.Cells[0].Text;    
+            labelID = row.Cells[0].Text;
             verRecibosPendientes();
             verRecibosPagos();
             TxtBoxNumFinca.Visible = false;

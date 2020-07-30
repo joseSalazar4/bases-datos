@@ -44,7 +44,7 @@
                 <Columns>
                 <asp:TemplateField HeaderText="Elegir Recibo">  
                     <ItemTemplate>  
-                        <asp:CheckBox ID="CheckBoxSeleccion" runat="server" />  
+                        <asp:CheckBox ID="CheckBoxSeleccion" runat="server"/>  
                     </ItemTemplate>  
                 </asp:TemplateField> 
                 </Columns>
