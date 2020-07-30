@@ -7,16 +7,14 @@ using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-using System.Linq;
 using System.Collections.Generic;
-using Microsoft.Ajax.Utilities;
 
 namespace Municipalidad_Bases
 {
     public partial class ConsultaPropiedad : System.Web.UI.Page
     {
         public string IPActual = GetLocalIPAddress();
-        public static string[] listaTiposCC = {"1", "2", "3" , "4", "5", "6", "7", "8", "9","12"};
+        public static string[] listaTiposCC = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "12" };
         public static DataTable tablaRecibosPorPagar;
         public static string labelID, user, labelAux, JSONRecibos;
 
@@ -26,6 +24,7 @@ namespace Municipalidad_Bases
             {
                 user = Session["User"].ToString();
                 CargaDatosUsuario();
+
             }
         }
 
@@ -47,6 +46,7 @@ namespace Municipalidad_Bases
         //--------------//
         public void CargaDatosUsuario()
         {
+            botonVolver1.Visible = false;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 SqlCommand cmd = new SqlCommand();
@@ -58,8 +58,6 @@ namespace Municipalidad_Bases
                 gridViewPropiedades.DataSource = cmd.ExecuteReader();
                 gridViewPropiedades.DataBind();
                 labelTitulo.InnerText = "Propiedades";
-
-
             }
         }
         public void verRecibosDeComprobante()
@@ -130,10 +128,12 @@ namespace Municipalidad_Bases
             botonVolver1.Visible = false;
             panelCC.Visible = false;
             CargaDatosUsuario();
+            GridViewRecibosPendientes2.Visible = false;
             ButtonMostrarComprobantes.Visible = true;
             TxtBoxNumFinca.Visible = true;
             pnlDatosPropiedades.Visible = true;
-
+            labelMontoTotalCotiz.Visible = false;
+            panelAP.Visible = false;
         }
 
         public void ShowMessage(string message)
@@ -205,9 +205,13 @@ namespace Municipalidad_Bases
             panelPagar.Visible = true;
             verRecibosPorPagar();
             ButtonMostrarComprobantes.Visible = false;
+            ButtonArregloPago.Visible = true;
             TxtBoxNumFinca.Visible = false;
+            GridViewRecibosPendientes2.Visible = true;
             ButtonPagar.Visible = false;
+            ButtonArregloPago.Visible = false;
             ButtonCancelar.Visible = false;
+            ButtonCotizar.Visible = true;
         }
 
         protected void ButtonCotizar_Click(object sender, EventArgs e)
@@ -215,6 +219,7 @@ namespace Municipalidad_Bases
             ButtonCotizar.Visible = false;
             ButtonCancelar.Visible = true;
             enviarRecibosPriori();
+            ButtonArregloPago.Visible = true;
             ButtonPagar.Visible = true;
         }
         public string DataTableToJSONWithStringBuilder(DataTable table)
@@ -260,13 +265,19 @@ namespace Municipalidad_Bases
             return tablaRecibosPorPagar;
         }
 
+        public string obtenerMonto()
+        {
+            float sumaTotal = 0;
+            foreach (GridViewRow row in GridViewRecibosPendientes2.Rows) sumaTotal += float.Parse(row.Cells[2].Text);
+            return sumaTotal.ToString();
+        }
         public void enviarRecibosPriori()
         {
             DataTable tabla = getTablaRecibosPendientes(0);
             string JSON = DataTableToJSONWithStringBuilder(tabla);
             if (!checkSelectionsDone()) return;
 
-            labelTitulo.InnerText = "Seleccionaste bien las varas puto :)";
+            labelTitulo.InnerText = "Detalles con Intereses Calculados";
             labelTitulo.Visible = true;
             GridViewRecibosPendientes2.Columns[0].Visible = false;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -281,7 +292,10 @@ namespace Municipalidad_Bases
                     conn.Open();
                     GridViewRecibosPendientes2.DataSource = cmd.ExecuteReader();
                     GridViewRecibosPendientes2.DataBind();
+                    labelMontoTotalCotiz.Text = "Monto Total: " + obtenerMonto();
+                    labelMontoTotalCotiz.Visible = true;
                     GridViewRecibosPendientes2.Columns[0].Visible = false;
+
                 }
 
                 catch (SqlException ex)
@@ -300,8 +314,6 @@ namespace Municipalidad_Bases
 
         void cancelarRecibosMoratorios()
         {
-            labelTitulo.Visible = true;
-            labelTitulo.InnerText = JSONRecibos;
 
             GridViewRecibosPendientes2.Columns[0].Visible = true;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -322,10 +334,18 @@ namespace Municipalidad_Bases
                     ShowMessage(ex.Errors[0].Message);
                 }
             }
+            verRecibosPorPagar();
+            labelMontoTotalCotiz.Visible = false;
+            labelTitulo.InnerText = "Escoga los recibos por pagar";
+        }
+        string calcularTotalPagado()
+        {
+            int sumaTotal = 0;
+            foreach (GridViewRow row in GridViewRecibosPendientes2.Rows) sumaTotal += Int32.Parse(row.Cells[2].Text);
+            return sumaTotal.ToString();
         }
         void procesarPagoRecibos()
         {
-
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 try
@@ -344,8 +364,16 @@ namespace Municipalidad_Bases
                     ShowMessage(ex.Errors[0].Message);
                 }
             }
-            verRecibosPendientes();
-            verRecibosPagos();
+            botonVolver1.Visible = true;
+            botonVolver1.Text = "Volver al Menu Principal";
+
+            GridViewRecibosPendientes.Visible = false;
+            GridViewRecibosPendientes2.Visible = false;
+            labelTitulo.Visible = true;
+            ButtonCancelar.Visible = false;
+            ButtonPagar.Visible = false;
+            labelTitulo.InnerText = "Pago Realizado con éxito.";
+            //Monto Total:  +calcularTotalPagado();
         }
         protected void ButtonPagar_Click(object sender, EventArgs e)
         {
@@ -367,12 +395,13 @@ namespace Municipalidad_Bases
         public bool seleccionCorrecta(List<string> lista)
         {
             bool seleccionCorrecta = true;
-            
+
             string ultimo = lista[lista.Count - 1], elemento;
 
-            for(int i = 0; i <= lista.Count-2;++i) {
-                    elemento = lista[i];
-                    if (Int64.Parse(elemento) + 1 != Int64.Parse(lista[i+1])) seleccionCorrecta = false;
+            for (int i = 0; i <= lista.Count - 2; ++i)
+            {
+                elemento = lista[i];
+                if (Int64.Parse(elemento) + 1 != Int64.Parse(lista[i + 1])) seleccionCorrecta = false;
             }
             return seleccionCorrecta;
         }
@@ -397,6 +426,31 @@ namespace Municipalidad_Bases
                 }
             }
             return true;
+        }
+
+        protected void Unnamed_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ButtonArregloPago_Click(object sender, EventArgs e)
+        {
+            //GridViewRecibosPendientes2.Visible = false;
+            ButtonArregloPago.Visible = false;
+            ButtonPagar.Visible = false;
+            ButtonCancelar.Visible = false;
+            labelMontoTotalCotiz.Visible = false;
+            panelAP.Visible = true;
+        }
+
+        protected void buttonCalcularCuota_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void buttonCrearAP_Click(object sender, EventArgs e)
+        {
+
         }
 
         protected void GridViewRecibosPendientes_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -435,6 +489,8 @@ namespace Municipalidad_Bases
             GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
             gridViewPropiedades.SelectedIndex = row.RowIndex;
             labelID = row.Cells[0].Text;
+            GridViewRecibosPendientes2.Visible = false;
+            ButtonCotizar.Visible = false;
             verRecibosPendientes();
             verRecibosPagos();
             TxtBoxNumFinca.Visible = false;

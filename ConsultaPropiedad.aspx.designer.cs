@@ -87,6 +87,15 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.Button ButtonCotizar;
 
         /// <summary>
+        /// labelMontoTotalCotiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelMontoTotalCotiz;
+
+        /// <summary>
         /// ButtonCancelar control.
         /// </summary>
         /// <remarks>
@@ -103,6 +112,15 @@ namespace Municipalidad_Bases
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonPagar;
+
+        /// <summary>
+        /// ButtonArregloPago control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonArregloPago;
 
         /// <summary>
         /// panelCC control.
@@ -132,15 +150,6 @@ namespace Municipalidad_Bases
         protected global::System.Web.UI.WebControls.GridView GridViewRecibosPagos;
 
         /// <summary>
-        /// botonVolver1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button botonVolver1;
-
-        /// <summary>
         /// ButtonMostrarPantallaPagos control.
         /// </summary>
         /// <remarks>
@@ -148,6 +157,96 @@ namespace Municipalidad_Bases
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonMostrarPantallaPagos;
+
+        /// <summary>
+        /// panelAP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelAP;
+
+        /// <summary>
+        /// GridViewAP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewAP;
+
+        /// <summary>
+        /// labelDeudaTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelDeudaTotal;
+
+        /// <summary>
+        /// labelPlazo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelPlazo;
+
+        /// <summary>
+        /// textBoxPlazo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox textBoxPlazo;
+
+        /// <summary>
+        /// buttonCalcularCuota control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button buttonCalcularCuota;
+
+        /// <summary>
+        /// label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label1;
+
+        /// <summary>
+        /// label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label2;
+
+        /// <summary>
+        /// buttonCrearAP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button buttonCrearAP;
+
+        /// <summary>
+        /// botonVolver1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button botonVolver1;
 
         /// <summary>
         /// ButtonMostrarComprobantes control.

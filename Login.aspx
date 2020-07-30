@@ -72,7 +72,7 @@
                 border-radius:20px;
             }
             .content input[type=submit]{
-                color:lightgreen;
+                color:whitesmoke;
                 margin-left:4vw;
                 margin-top:2vh;
                 padding-bottom:10px;
