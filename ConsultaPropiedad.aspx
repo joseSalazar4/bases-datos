@@ -105,11 +105,11 @@
             </div>
 
             <div style="float: right;">
-                <asp:Label ID="label1" runat="server" Text="Cuota: " />
+                <asp:Label ID="labelCuota" runat="server" Text="Cuota: " />
                 <br />
                 <br />
 
-                <asp:Label ID="label2" runat="server" Text="Total Mensual: " />
+                <asp:Label ID="labelTotalFinal" runat="server" Text="Total Final: " />
                 <br />
                 <br />
 

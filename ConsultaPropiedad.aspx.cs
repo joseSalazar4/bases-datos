@@ -24,7 +24,11 @@ namespace Municipalidad_Bases
             {
                 user = Session["User"].ToString();
                 CargaDatosUsuario();
-
+                labelCuota.Font.Name = "Tahoma";
+                labelDeudaTotal.Font.Name = "Tahoma";
+                labelMontoTotalCotiz.Font.Name = "Tahoma";
+                labelPlazo.Font.Name = "Tahoma";
+                labelTotalFinal.Font.Name = "Tahoma";
             }
         }
 
@@ -292,7 +296,7 @@ namespace Municipalidad_Bases
                     conn.Open();
                     GridViewRecibosPendientes2.DataSource = cmd.ExecuteReader();
                     GridViewRecibosPendientes2.DataBind();
-                    labelMontoTotalCotiz.Text = "Monto Total: " + obtenerMonto();
+                    labelMontoTotalCotiz.Text = "Monto Total: ₡" + obtenerMonto();
                     labelMontoTotalCotiz.Visible = true;
                     GridViewRecibosPendientes2.Columns[0].Visible = false;
 
@@ -427,30 +431,61 @@ namespace Municipalidad_Bases
             }
             return true;
         }
-
-        protected void Unnamed_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         protected void ButtonArregloPago_Click(object sender, EventArgs e)
         {
             //GridViewRecibosPendientes2.Visible = false;
             ButtonArregloPago.Visible = false;
             ButtonPagar.Visible = false;
             ButtonCancelar.Visible = false;
+            labelDeudaTotal.Text = "Deuda Total: ₡" + labelMontoTotalCotiz.Text.Substring(14);
             labelMontoTotalCotiz.Visible = false;
             panelAP.Visible = true;
         }
 
         protected void buttonCalcularCuota_Click(object sender, EventArgs e)
         {
-
+            double i = (10.00/12)/100;
+            double n = double.Parse(textBoxPlazo.Text);
+            double P = double.Parse(labelDeudaTotal.Text.Substring(14));
+            double denominador = Math.Pow(1 + i, n) - 1.0;
+            double cuota;
+            cuota = P * ((i * Math.Pow((1 + i), n)) / denominador);
+            labelCuota.Text = "Cuota: ₡" + cuota.ToString();
+            labelTotalFinal.Text = "Total Final: ₡" + (cuota * n).ToString();
         }
 
         protected void buttonCrearAP_Click(object sender, EventArgs e)
         {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
 
+                    DataTable tablaCancelar = getTablaRecibosPendientes(1);
+                    JSONRecibos = DataTableToJSONWithStringBuilder(tablaCancelar);
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InJSONRecibos", SqlDbType.VarChar).Value = JSONRecibos;
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = labelID;
+                    cmd.Parameters.Add("@InPlazo", SqlDbType.Int).Value = Int32.Parse(textBoxPlazo.Text);
+                    cmd.Parameters.Add("@InCuota", SqlDbType.Money).Value = labelCuota.Text.Substring(8);
+                    cmd.Parameters.Add("@InMontoTotalDeuda", SqlDbType.Money).Value = labelTotalFinal.Text.Substring(14);
+                    cmd.CommandText = "SPGenerarAPWeb";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    panelAP.Visible = false;
+                        botonVolver1.Visible = true;
+                    botonVolver1.Text = "Volver al Menu Principal";
+                    labelTitulo.Visible = true;
+                    labelTitulo.InnerText = "AP Generado con éxito. ";
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                }
+            }
         }
 
         protected void GridViewRecibosPendientes_RowDataBound(object sender, GridViewRowEventArgs e)
