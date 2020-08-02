@@ -131,7 +131,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
-    <Content Include="Fondo.png" />
+    <Content Include="LogoMunicipalidad.PNG" />
     <Content Include="FondoPantalla.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

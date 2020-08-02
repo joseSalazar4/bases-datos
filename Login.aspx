@@ -7,20 +7,23 @@
     <title></title>
 </head>
 <body>
+        <h1 style="text-align:center;color:#FFF;">Bienvenido a la Municipalidad de Cartago</h1><br>
+
     <form id="form1" runat="server">
-        <section>
-            <img src="Fondo.png" class="panel"/>
-        </section>
         <div class="sec2">
-            <div class="container">
+            <div class="container" style="text-align:center;"> 
+                <h2 style="font-size: 30px;"><b>Iniciar Sesión</b></h2>
                 <div class="content">
-                    <h2>Iniciar Sesión</h2>
                     <asp:TextBox ID="textUsuario" runat="server"></asp:TextBox>
                     <asp:TextBox ID="textContrasena" runat="server" TextMode="Password"/>
-                    <asp:Button class="btn btn-dark" ID="botonLogin" runat="server" Text="Login" OnClick="botonLogin_Click" />
-                </div>
+                    </div>
+                    <asp:Button class="btn btn-dark" ID="botonLogin" style="font-size: 25px;" runat="server" Text="Login" OnClick="botonLogin_Click" />
+                 <div style="text-align:center;">
+                <img src="LogoMunicipalidad.png" class="muni"/>
             </div>
-        </div>
+                </div>
+            
+            </div>
         <style>
             body{
                 margin:0;
@@ -29,65 +32,52 @@
                 background-attachment:fixed;
                 background-repeat: no-repeat;
                 background-size: cover;
-            }
-            section{
-                display:flex;
-                justify-content:center;
-                align-items:normal;
-            }
-
-            .sec2{
-                position:absolute;
-                left:0;
-                right:0;
-                top:0;
-                bottom:0;
-                width:100vw;
-                height:100vh;
-                display:flex;
-                justify-content:center;
-                align-items:center;
-
-            }
-            .sec2 .container {
-                width:45vw;
-                height:66vh;
-            }
-            .sec2 .container img{
-                width:905vw;
-                height:900vh;
-                padding-left:0vw;
-
-            }
-            .content h2{
                 font-family:'Segoe UI', Tahoma, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                padding-left:7vw;
 
             }
-            .content input[type=text]{
-                height:30px;
-                border:0;
-                margin-top:2.5vh;
-                margin-left:4vw;
-                border-radius:20px;
+            .content{
+                text-align:left;
+                padding-left: 590px; 
+                font-size: 30px;
             }
-            .content input[type=submit]{
-                color:whitesmoke;
-                margin-left:4vw;
-                margin-top:2vh;
-                padding-bottom:10px;
-                padding-top:10px;
-                padding-left:15px;
-                padding-right:15px;
-                border-radius:6px;
-                border: 1px solid;
-                background-color:dodgerblue;
+            input{
+                margin: 5px 0px;
+                border: 2px solid #000;
+                border-radius: 10px;
+                padding: 5px;
+                display: inline-block;
             }
-            .content input[placeholder]{
+            #text{
+                margin-left: 25px;
+            }
+            content input[placeholder]{
                 font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
                 padding-left:1vw;
-                font-size:13px;
             }
+            button{
+                font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                border: 2px solid #000;
+                border-radius: 15px;
+                padding: 10px;
+                margin: 10px 0px 40px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 20px;
+                color: #206487;
+                background-color: transparent;
+                text-align:center;
+            }
+            button:hover{
+                color:#ffffff;
+                background-color: #F78181;
+          }
+          .muni{
+            width: 430px;
+            height: 270px;
+            position: relative;
+            left: -118px;
+            top: 4px;
+          }
         </style>
     </form>
 </body>
