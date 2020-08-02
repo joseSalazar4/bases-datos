@@ -212,6 +212,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HistorialCambios.aspx.cs">
       <DependentUpon>HistorialCambios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -13,10 +13,16 @@ namespace Municipalidad_Bases
 {
     public partial class ConsultaPropiedad : System.Web.UI.Page
     {
+
+#pragma warning disable IDE1006 // Naming Styles
         public string IPActual = GetLocalIPAddress();
-        public static string[] listaTiposCC = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "12" };
         public static DataTable tablaRecibosPorPagar;
         public static string labelID, user, labelAux, JSONRecibos;
+        public static string[] listaTiposCC = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "12" };
+        public Dictionary<string, string> conceptosCobro = new Dictionary<string, string>() { {"Agua", "1"},{"Patente Licores", "2"},{"Impuesto Propiedad", "3"}, {"Recolectar Basura", "4"}, {"Mantenimiento de Parques", "5"}
+                                               ,{"Impuesto a la Renta", "6"},{"Alumbrado Publico", "7"},{"Aseo de Sitios Publico", "8"},{"Acueductos", "9"},{"Reconexión de agua", "10"},{ "Interes Moratorio","11"},{"Arreglo Pago", "12"}};
+        public Dictionary<string, string> conceptosCobroInverted = new Dictionary<string, string>() { { "1","Agua"},{"2","Patente Licores"},{"3","Impuesto Propiedad"}, { "4","Recolectar Basura"}, {"5","Mantenimiento de Parques"}
+                                               ,{ "6","Impuesto a la Renta"},{"7","Alumbrado Publico"},{"8","Aseo de Sitios Publico"},{"9","Acueductos"},{"10","Reconexión de agua" },{ "11","Interes Moratorio"},{"12","Arreglo Pago"}};
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -59,6 +65,7 @@ namespace Municipalidad_Bases
                 cmd.CommandText = "SPSPropiedadesPorUsuario";
                 cmd.Connection = conn;
                 conn.Open();
+                gridViewPropiedades.Visible = true;
                 gridViewPropiedades.DataSource = cmd.ExecuteReader();
                 gridViewPropiedades.DataBind();
                 labelTitulo.InnerText = "Propiedades";
@@ -134,7 +141,9 @@ namespace Municipalidad_Bases
             CargaDatosUsuario();
             GridViewRecibosPendientes2.Visible = false;
             ButtonMostrarComprobantes.Visible = true;
+            ButtonArregloPago.Visible = false;
             TxtBoxNumFinca.Visible = true;
+            ButtonCotizar.Visible = false;
             pnlDatosPropiedades.Visible = true;
             labelMontoTotalCotiz.Visible = false;
             panelAP.Visible = false;
@@ -172,6 +181,7 @@ namespace Municipalidad_Bases
                     labelTitulo.InnerText = "Finca número: " + labelID;
                     botonVolver1.Visible = true;
                     panelCC.Visible = true;
+               
                 }
                 catch (SqlException ex)
                 {
@@ -182,6 +192,7 @@ namespace Municipalidad_Bases
 
         public void verRecibosPorPagar()
         {
+            GridViewRecibosPendientes2.Columns[0].Visible = true;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 try
@@ -196,10 +207,12 @@ namespace Municipalidad_Bases
                     GridViewRecibosPendientes2.DataBind();
                     labelTitulo.InnerText = "Finca número: " + labelID;
                     botonVolver1.Visible = true;
+                    ccConversor(1, 1);
                 }
                 catch (SqlException ex)
                 {
                     ShowMessage(ex.Errors[0].Message);
+                    ccConversor(1, 1);
                 }
             }
         }
@@ -208,6 +221,7 @@ namespace Municipalidad_Bases
             panelCC.Visible = false;
             panelPagar.Visible = true;
             verRecibosPorPagar();
+            
             ButtonMostrarComprobantes.Visible = false;
             ButtonArregloPago.Visible = true;
             TxtBoxNumFinca.Visible = false;
@@ -220,11 +234,9 @@ namespace Municipalidad_Bases
 
         protected void ButtonCotizar_Click(object sender, EventArgs e)
         {
-            ButtonCotizar.Visible = false;
-            ButtonCancelar.Visible = true;
+
             enviarRecibosPriori();
-            ButtonArregloPago.Visible = true;
-            ButtonPagar.Visible = true;
+           
         }
         public string DataTableToJSONWithStringBuilder(DataTable table)
         {
@@ -277,10 +289,15 @@ namespace Municipalidad_Bases
         }
         public void enviarRecibosPriori()
         {
+            ccConversor(0,1);
             DataTable tabla = getTablaRecibosPendientes(0);
             string JSON = DataTableToJSONWithStringBuilder(tabla);
-            if (!checkSelectionsDone()) return;
-
+            if (!checkSelectionsDone())
+            {
+                ccConversor(1, 1);
+                return;
+            }
+            ButtonCotizar.Visible = false;
             labelTitulo.InnerText = "Detalles con Intereses Calculados";
             labelTitulo.Visible = true;
             GridViewRecibosPendientes2.Columns[0].Visible = false;
@@ -296,15 +313,19 @@ namespace Municipalidad_Bases
                     conn.Open();
                     GridViewRecibosPendientes2.DataSource = cmd.ExecuteReader();
                     GridViewRecibosPendientes2.DataBind();
-                    labelMontoTotalCotiz.Text = "Monto Total: ₡" + obtenerMonto();
+                    labelMontoTotalCotiz.Text = "Monto Total: ₡" + String.Format("{0:0.00}",obtenerMonto());
                     labelMontoTotalCotiz.Visible = true;
                     GridViewRecibosPendientes2.Columns[0].Visible = false;
-
+                    ButtonArregloPago.Visible = true;
+                    ButtonPagar.Visible = true;
+                    ButtonCancelar.Visible = true;
+                    ccConversor(1, 1);
                 }
 
                 catch (SqlException ex)
                 {
                     ShowMessage(ex.Errors[0].Message);
+                    ccConversor(1, 1);
                 }
             }
         }
@@ -318,7 +339,6 @@ namespace Municipalidad_Bases
 
         void cancelarRecibosMoratorios()
         {
-
             GridViewRecibosPendientes2.Columns[0].Visible = true;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
@@ -332,15 +352,19 @@ namespace Municipalidad_Bases
                     cmd.Connection = conn;
                     conn.Open();
                     cmd.ExecuteNonQuery();
+                    ccConversor(1, 1);
+
                 }
                 catch (SqlException ex)
                 {
+                    ccConversor(1, 1);
                     ShowMessage(ex.Errors[0].Message);
                 }
             }
             verRecibosPorPagar();
             labelMontoTotalCotiz.Visible = false;
             labelTitulo.InnerText = "Escoga los recibos por pagar";
+            ButtonArregloPago.Visible = false;
         }
         string calcularTotalPagado()
         {
@@ -350,6 +374,7 @@ namespace Municipalidad_Bases
         }
         void procesarPagoRecibos()
         {
+
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
             {
                 try
@@ -362,11 +387,17 @@ namespace Municipalidad_Bases
                     conn.Open();
                     GridViewRecibosPagos.DataSource = cmd.ExecuteReader();
                     GridViewRecibosPagos.DataBind();
+                    ccConversor(1, 1);
+
+
                 }
                 catch (SqlException ex)
                 {
                     ShowMessage(ex.Errors[0].Message);
+                    ccConversor(1, 1);
+
                 }
+
             }
             botonVolver1.Visible = true;
             botonVolver1.Text = "Volver al Menu Principal";
@@ -381,9 +412,10 @@ namespace Municipalidad_Bases
         }
         protected void ButtonPagar_Click(object sender, EventArgs e)
         {
-
+            ccConversor(0, 1);
             DataTable tablaCancelar = getTablaRecibosPendientes(1);
             JSONRecibos = DataTableToJSONWithStringBuilder(tablaCancelar);
+            ButtonArregloPago.Visible = false;
             procesarPagoRecibos();
         }
 
@@ -391,6 +423,7 @@ namespace Municipalidad_Bases
         {
             ButtonCancelar.Visible = false;
             ButtonCotizar.Visible = true;
+            ccConversor(0, 1);
             DataTable tablaCancelar = getTablaRecibosPendientes(1);
             JSONRecibos = DataTableToJSONWithStringBuilder(tablaCancelar);
             cancelarRecibosMoratorios();
@@ -400,7 +433,7 @@ namespace Municipalidad_Bases
         {
             bool seleccionCorrecta = true;
 
-            string ultimo = lista[lista.Count - 1], elemento;
+            string elemento;
 
             for (int i = 0; i <= lista.Count - 2; ++i)
             {
@@ -438,21 +471,32 @@ namespace Municipalidad_Bases
             ButtonArregloPago.Visible = false;
             ButtonPagar.Visible = false;
             ButtonCancelar.Visible = false;
-            labelDeudaTotal.Text = "Deuda Total: ₡" + labelMontoTotalCotiz.Text.Substring(14);
+            labelDeudaTotal.Text = "Deuda Total: ₡" + (float)System.Math.Round(float.Parse(labelMontoTotalCotiz.Text.Substring(14)),2);
             labelMontoTotalCotiz.Visible = false;
             panelAP.Visible = true;
         }
 
-        protected void buttonCalcularCuota_Click(object sender, EventArgs e)
+        public void ccConversor(int tipo, int pos)
+        {
+                //tipo 0 es de letras a # y q es de # a letras
+                //pos es porque no siempre el concepto es lo primero.
+            foreach (GridViewRow row in GridViewRecibosPendientes2.Rows)
+            {
+                if (tipo == 0) row.Cells[pos].Text = conceptosCobro[row.Cells[pos].Text];
+                else row.Cells[pos].Text = conceptosCobroInverted[row.Cells[pos].Text];
+            }
+        }
+
+            protected void buttonCalcularCuota_Click(object sender, EventArgs e)
         {
             double i = (10.00/12)/100;
             double n = double.Parse(textBoxPlazo.Text);
             double P = double.Parse(labelDeudaTotal.Text.Substring(14));
-            double denominador = Math.Pow(1 + i, n) - 1.0;
+                double denominador = Math.Pow(1 + i, n) - 1.0;
             double cuota;
             cuota = P * ((i * Math.Pow((1 + i), n)) / denominador);
-            labelCuota.Text = "Cuota: ₡" + cuota.ToString();
-            labelTotalFinal.Text = "Total Final: ₡" + (cuota * n).ToString();
+            labelCuota.Text = "Cuota: ₡" + (float)System.Math.Round(float.Parse(cuota.ToString()), 2);
+            labelTotalFinal.Text = "Total Final: ₡" + (float)System.Math.Round(float.Parse((cuota * n).ToString()), 2); ;
         }
 
         protected void buttonCrearAP_Click(object sender, EventArgs e)
@@ -461,7 +505,7 @@ namespace Municipalidad_Bases
             {
                 try
                 {
-
+                    ccConversor(0, 1);
                     DataTable tablaCancelar = getTablaRecibosPendientes(1);
                     JSONRecibos = DataTableToJSONWithStringBuilder(tablaCancelar);
                     SqlCommand cmd = new SqlCommand();
@@ -478,14 +522,56 @@ namespace Municipalidad_Bases
                     panelAP.Visible = false;
                         botonVolver1.Visible = true;
                     botonVolver1.Text = "Volver al Menu Principal";
+                    ccConversor(1, 1);
                     labelTitulo.Visible = true;
                     labelTitulo.InnerText = "AP Generado con éxito. ";
+                    GridViewRecibosPendientes2.Visible = false;
+                }
+                catch (SqlException ex)
+                {
+                    ShowMessage(ex.Errors[0].Message);
+                    ccConversor(1, 1);
+                }
+            }
+        }
+
+
+        public void verRecibosAP()
+        {
+            gridViewPropiedades.Visible = false;
+            GridViewRecibosPagos.Visible = false;
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@InNumFinca", SqlDbType.VarChar).Value = labelID;
+                    cmd.CommandText = "SPSRecibosAP";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    GridViewRecibosPendientes.DataSource = cmd.ExecuteReader();
+                    GridViewRecibosPendientes.DataBind();
+                    botonVolver1.Visible = true;
+                    panelCC.Visible = true;
                 }
                 catch (SqlException ex)
                 {
                     ShowMessage(ex.Errors[0].Message);
                 }
             }
+        }
+        protected void linkMostrarArreglosPago_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            gridViewPropiedades.SelectedIndex = row.RowIndex;
+            labelID = row.Cells[0].Text;
+            GridViewRecibosPendientes2.Visible = false;
+            ButtonCotizar.Visible = false;
+            verRecibosAP();
+            TxtBoxNumFinca.Visible = false;
+            ButtonMostrarComprobantes.Visible = false;
+            pnlDatosPropiedades.Visible = false;
         }
 
         protected void GridViewRecibosPendientes_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -511,6 +597,7 @@ namespace Municipalidad_Bases
                     GridViewRecibosPagos.DataSource = cmd.ExecuteReader();
                     GridViewRecibosPagos.DataBind();
                     botonVolver1.Visible = true;
+                    ButtonArregloPago.Visible = false;
                     panelCC.Visible = true;
                 }
                 catch (SqlException ex)
@@ -533,4 +620,6 @@ namespace Municipalidad_Bases
             pnlDatosPropiedades.Visible = false;
         }
     }
+
+#pragma warning restore IDE1006 // Naming Styles
 }

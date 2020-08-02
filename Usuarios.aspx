@@ -28,6 +28,13 @@
                             <asp:LinkButton ID="linkVerPropiedades" runat="server" Text="Ver Propiedades" OnClick="linkVerPropiedades_Click" />
                         </ItemTemplate>
                     </asp:TemplateField>
+
+                                        <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="linkImpersonar" runat="server" Text="Modo Cliente" OnClick="linkImpersonar_Click"    />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
                 </Columns>
             </asp:GridView>
             <br />

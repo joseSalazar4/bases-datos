@@ -15,6 +15,14 @@
                         <ItemTemplate>
                             <asp:LinkButton ID="linkMostrarRecibos" runat="server" Text="Recibos" OnClick="linkMostrarRecibos_Click" />
                         </ItemTemplate>
+                        
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+
+                        <ItemTemplate>
+                            <asp:LinkButton ID="linkMostrarArreglosPago" runat="server" Text="Arreglos de Pago" OnClick="linkMostrarArreglosPago_Click"/>
+                        </ItemTemplate>
+
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>

@@ -346,10 +346,19 @@ namespace Municipalidad_Bases
                     cmd.ExecuteNonQuery();
                 }
                 catch (SqlException ex)
-                {
+                {   
                     ShowMessage(ex.Errors[0].Message);
                 }
             }
+        }
+
+        protected void linkImpersonar_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).Parent.Parent;
+            gridPropeidadesPorUsuario.SelectedIndex = row.RowIndex;
+            labelID = row.Cells[0].Text;
+            Session["User"] = labelID;
+            Response.Redirect(@"\ConsultaPropiedad.aspx");
         }
 
         protected void ButtonInsertarRPropiedad_Click(object sender, EventArgs e)
